@@ -1,103 +1,459 @@
-import Image from "next/image";
+"use client"
+
+import Image from "next/image"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { ArrowRight, Mail, Github, Linkedin, Twitter } from "lucide-react"
+import { SiteHeader } from "@/components/site-header"
+import { useEffect, useState } from "react"
+import React from "react"
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+  const [formData,setFormData] = useState({
+    name:'',
+    email:'',
+    subject:'',
+    message:''
+  })
+
+  const [profileData, setProfileData] = useState({
+        banner_content: '',
+        banner_image_url:'',
+        about_content:'',
+        about_img:'',
+        project_title:'',
+        project_description:'',
+        project_image:'',
+        contact_email:'',
+        contact_description:'',
+        facebook:'',
+        instagram:'',
+        linkedin:''
+    });
+    const [isLoading, setIsLoading] = useState(true);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async(e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+
+      const res = await fetch("http://localhost:5000/api/admin/message",{
+        method:"POST",
+        headers: { 
+          "Content-Type": "application/json",
+       },
+
+        body: JSON.stringify(formData),
+      })
+      if (res.ok) {
+        alert("Saved successfully");
+      } else {
+        const error = await res.json();
+        alert("Error: " + error.message);
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Error submitting form");
+    }
+  }
+
+  useEffect(() => {
+  
+  const fetchSettings = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/admin/profile", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          }
+        });
+        const data = await res.json();
+        setProfileData(data || { 
+            banner_content: "",
+            banner_image_url: "",
+            about_content: "",
+            about_image_url: "",
+            project_title: "",
+            project_description: "",
+            project_image_url: "",
+            contact_email: "",
+            contact_description: "",
+            facebook: "",
+            instagram: "",
+            linkedin: "" });
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchSettings();
+  });
+
+
+
+
+  return (
+    <div className="flex flex-col min-h-screen">
+      <SiteHeader />
+      <main className="flex-1">
+        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
+          <div className="container px-4 md:px-6">
+            <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
+              <div className="flex flex-col justify-center space-y-4">
+                <div className="space-y-2">
+                  <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">Dhariya Shah</h1>
+                  <p className="text-xl text-muted-foreground" >Founder & CEO of MarketPlace</p>
+                  <p className="max-w-[600px] text-muted-foreground md:text-xl">
+                    Pioneering the future of e-commerce with innovative marketplace solutions that connect sellers and
+                    buyers worldwide.
+                  </p>
+                    {profileData && (
+  <p
+    className="text-xl text-muted-foreground"
+    dangerouslySetInnerHTML={{ __html: profileData.banner_content }}
+  />
+)}
+                </div>
+                <div className="flex flex-col gap-2 min-[400px]:flex-row">
+                  <Link href="#contact">
+                    <Button className="w-full min-[400px]:w-auto">
+                      Get in Touch
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
+                  <Link href="#projects">
+                    <Button variant="outline" className="w-full min-[400px]:w-auto">
+                      View Projects
+                    </Button>
+                  </Link>
+                </div>
+                <div className="flex gap-4">
+                  <Link href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                    <Button variant="ghost" size="icon">
+                      <Twitter className="h-4 w-4" />
+                      <span className="sr-only">Twitter</span>
+                    </Button>
+                  </Link>
+                  <Link href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+                    <Button variant="ghost" size="icon">
+                      <Linkedin className="h-4 w-4" />
+                      <span className="sr-only">LinkedIn</span>
+                    </Button>
+                  </Link>
+                  <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
+                    <Button variant="ghost" size="icon">
+                      <Github className="h-4 w-4" />
+                      <span className="sr-only">GitHub</span>
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+              {profileData.banner_image_url ? (
+                <Image
+                  src={`${profileData.banner_image_url}?height=550&width=550`}
+                  width={550}
+                  height={550}
+                  alt="Jane Smith, Founder & CEO"
+                  className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full lg:order-last"
+                />
+              ) : null}
+
+             
+            </div>
+          </div>
+        </section>
+
+        <section id="about" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+          <div className="container px-4 md:px-6">
+            <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
+              <div className="space-y-2">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">About Me</h2>
+                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                  With over 15 years of experience in e-commerce and digital marketplaces
+                </p>
+              </div>
+            </div>
+            <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
+              <Image
+                src="/placeholder.svg?height=400&width=400"
+                width={400}
+                height={400}
+                alt="Jane Smith speaking at a conference"
+                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full"
+              />
+              <div className="flex flex-col justify-center space-y-4">
+                <div className="space-y-2">
+                  <h3 className="text-2xl font-bold tracking-tighter">Background & Expertise</h3>
+                  <p className="text-muted-foreground">
+                    I founded MarketPlace in 2015 with a vision to revolutionize how online commerce connects people.
+                    Prior to this, I led product development at major tech companies and earned my MBA from Stanford
+                    University.
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-2xl font-bold tracking-tighter">Mission & Vision</h3>
+                  <p className="text-muted-foreground">
+                    My mission is to democratize e-commerce by providing powerful tools that enable entrepreneurs to
+                    reach global markets. I envision a future where anyone can build a successful online business
+                    regardless of their technical expertise.
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-2xl font-bold tracking-tighter">Key Achievements</h3>
+                  <ul className="list-disc pl-5 text-muted-foreground">
+                    <li>Grew MarketPlace to over 1 million active sellers</li>
+                    <li>Raised $50M in Series B funding (2021)</li>
+                    <li>Named "Entrepreneur of the Year" by Tech Innovators (2022)</li>
+                    <li>Expanded operations to 15 countries across 4 continents</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="projects" className="w-full py-12 md:py-24 lg:py-32">
+          <div className="container px-4 md:px-6">
+            <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
+              <div className="space-y-2">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Projects</h2>
+                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                  Showcasing key projects and initiatives that have shaped my journey in e-commerce
+                </p>
+              </div>
+            </div>
+            <div className="mx-auto grid max-w-5xl gap-8 py-12 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="group relative overflow-hidden rounded-lg border">
+                <div className="aspect-video overflow-hidden">
+                  <Image
+                    src="/placeholder.svg?height=300&width=500"
+                    width={500}
+                    height={300}
+                    alt="MarketPlace Platform Launch"
+                    className="object-cover transition-transform group-hover:scale-105"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="text-xl font-bold">MarketPlace Platform Launch</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Led the development and launch of our core marketplace platform, which now powers over 1 million
+                    online stores.
+                  </p>
+                  <Link href="/projects/marketplace-launch">
+                    <Button variant="link" className="mt-2 p-0">
+                      Read Case Study
+                      <ArrowRight className="ml-1 h-4 w-4" />
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+              <div className="group relative overflow-hidden rounded-lg border">
+                <div className="aspect-video overflow-hidden">
+                  <Image
+                    src="/placeholder.svg?height=300&width=500"
+                    width={500}
+                    height={300}
+                    alt="Seller Success Program"
+                    className="object-cover transition-transform group-hover:scale-105"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="text-xl font-bold">Seller Success Program</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Created an educational initiative that has helped over 10,000 entrepreneurs scale their businesses
+                    on our platform.
+                  </p>
+                  <Link href="/projects/seller-success">
+                    <Button variant="link" className="mt-2 p-0">
+                      Read Case Study
+                      <ArrowRight className="ml-1 h-4 w-4" />
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+              <div className="group relative overflow-hidden rounded-lg border">
+                <div className="aspect-video overflow-hidden">
+                  <Image
+                    src="/placeholder.svg?height=300&width=500"
+                    width={500}
+                    height={300}
+                    alt="Global Expansion Initiative"
+                    className="object-cover transition-transform group-hover:scale-105"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="text-xl font-bold">Global Expansion Initiative</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Spearheaded our international growth strategy, successfully launching in 15 countries across 4
+                    continents.
+                  </p>
+                  <Link href="/projects/global-expansion">
+                    <Button variant="link" className="mt-2 p-0">
+                      Read Case Study
+                      <ArrowRight className="ml-1 h-4 w-4" />
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-center">
+              <Link href="/projects">
+                <Button variant="outline">
+                  View All Projects
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" className="w-full py-12 md:py-24 lg:py-32">
+          <div className="container px-4 md:px-6">
+            <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
+              <div className="space-y-2">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Get in Touch</h2>
+                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                  Have a question or interested in collaboration? Reach out using the form below.
+                </p>
+              </div>
+            </div>
+            <div className="mx-auto grid max-w-5xl gap-8 py-12 md:grid-cols-2">
+              <div className="space-y-4">
+                <div className="flex items-center space-x-3">
+                  <Mail className="h-5 w-5" />
+                  <p>connect@shahdhairya.in</p>
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-xl font-bold">Connect With Me</h3>
+                  <p className="text-muted-foreground">
+                    I'm always open to discussing new projects, creative ideas, or opportunities to be part of your
+                    vision.
+                  </p>
+                </div>
+                <div className="flex gap-4">
+                  <Link href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                    <Button variant="outline" size="icon">
+                      <Twitter className="h-4 w-4" />
+                      <span className="sr-only">Twitter</span>
+                    </Button>
+                  </Link>
+                  <Link href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+                    <Button variant="outline" size="icon">
+                      <Linkedin className="h-4 w-4" />
+                      <span className="sr-only">LinkedIn</span>
+                    </Button>
+                  </Link>
+                  <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
+                    <Button variant="outline" size="icon">
+                      <Github className="h-4 w-4" />
+                      <span className="sr-only">GitHub</span>
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+              <div className="space-y-4">
+                <form className="space-y-4" onSubmit={handleSubmit}>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <label
+                        htmlFor="name"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      >
+                        Name
+                      </label>
+                      <input
+                        id="name"
+                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        placeholder="Your name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label
+                        htmlFor="email"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      >
+                        Email
+                      </label>
+                      <input
+                        id="email"
+                        type="email"
+                        name="email"
+                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        placeholder="Your email"
+                        value={formData.email}
+                        onChange={handleChange}
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <label
+                      htmlFor="subject"
+                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Subject
+                    </label>
+                    <input
+                      id="subject"
+                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      placeholder="Subject of your message"
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label
+                      htmlFor="message"
+                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Message
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      className="flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      placeholder="Your message"
+                      value={formData.message}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <Button type="submit" className="w-full">
+                    Send Message
+                  </Button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      <footer className="w-full border-t py-6">
+        <div className="container flex flex-col items-center justify-between gap-4 md:flex-row">
+          <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
+            © {new Date().getFullYear()} Dhariya Shah. All rights reserved.
+          </p>
+          <nav className="flex gap-4 sm:gap-6">
+            <Link href="/privacy" className="text-sm font-medium hover:underline underline-offset-4">
+              Privacy Policy
+            </Link>
+            <Link href="/terms" className="text-sm font-medium hover:underline underline-offset-4">
+              Terms of Service
+            </Link>
+          </nav>
+        </div>
       </footer>
     </div>
-  );
+  )
 }
+
