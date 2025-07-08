@@ -95,7 +95,7 @@ export function StatementsCarousel() {
               <div className="text-center space-y-4">
                 <Quote className="h-8 w-8 mx-auto text-muted-foreground" />
                 <blockquote className="text-lg md:text-xl font-medium leading-relaxed max-w-3xl">
-                  "{statements[currentIndex].text}"
+                  &quot;{statements[currentIndex].text}&quot;
                 </blockquote>
                 <div className="space-y-1">
                   <p className="text-sm font-medium text-muted-foreground">{statements[currentIndex].context}</p>
