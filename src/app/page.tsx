@@ -8,6 +8,7 @@ import { SiteHeader } from "@/components/site-header"
 import { useEffect, useState } from "react"
 import React from "react"
 import AlertMessages from "@/components/AlertMessages"
+import { StatementsCarousel } from "@/components/statements-carousel"
 
 
 export default function Home() {
@@ -122,17 +123,16 @@ export default function Home() {
               <div className="flex flex-col justify-center space-y-4">
                 <div className="space-y-2">
                   <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">Dhariya Shah</h1>
-                  <p className="text-xl text-muted-foreground" >Founder & CEO of MarketPlace</p>
+                  <p className="text-xl text-muted-foreground" >Founder & CEO of Orgenik</p>
                   <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                    Pioneering the future of e-commerce with innovative marketplace solutions that connect sellers and
-                    buyers worldwide.
+                    Driving India’s Organic Agricultural Revolution through innovation, trust, and accessibility.
                   </p>
-                    {profileData && (
+                    {/* {profileData && (
                       <p
                         className="text-xl text-muted-foreground"
                         dangerouslySetInnerHTML={{ __html: profileData.banner_content }}
                       />
-                    )}
+                    )} */}
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
                   <Link href="#contact">
@@ -205,26 +205,22 @@ export default function Home() {
                 <div className="space-y-2">
                   <h3 className="text-2xl font-bold tracking-tighter">Background & Expertise</h3>
                   <p className="text-muted-foreground">
-                    I founded MarketPlace in 2015 with a vision to revolutionize how online commerce connects people.
-                    Prior to this, I led product development at major tech companies and earned my MBA from Stanford
-                    University.
+                    I founded Orgenik in 2020 with a vision to revolutionize how India connects with Luxurious and Ethical Lifestyle products—making conscious living both accessible and aspirational. <br/>Prior to this, I immersed myself in diverse business functions through internships at companies like Deloitte and several other companies—gaining hands-on exposure across Management, Finance, Marketing, HR, and Operations. These experiences grounded my understanding of how businesses work beyond theory. As a go‑getter by nature, I believe real‑world challenges teach more than any classroom. 
                   </p>
                 </div>
                 <div className="space-y-2">
                   <h3 className="text-2xl font-bold tracking-tighter">Mission & Vision</h3>
                   <p className="text-muted-foreground">
-                    My mission is to democratize e-commerce by providing powerful tools that enable entrepreneurs to
-                    reach global markets. I envision a future where anyone can build a successful online business
-                    regardless of their technical expertise.
+                    My mission is to empower a new India—where organic isn’t just an option, but a standard. Through Orgenik and its ecosystem, I work to make clean, certified, and honest products accessible to everyone, while creating real value for farmers and grassroots producers. <br /> 
+                    I envision leading an Organic Agricultural Revolution by 2030—a bold shift that transforms how we grow, consume, and think about food. It’s not just about business; it’s about building a future rooted in sustainability, transparency, and impact. 
                   </p>
                 </div>
                 <div className="space-y-2">
                   <h3 className="text-2xl font-bold tracking-tighter">Key Achievements</h3>
                   <ul className="list-disc pl-5 text-muted-foreground">
-                    <li>Grew MarketPlace to over 1 million active sellers</li>
-                    <li>Raised $50M in Series B funding (2021)</li>
-                    <li>Named &quot;Entrepreneur of the Year&quot; by Tech Innovators (2022)</li>
-                    <li>Expanded operations to 15 countries across 4 continents</li>
+                    <li>Founded Orgenik (2020)—a pioneering Luxurious and Ethical Lifestyle marketplace delivering best quality products across India. </li>
+                    <li>Launched Orgenik Bulk—India’s first marketplace for certified organic and pure natural products in bulk supporting farmers, manufacturers, brands and other industries. </li>
+                    <li>Built deep partnerships with farmer producer groups and grassroots communities to revive GI-tag products headed toward extinction. </li>
                   </ul>
                 </div>
               </div>
@@ -242,35 +238,32 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <div className="mx-auto grid max-w-5xl gap-8 py-12 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mx-auto grid gap-8 py-12 sm:grid-cols-2 lg:grid-cols-2 w-[700px]">
               <div className="group relative overflow-hidden rounded-lg border">
-                <div className="aspect-video overflow-hidden">
+                <div className="aspect-video bg-white flex justify-center align-center">
                   <Image
-                    src="/placeholder.svg?height=300&width=500"
-                    width={500}
+                    src="https://www.orgenik.com/public/uploads/all/gV5J3ZeDWgZuZisN3Okp3UjVXZOWRXOScsw87WrS.svg?height=300&width=220"
+                    width={220}
                     height={300}
                     alt="MarketPlace Platform Launch"
-                    className="object-cover transition-transform group-hover:scale-105"
+                    className="object-fill transition-transform group-hover:scale-105"
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-bold">MarketPlace Platform Launch</h3>
+                  <h3 className="text-xl font-bold">B2C Marketplace</h3>
                   <p className="text-sm text-muted-foreground">
-                    Led the development and launch of our core marketplace platform, which now powers over 1 million
-                    online stores.
+                    A lifestyle ecommerce marketplace offering certified organic, natural, handmade, and luxury wellbeing products from across India, with rigorous verification to ensure quality, sustainability and ethical sourcing.
                   </p>
-                  <Link href="/projects/marketplace-launch">
-                    <Button variant="link" className="mt-2 p-0">
-                      Read Case Study
+                    <Button variant="link" className="mt-2 p-0 cursor-pointer" onClick={() => window.open("https://orgenik.com", "_blank", "noopener,noreferrer")}>
+                      Visit Website
                       <ArrowRight className="ml-1 h-4 w-4" />
                     </Button>
-                  </Link>
                 </div>
               </div>
               <div className="group relative overflow-hidden rounded-lg border">
-                <div className="aspect-video overflow-hidden">
+                <div className="aspect-video overflow-hidden bg-white flex justify-center">
                   <Image
-                    src="/placeholder.svg?height=300&width=500"
+                    src="https://www.orgenikbulk.com/public/uploads/all/vvVABZyzxjJumLKAniMjBVxWNYyLkkYSBDGPESDf.svg?height=300&width=500"
                     width={500}
                     height={300}
                     alt="Seller Success Program"
@@ -278,51 +271,104 @@ export default function Home() {
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-bold">Seller Success Program</h3>
+                  <h3 className="text-xl font-bold">B2B Marketplace </h3>
                   <p className="text-sm text-muted-foreground">
-                    Created an educational initiative that has helped over 10,000 entrepreneurs scale their businesses
-                    on our platform.
+                    A B2B platform for bulk certified organic and natural products procurement—flours, pulses, spices, oils, beverages—designed for hospitality, healthcare, institutions, gifting, and retail. Supplies are fully traceable and sourced directly from manufacturers, brands, growers, and verified farmer groups. 
                   </p>
-                  <Link href="/projects/seller-success">
-                    <Button variant="link" className="mt-2 p-0">
-                      Read Case Study
+                  <Button variant="link" className="mt-2 p-0 cursor-pointer" onClick={() => window.open("https://www.orgenikbulk.com/", "_blank", "noopener,noreferrer")}>
+                      Visit Website
                       <ArrowRight className="ml-1 h-4 w-4" />
                     </Button>
-                  </Link>
                 </div>
               </div>
-              <div className="group relative overflow-hidden rounded-lg border">
+              
+            </div>
+            
+          </div>
+        </section>
+
+         <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+          <div className="container px-4 md:px-6">
+            <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
+              <div className="space-y-2">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Latest Interests</h2>
+                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                  Thoughts and perspectives on e-commerce, entrepreneurship, and digital innovation
+                </p>
+              </div>
+            </div>
+            <div className="mx-auto grid max-w-5xl gap-8 py-12 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="group relative overflow-hidden rounded-lg border bg-background">
                 <div className="aspect-video overflow-hidden">
                   <Image
                     src="/placeholder.svg?height=300&width=500"
                     width={500}
                     height={300}
-                    alt="Global Expansion Initiative"
+                    alt="The Future of E-Commerce"
                     className="object-cover transition-transform group-hover:scale-105"
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-bold">Global Expansion Initiative</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Spearheaded our international growth strategy, successfully launching in 15 countries across 4
-                    continents.
+                  <p className="text-sm text-muted-foreground">June 12, 2023</p>
+                  <h3 className="text-xl font-bold">AI</h3>
+                  <p className="text-sm text-muted-foreground line-clamp-2">
+                    I’m fascinated by AI’s potential to transform industries, from finance to farming. I explore how intelligent systems can optimize decision-making and empower human potential. 
                   </p>
-                  <Link href="/projects/global-expansion">
-                    <Button variant="link" className="mt-2 p-0">
-                      Read Case Study
-                      <ArrowRight className="ml-1 h-4 w-4" />
-                    </Button>
-                  </Link>
+                </div>
+              </div>
+              <div className="group relative overflow-hidden rounded-lg border bg-background">
+                <div className="aspect-video overflow-hidden">
+                  <Image
+                    src="/placeholder.svg?height=300&width=500"
+                    width={500}
+                    height={300}
+                    alt="Building a Resilient Business"
+                    className="object-cover transition-transform group-hover:scale-105"
+                  />
+                </div>
+                <div className="p-4">
+                  <p className="text-sm text-muted-foreground">May 3, 2023</p>
+                  <h3 className="text-xl font-bold">Agriculture</h3>
+                  <p className="text-sm text-muted-foreground line-clamp-2">
+                    To me, agriculture is the original economy and the future of resilience. I work to bridge technology and tradition to uplift farmers and regenerate our soil. 
+                  </p>
+                </div>
+              </div>
+              <div className="group relative overflow-hidden rounded-lg border bg-background">
+                <div className="aspect-video overflow-hidden">
+                  <Image
+                    src="/placeholder.svg?height=300&width=500"
+                    width={500}
+                    height={300}
+                    alt="Sustainable E-Commerce"
+                    className="object-cover transition-transform group-hover:scale-105"
+                  />
+                </div>
+                <div className="p-4">
+                  <p className="text-sm text-muted-foreground">April 18, 2023</p>
+                  <h3 className="text-xl font-bold">Sustainable E-commerce </h3>
+                  <p className="text-sm text-muted-foreground line-clamp-2">
+                    I’m building a new commerce ecosystem—where sustainability isn't a feature but the foundation. I’m building systems where sustainability, ethics, and innovation drive every transaction. 
+                  </p>
+                 
                 </div>
               </div>
             </div>
-            <div className="flex justify-center">
-              <Link href="/projects">
-                <Button variant="outline">
-                  View All Projects
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
+          </div>
+        </section>
+
+        <section className="w-full py-12 md:py-24 lg:py-32">
+          <div className="container px-4 md:px-6">
+            <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
+              <div className="space-y-2">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Recent Statements</h2>
+                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                  Key insights and perspectives shared at conferences, interviews, and industry events
+                </p>
+              </div>
+            </div>
+            <div className="mx-auto max-w-5xl py-12">
+              <StatementsCarousel />
             </div>
           </div>
         </section>
