@@ -348,7 +348,7 @@ export default function Home() {
                   <p className="text-sm text-muted-foreground">April 18, 2023</p>
                   <h3 className="text-xl font-bold">Sustainable E-commerce </h3>
                   <p className="text-sm text-muted-foreground line-clamp-2">
-                    I&apos;m building a new commerce ecosystem—where sustainability isn't a feature but the foundation. I’m building systems where sustainability, ethics, and innovation drive every transaction. 
+                    I&apos;m building a new commerce ecosystem—where sustainability isn't a feature but the foundation. I&apos;m building systems where sustainability, ethics, and innovation drive every transaction. 
                   </p>
                  
                 </div>
