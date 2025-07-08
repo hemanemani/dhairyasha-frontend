@@ -71,6 +71,7 @@ export default function Home() {
       setAlertMessage("Error submitting form");
         setIsSuccess(false); 
         setIsLoading(false);  
+        console.error("Error fetching data:", error);
     }
   }
 
