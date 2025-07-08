@@ -223,7 +223,7 @@ export default function Home() {
                   <ul className="list-disc pl-5 text-muted-foreground">
                     <li>Grew MarketPlace to over 1 million active sellers</li>
                     <li>Raised $50M in Series B funding (2021)</li>
-                    <li>Named "Entrepreneur of the Year" by Tech Innovators (2022)</li>
+                    <li>Named &quot;Entrepreneur of the Year&quot; by Tech Innovators (2022)</li>
                     <li>Expanded operations to 15 countries across 4 continents</li>
                   </ul>
                 </div>
@@ -346,7 +346,7 @@ export default function Home() {
                 <div className="space-y-2">
                   <h3 className="text-xl font-bold">Connect With Me</h3>
                   <p className="text-muted-foreground">
-                    I'm always open to discussing new projects, creative ideas, or opportunities to be part of your
+                    I&apos;m always open to discussing new projects, creative ideas, or opportunities to be part of your
                     vision.
                   </p>
                 </div>
