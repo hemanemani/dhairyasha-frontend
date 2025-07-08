@@ -1,5 +1,6 @@
-import { Editor } from "@tinymce/tinymce-react";
 import { useEffect, useState } from "react";
+import { Editor } from "@tinymce/tinymce-react";
+import { Editor as TinyMCEEditor } from "tinymce";
 
 interface TinyEditorProps {
   id?: string;
@@ -9,7 +10,6 @@ interface TinyEditorProps {
 }
 
 export default function TinyEditor({ id, name, value, onChange }: TinyEditorProps) {
-
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
@@ -27,20 +27,20 @@ export default function TinyEditor({ id, name, value, onChange }: TinyEditorProp
         plugins: "code",
         toolbar: "code",
         content_style: isDark
-      ? `
-        body {
-          background-color: black;
-          color: white;
-        }
-      `
-      : `
-        body {
-          background-color: white;
-          color: black;
-        }
-      `,
+          ? `
+              body {
+                background-color: black;
+                color: white;
+              }
+            `
+          : `
+              body {
+                background-color: white;
+                color: black;
+              }
+            `,
         height: 400,
-        setup: (editor:any) => {
+        setup: (editor: TinyMCEEditor) => {
           editor.on("init", () => {
             if (name) {
               editor.getElement()?.setAttribute("name", name);

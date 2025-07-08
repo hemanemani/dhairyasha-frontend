@@ -3,6 +3,8 @@
 import { Editor } from "@tinymce/tinymce-react"
 import { useRef } from "react"
 import { useTheme } from "next-themes"
+import { Editor as TinyMCEEditor } from "tinymce";
+
 
 
 interface HtmlEditorProps {
@@ -15,7 +17,7 @@ export default function HtmlEditor({
     id,
     initialValue = "<p>Welcome to your admin panel</p>",
     }:HtmlEditorProps) {
-  const editorRef = useRef<any>(null)
+  const editorRef = useRef<TinyMCEEditor | null>(null);
 
   const { theme } = useTheme()
 

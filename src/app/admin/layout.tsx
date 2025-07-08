@@ -3,7 +3,6 @@
 import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css";
 import AdminSidebar from "@/components/admin/admin-sidebar";
-import { useState } from "react";
 import { usePathname } from "next/navigation";
 import ProfileTopbar from "@/components/admin/admin-topbar";
 
@@ -15,7 +14,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
 
-  const [hovered, setHovered] = useState(false);
   const pathname = usePathname() ?? "/";
  
   

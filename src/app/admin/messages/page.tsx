@@ -91,7 +91,7 @@ const MessageDashboard:React.FC = () => {
       }
           fetchMessages();
 
-    },[]);
+    },[router]);
 
 
     const columns: ColumnDef<Message>[] = [

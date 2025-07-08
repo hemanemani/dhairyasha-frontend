@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Eye,EyeOff, Loader } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { DarkMode } from "@/components/dark-mode";
 
 
@@ -24,26 +24,43 @@ const LoginPage: React.FC = () =>{
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 
       e.preventDefault();
-      try {
+      setNameError(!email.trim());
+      setPasswordError(!password.trim());
+      setLoginError("");
 
+      if (!email.trim() || !password.trim()) {
+        return;
+      }
+      try {
+        setIsLoading(true);
         const res = await fetch("http://localhost:5000/api/admin/login",{
           method : "POST",
           headers:  {"Content-Type": "application/json"},
           body:JSON.stringify({email,password})
         })
 
-        if (!res.ok) {
-        alert("something went wrong !!!");
-        return;
-      }
+        const data = await res.json();
 
-      const data = await res.json();
-      localStorage.setItem("adminToken", data.token);
-      router.push("/admin/messages");
-        
+
+        if (!res.ok) {
+          setIsLoading(false);
+          setNameError(true);
+          setPasswordError(true);
+          setLoginError(data.message || "Invalid credentials. Try again.");
+          return;
+        }
+        localStorage.setItem("adminToken", data.token);
+          setTimeout(() => {
+            setIsLoading(false);
+            router.push("/admin/messages");
+          }, 1000);
+
+          
       } catch (error) {
-        console.error(error);
-        alert("Server error");
+        setIsLoading(false);
+        setNameError(true);
+        setPasswordError(true);
+        setLoginError(error ? "Invalid Credentials. Try again" : '');
       }
       
   
@@ -72,12 +89,12 @@ const LoginPage: React.FC = () =>{
                 <div>
                   
                   <div className="relative mt-2">
-                  <Label htmlFor="email" className="text-[15px] font-inter-medium">Password</Label>
+                  <Label htmlFor="password" className="text-[15px] font-inter-medium">Password</Label>
                   <Input
                       id="password"
                       type={showPassword ? "text" : "password"}
                       placeholder="Please enter password"
-                      className={`border ${passwordError ? 'border-red-500' : 'border-[#bfbfbf]'} focus:border-black font-inter-light`}
+                      className={`mt-2 border ${passwordError ? 'border-red-500' : 'border-[#bfbfbf]'} focus:border-black font-inter-light`}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       autoComplete="current-password"
@@ -87,7 +104,7 @@ const LoginPage: React.FC = () =>{
                   
                   <button
                       type="button"
-                      className="absolute inset-y-0 right-3 flex items-center cursor-pointer top-5"
+                      className="absolute inset-y-0 right-3 flex items-center cursor-pointer top-7"
                       onClick={() => setShowPassword(!showPassword)}
                       disabled={isLoading}
                   >
@@ -96,6 +113,7 @@ const LoginPage: React.FC = () =>{
                   </div>
                   {/* {passwordError && <p className="text-sm text-red-500 mt-1">{passwordError}</p>} */}
                 </div>
+
                 <Button
                     type="submit"
                     disabled={isLoading} // Disable button while loading
@@ -113,9 +131,8 @@ const LoginPage: React.FC = () =>{
                         {loginError}
                       </p>
                     )}
-
-                    {/* your login form fields here */}
                   </div>
+               
               </form>
 
 

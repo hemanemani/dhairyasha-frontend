@@ -3,10 +3,12 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Mail, Github, Linkedin, Twitter } from "lucide-react"
+import { ArrowRight, Mail, Github, Linkedin, Twitter, Loader } from "lucide-react"
 import { SiteHeader } from "@/components/site-header"
 import { useEffect, useState } from "react"
 import React from "react"
+import AlertMessages from "@/components/AlertMessages"
+
 
 export default function Home() {
 
@@ -31,7 +33,10 @@ export default function Home() {
         instagram:'',
         linkedin:''
     });
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
+    const [isSuccess, setIsSuccess] = useState(false);
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -43,7 +48,7 @@ export default function Home() {
   const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
     try {
-
+      setIsLoading(true);
       const res = await fetch("http://localhost:5000/api/admin/message",{
         method:"POST",
         headers: { 
@@ -53,14 +58,19 @@ export default function Home() {
         body: JSON.stringify(formData),
       })
       if (res.ok) {
-        alert("Saved successfully");
+        setIsSuccess(true);
+        setIsLoading(false);
+        setAlertMessage("Form Submitted successfully");
       } else {
-        const error = await res.json();
-        alert("Error: " + error.message);
+        setAlertMessage("Failed to Submit");
+        setIsSuccess(false); 
+        setIsLoading(false);  
+
       }
     } catch (error) {
-      console.error(error);
-      alert("Error submitting form");
+      setAlertMessage("Error submitting form");
+        setIsSuccess(false); 
+        setIsLoading(false);  
     }
   }
 
@@ -117,11 +127,11 @@ export default function Home() {
                     buyers worldwide.
                   </p>
                     {profileData && (
-  <p
-    className="text-xl text-muted-foreground"
-    dangerouslySetInnerHTML={{ __html: profileData.banner_content }}
-  />
-)}
+                      <p
+                        className="text-xl text-muted-foreground"
+                        dangerouslySetInnerHTML={{ __html: profileData.banner_content }}
+                      />
+                    )}
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
                   <Link href="#contact">
@@ -429,9 +439,20 @@ export default function Home() {
                       onChange={handleChange}
                     />
                   </div>
-                  <Button type="submit" className="w-full">
-                    Send Message
-                  </Button>
+                  <Button 
+                    type="submit"
+                    className={`${isLoading ? "opacity-50 cursor-not-allowed" : ""} w-[40%] bg-black dark:bg-[#fff] dark:text-black text-white capitalize text-[15px] h-[43px] rounded-sm block ml-auto mr-auto mt-10 font-inter-semibold cursor-pointer `}
+                    disabled={isLoading}
+                    >
+                      {isLoading ? (
+                        <Loader className="h-5 w-5 animate-spin block ml-auto mr-auto" />
+                    ) : (
+                        "Send Message"
+                      )}
+                    </Button>
+                    {alertMessage && (
+                        <AlertMessages message={alertMessage} isSuccess={isSuccess!} />
+                    )}
                 </form>
               </div>
             </div>

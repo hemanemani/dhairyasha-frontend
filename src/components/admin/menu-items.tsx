@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { FileText, User } from "lucide-react"
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from "@/components/ui/sidebar"
 import Link from "next/link"
@@ -8,7 +8,6 @@ import { usePathname } from "next/navigation"
 import { Search } from "lucide-react"
 import { Input } from "@/components/ui/input"
 
-const MENU_STORAGE_KEY = "menuOpenState";
 
 export function MenuItems() {
 
@@ -16,7 +15,6 @@ export function MenuItems() {
   
   const [searchQuery, setSearchQuery] = useState("");
 
-  const [menuState, setMenuState] = useState<{ [key: string]: boolean }>({});
 
 
   const renderMenuHeader = () =>{
@@ -37,31 +35,7 @@ export function MenuItems() {
    },
   ];
 
-
-
-
-  useEffect(() => {
-    const savedState = localStorage.getItem(MENU_STORAGE_KEY);
-    const initialState = savedState ? JSON.parse(savedState) : {};
   
-    setMenuState(prevState => {
-      if (JSON.stringify(prevState) === JSON.stringify(initialState)) {
-        return prevState;
-      }
-      return initialState;
-    });
-  
-  }, [pathname, menuItems]);
-  
-  
-
-  const toggleMenu = (key: string) => {
-    setMenuState(prev => {
-      const newState = { ...prev, [key]: !prev[key] };
-      localStorage.setItem(MENU_STORAGE_KEY, JSON.stringify(newState));
-      return newState;
-    });
-  };
 
 
   return (

@@ -7,23 +7,11 @@ import { Label } from "@/components/ui/label";
 import { FileUpload } from "@/components/admin/fileUpload";
 import TinyEditor from "@/components/admin/TinyEditor";
 import { useRouter } from "next/navigation"
+import { SkeletonCard } from "@/components/SkeletonCart";
+import AlertMessages from "@/components/AlertMessages";
+import { Loader } from "lucide-react";
 
 
-type Profile = {
-  id: number;
-  banner_content: string;
-  banner_image_url:string;
-  about_content:string;
-  about_image_url:string;
-  project_title:string;
-  project_description:string;
-  project_image_url:string;
-  contact_email:string;
-  contact_description:string;
-  facebook:string;
-  instagram:string;
-  linkedin:string;
-};
 
 const CreateProfilePage = ()=>{
     const [formData, setFormData] = useState({
@@ -41,7 +29,11 @@ const CreateProfilePage = ()=>{
         linkedin:''
     });
     const router = useRouter();
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
+    const [isSuccess, setIsSuccess] = useState(false);
+    const [isInputLoading, setIsInputLoading] = useState(true);
+
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,41 +48,52 @@ const CreateProfilePage = ()=>{
     }
 
     const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  const token = localStorage.getItem("adminToken");
-  if (!token) {
-    alert("You are not logged in. Please log in first.");
-    router.push("/login");
-    return;
-  }
-
-  try {
-    const res = await fetch("http://localhost:5000/api/admin/profile", {
-      method: "PUT",
-      headers: { 
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      },
-      body: JSON.stringify(formData)
-    });
-
-
-    if (res.ok) {
-      alert("Site Settings Updated successfully!");
-    } else {
-        if (res.status === 403) {
-            localStorage.removeItem("adminToken");
-            router.push("/login");
-            return;
-        }
-        throw new Error("Failed to fetch data");
+    const token = localStorage.getItem("adminToken");
+    if (!token) {
+      alert("You are not logged in. Please log in first.");
+      router.push("/login");
+      return;
     }
-  } catch (err) {
-    console.error(err);
-    alert("Error submitting form");
-  }
-};
+
+    try {
+      setIsLoading(true);
+      const res = await fetch("http://localhost:5000/api/admin/profile", {
+        method: "PUT",
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(formData)
+      });
+
+
+      if (res.ok) {
+          setIsSuccess(true);
+          setTimeout(() => {
+                setIsLoading(false);
+                setAlertMessage("Site Settings Updated successfully!");
+                router.push("/admin/profile/create");
+                }, 2000)
+      } else {
+          if (res.status === 403) {
+              localStorage.removeItem("adminToken");
+              router.push("/login");
+              return;
+          }
+          setAlertMessage("Failed to updated");
+          setIsSuccess(false); 
+          setIsLoading(false);
+          throw new Error("Failed to fetch data");
+      }
+    } catch (err) {
+      setAlertMessage("Something Went Wrong...");
+      setIsSuccess(false);
+      setIsLoading(false);
+      console.error(err);
+    }
+  };
 
 
    useEffect(() => {
@@ -138,6 +141,7 @@ const CreateProfilePage = ()=>{
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
+        setIsInputLoading(false);
         setIsLoading(false);
       }
     };
@@ -153,18 +157,19 @@ const CreateProfilePage = ()=>{
                     <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 gap-2 mb-6 mt-4">
                         <div className="space-y-2 w-[80%]">
                             <Label htmlFor="banner_content" className="text-[15px] font-inter-medium">Banner Content</Label>
-                            <TinyEditor
-                            id="banner_content"
-                            name="banner_content"
-                            value={formData.banner_content || ""}
-                            onChange={(content) =>
-                                setFormData((prev) => ({
-                                ...prev,
-                                banner_content: content,
-                                }))
+                            { isInputLoading ? <SkeletonCard height="h-[400px]" /> :
+                              <TinyEditor
+                              id="banner_content"
+                              name="banner_content"
+                              value={formData.banner_content || ""}
+                              onChange={(content) =>
+                                  setFormData((prev) => ({
+                                  ...prev,
+                                  banner_content: content,
+                                  }))
+                              }
+                              />
                             }
-                            />
-
                             
                         </div>          
                         <div className="space-y-2 w-[80%]">
@@ -172,6 +177,7 @@ const CreateProfilePage = ()=>{
                         </div>
                         <div className="space-y-2 w-[80%]">
                             <Label htmlFor="about_content" className="text-[15px] font-inter-medium">About Content</Label>
+                            { isInputLoading ? <SkeletonCard height="h-[400px]" /> :
                             <TinyEditor
                             id="about_content"
                             name="about_content"
@@ -183,6 +189,7 @@ const CreateProfilePage = ()=>{
                                 }))
                             }
                             />
+                          }
                         </div>
                         <div className="space-y-2 w-[80%]">
                             <FileUpload fieldName="about_image_url" onUpload={handleUpload} />
@@ -200,11 +207,14 @@ const CreateProfilePage = ()=>{
                         </div>
                         <div className="space-y-2 w-[80%]">
                             <Label htmlFor="contact_email" className="text-[15px] font-inter-medium">Contact Email</Label>
+                            { isInputLoading ? <SkeletonCard height="h-[36px]" /> :
                             <Input id="contact_email" placeholder="enter contact email" name="contact_email" value={formData.contact_email || ''}  onChange={handleChange} className="w-full border rounded-md bg-white dark:bg-[#000]"/>
+                            }
                         </div>
 
                         <div className="space-y-2 w-[80%]">
                             <Label htmlFor="contact_description" className="text-[15px] font-inter-medium">Contact Content</Label>
+                            { isInputLoading ? <SkeletonCard height="h-[400px]" /> :
                             <TinyEditor
                             id="contact_description"
                             name="contact_description"
@@ -216,24 +226,45 @@ const CreateProfilePage = ()=>{
                                 }))
                             }
                             />
+                          }
                         </div>
 
                         <div className="space-y-2 w-[80%]">
                             <Label htmlFor="instagram" className="text-[15px] font-inter-medium">Instagram</Label>
+                            { isInputLoading ? <SkeletonCard height="h-[36px]" /> :
                             <Input id="instagram" placeholder="enter contact instagram" name="instagram" value={formData.instagram || ''}  onChange={handleChange} className="w-full border rounded-md bg-white dark:bg-[#000]"/>
+                            }
                         </div>
                         <div className="space-y-2 w-[80%]">
                             <Label htmlFor="facebook" className="text-[15px] font-inter-medium">Facebook</Label>
+                            { isInputLoading ? <SkeletonCard height="h-[36px]" /> :
                             <Input id="facebook" placeholder="enter contact facebook" name="facebook" value={formData.facebook || ''}  onChange={handleChange} className="w-full border rounded-md bg-white dark:bg-[#000]"/>
+                            }
                         </div>
                         <div className="space-y-2 w-[80%]">
                             <Label htmlFor="linkedin" className="text-[15px] font-inter-medium">LinkedIn</Label>
+                            { isInputLoading ? <SkeletonCard height="h-[36px]" /> :
                             <Input id="linkedin" placeholder="enter contact linkedin" name="linkedin" value={formData.linkedin || ''}  onChange={handleChange} className="w-full border rounded-md bg-white dark:bg-[#000]"/>
+                            }
                         </div>
 
                     </div>
+
+                    <Button 
+                      type="submit"
+                      className={`${isLoading ? "opacity-50 cursor-not-allowed" : ""} w-[40%] bg-black dark:bg-[#fff] dark:text-black text-white capitalize text-[15px] h-[43px] rounded-sm block ml-auto mr-auto mt-10 font-inter-semibold cursor-pointer `}
+                      disabled={isLoading}
+                      >
+                        {isLoading ? (
+                          <Loader className="h-5 w-5 animate-spin block ml-auto mr-auto" />
+                      ) : (
+                          "Update Settings"
+                        )}
+                      </Button>
+                      {alertMessage && (
+                          <AlertMessages message={alertMessage} isSuccess={isSuccess!} />
+                      )}
                     
-                    <Button type="submit">Submit</Button>
                 </form>
             </div>
 

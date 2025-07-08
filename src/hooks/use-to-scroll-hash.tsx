@@ -1,10 +1,8 @@
 "use client"
 
-import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 
 export function useScrollToHash() {
-  const router = useRouter()
 
   const scrollToHash = (hash: string) => {
     // Remove the leading # if it exists
