@@ -170,7 +170,8 @@ export default function Home() {
               </div>
               {profileData.banner_image_url ? (
                 <Image
-                  src={`${profileData.banner_image_url}?height=550&width=550`}
+                  src="placeholder.svg?height=550&width=550"
+                  // src={`${profileData.banner_image_url}?height=550&width=550`}
                   width={550}
                   height={550}
                   alt="Jane Smith, Founder & CEO"
