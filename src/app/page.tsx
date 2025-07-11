@@ -20,20 +20,20 @@ export default function Home() {
     message:''
   })
 
-  const [profileData, setProfileData] = useState({
-        banner_content: '',
-        banner_image_url:'',
-        about_content:'',
-        about_img:'',
-        project_title:'',
-        project_description:'',
-        project_image:'',
-        contact_email:'',
-        contact_description:'',
-        facebook:'',
-        instagram:'',
-        linkedin:''
-    });
+  // const [profileData, setProfileData] = useState({
+  //       banner_content: '',
+  //       banner_image_url:'',
+  //       about_content:'',
+  //       about_img:'',
+  //       project_title:'',
+  //       project_description:'',
+  //       project_image:'',
+  //       contact_email:'',
+  //       contact_description:'',
+  //       facebook:'',
+  //       instagram:'',
+  //       linkedin:''
+  //   });
     const [isLoading, setIsLoading] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
     const [isSuccess, setIsSuccess] = useState(false);
@@ -76,39 +76,39 @@ export default function Home() {
     }
   }
 
-  useEffect(() => {
+  // useEffect(() => {
   
-  const fetchSettings = async () => {
-      try {
-        const res = await fetch("https://api.shahdhairya.in/api/admin/profile", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          }
-        });
-        const data = await res.json();
-        setProfileData(data || { 
-            banner_content: "",
-            banner_image_url: "",
-            about_content: "",
-            about_image_url: "",
-            project_title: "",
-            project_description: "",
-            project_image_url: "",
-            contact_email: "",
-            contact_description: "",
-            facebook: "",
-            instagram: "",
-            linkedin: "" });
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  // const fetchSettings = async () => {
+  //     try {
+  //       const res = await fetch("https://api.shahdhairya.in/api/admin/profile", {
+  //         method: "GET",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         }
+  //       });
+  //       const data = await res.json();
+  //       setProfileData(data || { 
+  //           banner_content: "",
+  //           banner_image_url: "",
+  //           about_content: "",
+  //           about_image_url: "",
+  //           project_title: "",
+  //           project_description: "",
+  //           project_image_url: "",
+  //           contact_email: "",
+  //           contact_description: "",
+  //           facebook: "",
+  //           instagram: "",
+  //           linkedin: "" });
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
 
-    fetchSettings();
-  });
+  //   fetchSettings();
+  // });
 
 
 
