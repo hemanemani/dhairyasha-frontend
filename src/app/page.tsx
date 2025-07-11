@@ -170,10 +170,14 @@ export default function Home() {
               </div>
               
                 <Image
-                  src={`${profileData.banner_image_url}?height=550&width=550` ? `${profileData.banner_image_url}?height=550&width=550` : 'placeholder.svg?height=550&width=550'}
+                  src={
+                    profileData.banner_image_url
+                      ? `${profileData.banner_image_url}?height=550&width=550`
+                      : '/placeholder.svg?height=550&width=550'
+                  }
                   width={550}
                   height={550}
-                  alt="Jane Smith, Founder & CEO"
+                  alt="DhairyaShah, Founder & CEO"
                   className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full lg:order-last cursor-pointer"
                 />
               
