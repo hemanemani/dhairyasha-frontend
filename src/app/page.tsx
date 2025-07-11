@@ -168,16 +168,23 @@ export default function Home() {
                   </Link>
                 </div>
               </div>
-              {/* {profileData.banner_image_url ? ( */}
+              {/* {profileData.banner_image_url ? (
                 <Image
-                  src="placeholder.svg?height=550&width=550"
-                  // src={`${profileData.banner_image_url}?height=550&width=550`}
+                  src={`${profileData.banner_image_url}?height=550&width=550`}
                   width={550}
                   height={550}
                   alt="Jane Smith, Founder & CEO"
                   className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full lg:order-last cursor-pointer"
                 />
-              {/* ) : null} */}
+              ) : null} */}
+
+              <Image
+                  src="placeholder.svg?height=550&width=550"
+                  width={550}
+                  height={550}
+                  alt="Dhairya Shah, Founder & CEO"
+                  className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full lg:order-last cursor-pointer"
+                />
 
              
             </div>
@@ -199,7 +206,7 @@ export default function Home() {
                 src="/placeholder.svg?height=400&width=400"
                 width={400}
                 height={400}
-                alt="Jane Smith speaking at a conference"
+                alt="Dhairya Shah speaking at a conference"
                 className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full cursor-pointer"
               />
               <div className="flex flex-col justify-center space-y-4">
