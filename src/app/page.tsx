@@ -5,7 +5,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Mail, Github, Linkedin, Twitter, Loader } from "lucide-react"
 import { SiteHeader } from "@/components/site-header"
-import {  useState } from "react"
+import { useEffect, useState } from "react"
 import React from "react"
 import AlertMessages from "@/components/AlertMessages"
 import { StatementsCarousel } from "@/components/statements-carousel"
@@ -20,20 +20,20 @@ export default function Home() {
     message:''
   })
 
-  // const [profileData, setProfileData] = useState({
-  //       banner_content: '',
-  //       banner_image_url:'',
-  //       about_content:'',
-  //       about_img:'',
-  //       project_title:'',
-  //       project_description:'',
-  //       project_image:'',
-  //       contact_email:'',
-  //       contact_description:'',
-  //       facebook:'',
-  //       instagram:'',
-  //       linkedin:''
-  //   });
+  const [profileData, setProfileData] = useState({
+        banner_content: '',
+        banner_image_url:'',
+        about_content:'',
+        about_img:'',
+        project_title:'',
+        project_description:'',
+        project_image:'',
+        contact_email:'',
+        contact_description:'',
+        facebook:'',
+        instagram:'',
+        linkedin:''
+    });
     const [isLoading, setIsLoading] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
     const [isSuccess, setIsSuccess] = useState(false);
@@ -76,39 +76,39 @@ export default function Home() {
     }
   }
 
-  // useEffect(() => {
+  useEffect(() => {
   
-  // const fetchSettings = async () => {
-  //     try {
-  //       const res = await fetch("https://api.shahdhairya.in/api/admin/profile", {
-  //         method: "GET",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         }
-  //       });
-  //       const data = await res.json();
-  //       setProfileData(data || { 
-  //           banner_content: "",
-  //           banner_image_url: "",
-  //           about_content: "",
-  //           about_image_url: "",
-  //           project_title: "",
-  //           project_description: "",
-  //           project_image_url: "",
-  //           contact_email: "",
-  //           contact_description: "",
-  //           facebook: "",
-  //           instagram: "",
-  //           linkedin: "" });
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
+  const fetchSettings = async () => {
+      try {
+        const res = await fetch("https://api.shahdhairya.in/api/admin/profile", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          }
+        });
+        const data = await res.json();
+        setProfileData(data || { 
+            banner_content: "",
+            banner_image_url: "",
+            about_content: "",
+            about_image_url: "",
+            project_title: "",
+            project_description: "",
+            project_image_url: "",
+            contact_email: "",
+            contact_description: "",
+            facebook: "",
+            instagram: "",
+            linkedin: "" });
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  //   fetchSettings();
-  // });
+    fetchSettings();
+  });
 
 
 
@@ -168,24 +168,15 @@ export default function Home() {
                   </Link>
                 </div>
               </div>
-              {/* {profileData.banner_image_url ? (
+              {profileData.banner_image_url ? (
                 <Image
-                  src={`${profileData.banner_image_url}?height=550&width=550`}
+                  src={`${profileData.banner_image_url}?height=550&width=550` ? `${profileData.banner_image_url}?height=550&width=550` : 'placeholder.svg?height=550&width=550'}
                   width={550}
                   height={550}
                   alt="Jane Smith, Founder & CEO"
                   className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full lg:order-last cursor-pointer"
                 />
-              ) : null} */}
-
-              <Image
-                  src="placeholder.svg?height=550&width=550"
-                  width={550}
-                  height={550}
-                  alt="Dhairya Shah, Founder & CEO"
-                  className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full lg:order-last cursor-pointer"
-                />
-
+              ) : null}
              
             </div>
           </div>
@@ -206,7 +197,7 @@ export default function Home() {
                 src="/placeholder.svg?height=400&width=400"
                 width={400}
                 height={400}
-                alt="Dhairya Shah speaking at a conference"
+                alt="Dhairya speaking at a conference"
                 className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full cursor-pointer"
               />
               <div className="flex flex-col justify-center space-y-4">
