@@ -168,7 +168,7 @@ export default function Home() {
                   </Link>
                 </div>
               </div>
-              {profileData.banner_image_url ? (
+              {/* {profileData.banner_image_url ? ( */}
                 <Image
                   src="placeholder.svg?height=550&width=550"
                   // src={`${profileData.banner_image_url}?height=550&width=550`}
@@ -177,7 +177,7 @@ export default function Home() {
                   alt="Jane Smith, Founder & CEO"
                   className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full lg:order-last cursor-pointer"
                 />
-              ) : null}
+              {/* ) : null} */}
 
              
             </div>
