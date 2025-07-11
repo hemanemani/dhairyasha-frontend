@@ -60,7 +60,7 @@ const MessageDashboard:React.FC = () => {
           if (!token) {
             router.push("/login");
           }
-          const res = await fetch("http://localhost:5000/api/admin/message",{
+          const res = await fetch("https://api.shahdhairya.in/api/admin/message",{
             method: "GET",
               headers: {
                 "Content-Type": "application/json",

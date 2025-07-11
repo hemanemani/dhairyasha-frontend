@@ -59,7 +59,7 @@ const CreateProfilePage = ()=>{
 
     try {
       setIsLoading(true);
-      const res = await fetch("http://localhost:5000/api/admin/profile", {
+      const res = await fetch("https://api.shahdhairya.in/api/admin/profile", {
         method: "PUT",
         headers: { 
           "Content-Type": "application/json",
@@ -105,7 +105,7 @@ const CreateProfilePage = ()=>{
 
     const fetchSettings = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/admin/profile", {
+        const res = await fetch("https://api.shahdhairya.in/api/admin/profile", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

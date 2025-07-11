@@ -72,7 +72,7 @@ export function SiteHeader() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right">
-              <nav className="flex flex-col gap-4 mt-6">
+              <nav className="flex flex-col gap-4 mt-6 ml-2.5">
                 <Link
                   href={getHref("about")}
                   className="text-sm font-medium hover:underline underline-offset-4"
@@ -86,13 +86,6 @@ export function SiteHeader() {
                   onClick={(e) => handleNavClick(e, "projects")}
                 >
                   Projects
-                </Link>
-                <Link
-                  href="/blog"
-                  className="text-sm font-medium hover:underline underline-offset-4"
-                  onClick={() => setIsSheetOpen(false)}
-                >
-                  Blog
                 </Link>
                 <Link
                   href={getHref("contact")}

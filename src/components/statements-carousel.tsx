@@ -7,7 +7,6 @@ import { ChevronLeft, ChevronRight, Quote } from "lucide-react"
 interface Statement {
   id: number
   text: string
-  context: string
   date: string
 }
 
@@ -15,37 +14,31 @@ const statements: Statement[] = [
   {
     id: 1,
     text: "The future of e-commerce lies not just in technology, but in understanding the human connection behind every transaction.",
-    context: "TechCrunch Interview",
     date: "December 2023",
   },
   {
     id: 2,
     text: "We're not just building a marketplace; we're creating an ecosystem where entrepreneurs can thrive and communities can flourish.",
-    context: "Forbes Leadership Summit",
     date: "November 2023",
   },
   {
     id: 3,
     text: "Success in digital commerce isn't measured by transactions alone, but by the lasting relationships we build with our sellers and buyers.",
-    context: "E-Commerce World Conference",
     date: "October 2023",
   },
   {
     id: 4,
     text: "Innovation without inclusion is just sophisticated exclusion. Our platform must serve everyone, everywhere.",
-    context: "Diversity in Tech Panel",
     date: "September 2023",
   },
   {
     id: 5,
     text: "The most powerful algorithm is empathy. Understanding our users' needs drives every decision we make at MarketPlace.",
-    context: "Stanford Business School Lecture",
     date: "August 2023",
   },
   {
     id: 6,
     text: "Sustainability isn't a feature we add later—it's the foundation upon which we build our entire business model.",
-    context: "Green Business Initiative",
     date: "July 2023",
   },
 ]
@@ -83,7 +76,7 @@ export function StatementsCarousel() {
           size="icon"
           onClick={prevStatement}
           disabled={isAnimating}
-          className="h-10 w-10 rounded-full bg-transparent"
+          className="h-10 w-10 rounded-full bg-transparent cursor-pointer"
           aria-label="Previous statement"
         >
           <ChevronLeft className="h-4 w-4" />
@@ -98,7 +91,6 @@ export function StatementsCarousel() {
                   &quot;{statements[currentIndex].text}&quot;
                 </blockquote>
                 <div className="space-y-1">
-                  <p className="text-sm font-medium text-muted-foreground">{statements[currentIndex].context}</p>
                   <p className="text-xs text-muted-foreground">{statements[currentIndex].date}</p>
                 </div>
               </div>
@@ -111,7 +103,7 @@ export function StatementsCarousel() {
           size="icon"
           onClick={nextStatement}
           disabled={isAnimating}
-          className="h-10 w-10 rounded-full bg-transparent"
+          className="h-10 w-10 rounded-full bg-transparent cursor-pointer"
           aria-label="Next statement"
         >
           <ChevronRight className="h-4 w-4" />
@@ -124,7 +116,7 @@ export function StatementsCarousel() {
           <button
             key={index}
             onClick={() => goToStatement(index)}
-            className={`w-2 h-2 rounded-full transition-colors ${
+            className={`w-2 h-2 cursor-pointer rounded-full transition-colors ${
               index === currentIndex ? "bg-primary" : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
             }`}
             aria-label={`Go to statement ${index + 1}`}

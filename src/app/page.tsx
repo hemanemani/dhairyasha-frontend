@@ -50,7 +50,7 @@ export default function Home() {
     e.preventDefault();
     try {
       setIsLoading(true);
-      const res = await fetch("http://localhost:5000/api/admin/message",{
+      const res = await fetch("https://api.shahdhairya.in/api/admin/message",{
         method:"POST",
         headers: { 
           "Content-Type": "application/json",
@@ -80,7 +80,7 @@ export default function Home() {
   
   const fetchSettings = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/admin/profile", {
+        const res = await fetch("https://api.shahdhairya.in/api/admin/profile", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -117,12 +117,12 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       <SiteHeader />
       <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
+        <section className="w-full py-3 md:py-6 lg:py-12 xl:py-48">
           <div className="container px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
               <div className="flex flex-col justify-center space-y-4">
                 <div className="space-y-2">
-                  <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">Dhariya Shah</h1>
+                  <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none font-inter">Dhairya Shah</h1>
                   <p className="text-xl text-muted-foreground" >Founder & CEO of Orgenik</p>
                   <p className="max-w-[600px] text-muted-foreground md:text-xl">
                     Driving India’s Organic Agricultural Revolution through innovation, trust, and accessibility.
@@ -136,32 +136,32 @@ export default function Home() {
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
                   <Link href="#contact">
-                    <Button className="w-full min-[400px]:w-auto">
+                    <Button className="w-full min-[400px]:w-auto cursor-pointer">
                       Get in Touch
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </Link>
                   <Link href="#projects">
-                    <Button variant="outline" className="w-full min-[400px]:w-auto">
+                    <Button variant="outline" className="w-full min-[400px]:w-auto cursor-pointer">
                       View Projects
                     </Button>
                   </Link>
                 </div>
                 <div className="flex gap-4">
                   <Link href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-                    <Button variant="ghost" size="icon">
+                    <Button variant="ghost" size="icon" className="cursor-pointer">
                       <Twitter className="h-4 w-4" />
                       <span className="sr-only">Twitter</span>
                     </Button>
                   </Link>
                   <Link href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
-                    <Button variant="ghost" size="icon">
+                    <Button variant="ghost" size="icon" className="cursor-pointer">
                       <Linkedin className="h-4 w-4" />
                       <span className="sr-only">LinkedIn</span>
                     </Button>
                   </Link>
                   <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
-                    <Button variant="ghost" size="icon">
+                    <Button variant="ghost" size="icon" className="cursor-pointer">
                       <Github className="h-4 w-4" />
                       <span className="sr-only">GitHub</span>
                     </Button>
@@ -174,7 +174,7 @@ export default function Home() {
                   width={550}
                   height={550}
                   alt="Jane Smith, Founder & CEO"
-                  className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full lg:order-last"
+                  className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full lg:order-last cursor-pointer"
                 />
               ) : null}
 
@@ -183,7 +183,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="about" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+        <section id="about" className="w-full py-3 md:py-6 lg:py-12 bg-muted">
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -199,7 +199,7 @@ export default function Home() {
                 width={400}
                 height={400}
                 alt="Jane Smith speaking at a conference"
-                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full"
+                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full cursor-pointer"
               />
               <div className="flex flex-col justify-center space-y-4">
                 <div className="space-y-2">
@@ -228,7 +228,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="projects" className="w-full py-12 md:py-24 lg:py-32">
+        <section id="projects" className="w-full py-3 md:py-6 lg:py-12">
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -242,11 +242,11 @@ export default function Home() {
               <div className="group relative overflow-hidden rounded-lg border">
                 <div className="aspect-video bg-white flex justify-center align-center">
                   <Image
-                    src="https://www.orgenik.com/public/uploads/all/gV5J3ZeDWgZuZisN3Okp3UjVXZOWRXOScsw87WrS.svg?height=300&width=220"
-                    width={220}
+                    src="placeholder.svg?height=300&width=500"
+                    width={500}
                     height={300}
-                    alt="MarketPlace Platform Launch"
-                    className="object-fill transition-transform group-hover:scale-105"
+                    alt="Seller Success Program"
+                    className="object-cover transition-transform group-hover:scale-105 cursor-pointer"
                   />
                 </div>
                 <div className="p-4">
@@ -263,11 +263,11 @@ export default function Home() {
               <div className="group relative overflow-hidden rounded-lg border">
                 <div className="aspect-video overflow-hidden bg-white flex justify-center">
                   <Image
-                    src="https://www.orgenikbulk.com/public/uploads/all/vvVABZyzxjJumLKAniMjBVxWNYyLkkYSBDGPESDf.svg?height=300&width=500"
+                    src="placeholder.svg?height=300&width=500"
                     width={500}
                     height={300}
                     alt="Seller Success Program"
-                    className="object-cover transition-transform group-hover:scale-105"
+                    className="object-cover transition-transform group-hover:scale-105 cursor-pointer"
                   />
                 </div>
                 <div className="p-4">
@@ -287,7 +287,7 @@ export default function Home() {
           </div>
         </section>
 
-         <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+         <section className="w-full py-3 md:py-6 lg:py-12 bg-muted">
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -305,11 +305,10 @@ export default function Home() {
                     width={500}
                     height={300}
                     alt="The Future of E-Commerce"
-                    className="object-cover transition-transform group-hover:scale-105"
+                    className="object-cover transition-transform group-hover:scale-105 cursor-pointer"
                   />
                 </div>
                 <div className="p-4">
-                  <p className="text-sm text-muted-foreground">June 12, 2023</p>
                   <h3 className="text-xl font-bold">AI</h3>
                   <p className="text-sm text-muted-foreground line-clamp-2">
                     I’m fascinated by AI’s potential to transform industries, from finance to farming. I explore how intelligent systems can optimize decision-making and empower human potential. 
@@ -323,11 +322,10 @@ export default function Home() {
                     width={500}
                     height={300}
                     alt="Building a Resilient Business"
-                    className="object-cover transition-transform group-hover:scale-105"
+                    className="object-cover transition-transform group-hover:scale-105 cursor-pointer"
                   />
                 </div>
                 <div className="p-4">
-                  <p className="text-sm text-muted-foreground">May 3, 2023</p>
                   <h3 className="text-xl font-bold">Agriculture</h3>
                   <p className="text-sm text-muted-foreground line-clamp-2">
                     To me, agriculture is the original economy and the future of resilience. I work to bridge technology and tradition to uplift farmers and regenerate our soil. 
@@ -341,11 +339,10 @@ export default function Home() {
                     width={500}
                     height={300}
                     alt="Sustainable E-Commerce"
-                    className="object-cover transition-transform group-hover:scale-105"
+                    className="object-cover transition-transform group-hover:scale-105 cursor-pointer"
                   />
                 </div>
                 <div className="p-4">
-                  <p className="text-sm text-muted-foreground">April 18, 2023</p>
                   <h3 className="text-xl font-bold">Sustainable E-commerce </h3>
                   <p className="text-sm text-muted-foreground line-clamp-2">
                     I&apos;m building a new commerce ecosystem—where sustainability isn&apos;t a feature but the foundation. I&apos;m building systems where sustainability, ethics, and innovation drive every transaction. 
@@ -357,7 +354,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="w-full py-12 md:py-24 lg:py-32">
+        <section className="w-full py-3 md:py-6 lg:py-12">
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -373,7 +370,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="contact" className="w-full py-12 md:py-24 lg:py-32">
+        <section id="contact" className="w-full py-3 md:py-6 lg:py-12">
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -385,7 +382,7 @@ export default function Home() {
             </div>
             <div className="mx-auto grid max-w-5xl gap-8 py-12 md:grid-cols-2">
               <div className="space-y-4">
-                <div className="flex items-center space-x-3">
+                <div className="flex items-center space-x-3 cursor-pointer">
                   <Mail className="h-5 w-5" />
                   <p>connect@shahdhairya.in</p>
                 </div>
@@ -398,19 +395,19 @@ export default function Home() {
                 </div>
                 <div className="flex gap-4">
                   <Link href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-                    <Button variant="outline" size="icon">
+                    <Button variant="outline" size="icon" className="cursor-pointer">
                       <Twitter className="h-4 w-4" />
                       <span className="sr-only">Twitter</span>
                     </Button>
                   </Link>
                   <Link href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
-                    <Button variant="outline" size="icon">
+                    <Button variant="outline" size="icon" className="cursor-pointer">
                       <Linkedin className="h-4 w-4" />
                       <span className="sr-only">LinkedIn</span>
                     </Button>
                   </Link>
                   <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
-                    <Button variant="outline" size="icon">
+                    <Button variant="outline" size="icon" className="cursor-pointer">
                       <Github className="h-4 w-4" />
                       <span className="sr-only">GitHub</span>
                     </Button>
@@ -423,7 +420,7 @@ export default function Home() {
                     <div className="space-y-2">
                       <label
                         htmlFor="name"
-                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 my-2"
                       >
                         Name
                       </label>
@@ -507,18 +504,10 @@ export default function Home() {
         </section>
       </main>
       <footer className="w-full border-t py-6">
-        <div className="container flex flex-col items-center justify-between gap-4 md:flex-row">
+        <div className="container flex flex-col items-center justify-center gap-4 md:flex-row">
           <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
             © {new Date().getFullYear()} Dhariya Shah. All rights reserved.
           </p>
-          <nav className="flex gap-4 sm:gap-6">
-            <Link href="/privacy" className="text-sm font-medium hover:underline underline-offset-4">
-              Privacy Policy
-            </Link>
-            <Link href="/terms" className="text-sm font-medium hover:underline underline-offset-4">
-              Terms of Service
-            </Link>
-          </nav>
         </div>
       </footer>
     </div>

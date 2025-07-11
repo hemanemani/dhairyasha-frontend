@@ -26,7 +26,7 @@ export function FileUpload({ fieldName, onUpload, initialUrl }: FileUploadProps)
     
     try {
 
-      const res = await fetch(`http://localhost:5000/api/admin/upload`,{
+      const res = await fetch(`https://api.shahdhairya.in/api/admin/upload`,{
         method:"POST",
         body:formData
       })
