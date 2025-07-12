@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Eye,EyeOff, Loader } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DarkMode } from "@/components/dark-mode";
 
 
@@ -65,6 +65,17 @@ const LoginPage: React.FC = () =>{
       
   
       };
+
+
+      useEffect(() => {
+        const token = localStorage.getItem("adminToken");
+
+        if (token) {
+          router.replace("/admin/messages");
+        }
+      }, []);
+
+
 
     return (
         <div className="grid w-full min-h-screen grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
