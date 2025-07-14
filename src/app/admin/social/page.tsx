@@ -30,12 +30,6 @@ const CreateSocialPage = ()=>{
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleUpload = (field: string, uploadedUrl: string) => {
-        setFormData({
-            ...formData,
-            [field]: uploadedUrl
-        })
-    }
 
     const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

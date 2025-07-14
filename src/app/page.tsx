@@ -3,7 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Mail, Github, Linkedin, Twitter, Loader, Instagram, Facebook } from "lucide-react"
+import { ArrowRight, Mail, Linkedin, Loader, Instagram, Facebook } from "lucide-react"
 import { SiteHeader } from "@/components/site-header"
 import { useEffect, useState } from "react"
 import React from "react"
