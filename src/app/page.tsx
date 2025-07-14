@@ -215,7 +215,7 @@ export default function Home() {
                 </div>
               </div>
               
-                <Image
+                <img
                   src={
                     profileData.home_img_url
                       ? `${profileData.home_img_url}`
@@ -243,7 +243,7 @@ export default function Home() {
               </div>
             </div>
             <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
-              <Image
+              <img
                   src={
                     profileData.home_img_url
                       ? `${profileData.home_img_url}`
@@ -304,7 +304,7 @@ export default function Home() {
               <div className="col-span-1"></div>
               <div className="col-span-2 group relative overflow-hidden rounded-lg border">
                 <div className="aspect-video bg-white flex justify-center align-center">
-                 <Image
+                 <img
                   src={
                     profileData.project_sub_one_img_url
                       ? `${profileData.project_sub_one_img_url}`
@@ -329,7 +329,7 @@ export default function Home() {
               </div>
               <div className="col-span-2 group relative overflow-hidden rounded-lg border">
                 <div className="aspect-video overflow-hidden bg-white flex justify-center">
-                  <Image
+                  <img
                   src={
                     profileData.project_sub_second_img_url
                       ? `${profileData.project_sub_second_img_url}`
@@ -372,7 +372,7 @@ export default function Home() {
             <div className="mx-auto grid max-w-5xl gap-8 py-12 sm:grid-cols-2 lg:grid-cols-3">
               <div className="group relative overflow-hidden rounded-lg border bg-background">
                 <div className="aspect-video overflow-hidden">
-                  <Image
+                  <img
                     src={
                     profileData.insights_sub_one_img_url
                       ? `${profileData.insights_sub_one_img_url}`
@@ -393,7 +393,7 @@ export default function Home() {
               </div>
               <div className="group relative overflow-hidden rounded-lg border bg-background">
                 <div className="aspect-video overflow-hidden">
-                  <Image
+                  <img
                     src={
                     profileData.insights_sub_second_img_url
                       ? `${profileData.insights_sub_second_img_url}`
@@ -414,7 +414,7 @@ export default function Home() {
               </div>
               <div className="group relative overflow-hidden rounded-lg border bg-background">
                 <div className="aspect-video overflow-hidden">
-                  <Image
+                  <img
                     src={
                     profileData.insights_sub_third_img_url
                       ? `${profileData.insights_sub_third_img_url}`
