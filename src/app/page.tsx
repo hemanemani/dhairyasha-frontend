@@ -218,7 +218,7 @@ export default function Home() {
                 <Image
                   src={
                     profileData.home_img_url
-                      ? `${profileData.home_img_url}?height=550&width=550`
+                      ? `${profileData.home_img_url}`
                       : '/placeholder.svg?height=550&width=550'
                   }
                   width={550}
@@ -246,7 +246,7 @@ export default function Home() {
               <Image
                   src={
                     profileData.home_img_url
-                      ? `${profileData.home_img_url}?height=550&width=550`
+                      ? `${profileData.home_img_url}`
                       : '/placeholder.svg?height=550&width=550'
                   }
                   width={550}
@@ -307,7 +307,7 @@ export default function Home() {
                  <Image
                   src={
                     profileData.project_sub_one_img_url
-                      ? `${profileData.project_sub_one_img_url}?height=550&width=550`
+                      ? `${profileData.project_sub_one_img_url}`
                       : '/placeholder.svg?height=550&width=550'
                   }
                   width={550}
@@ -332,7 +332,7 @@ export default function Home() {
                   <Image
                   src={
                     profileData.project_sub_second_img_url
-                      ? `${profileData.project_sub_second_img_url}?height=550&width=550`
+                      ? `${profileData.project_sub_second_img_url}`
                       : '/placeholder.svg?height=550&width=550'
                   }
                   width={550}
@@ -375,7 +375,7 @@ export default function Home() {
                   <Image
                     src={
                     profileData.insights_sub_one_img_url
-                      ? `${profileData.insights_sub_one_img_url}?height=300&width=500`
+                      ? `${profileData.insights_sub_one_img_url}`
                       : '/placeholder.svg?height=300&width=500'
                   }
                     width={500}
@@ -396,7 +396,7 @@ export default function Home() {
                   <Image
                     src={
                     profileData.insights_sub_second_img_url
-                      ? `${profileData.insights_sub_second_img_url}?height=300&width=500`
+                      ? `${profileData.insights_sub_second_img_url}`
                       : '/placeholder.svg?height=300&width=500'
                   }
                     width={500}
@@ -417,7 +417,7 @@ export default function Home() {
                   <Image
                     src={
                     profileData.insights_sub_third_img_url
-                      ? `${profileData.insights_sub_third_img_url}?height=300&width=500`
+                      ? `${profileData.insights_sub_third_img_url}`
                       : '/placeholder.svg?height=300&width=500'
                   }
                     width={500}
