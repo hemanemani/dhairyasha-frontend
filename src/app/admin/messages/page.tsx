@@ -9,6 +9,7 @@ import { DataTablePagination } from "@/components/admin/data-table-pagination"
 import { SkeletonCard } from "@/components/SkeletonCart"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useRouter } from "next/navigation"
+import { API_BASE } from "@/constants/api"
 
 
   
@@ -60,7 +61,7 @@ const MessageDashboard:React.FC = () => {
           if (!token) {
             router.push("/login");
           }
-          const res = await fetch("https://api.shahdhairya.in/api/admin/message",{
+          const res = await fetch(`${API_BASE}/message`,{
             method: "GET",
               headers: {
                 "Content-Type": "application/json",

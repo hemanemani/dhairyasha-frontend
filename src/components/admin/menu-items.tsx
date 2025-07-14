@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from "react"
-import { FileText, User } from "lucide-react"
+import { BellIcon, FileCog, Lightbulb, MessageSquare, MessageSquareMore, MessageSquareText, Store, User } from "lucide-react"
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from "@/components/ui/sidebar"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -25,12 +25,40 @@ export function MenuItems() {
 
 
   const menuItems = [
-   { label: "Profile", 
-      icon: <User className="mr-2 h-4 w-4" />,
-      href: "/admin/profile/create",
+   { label: "Home", 
+      icon: <Store className="mr-2 h-4 w-4" />,
+      href: "/admin/home",
    },
-   { label: "Messages", 
-      icon: <FileText className="mr-2 h-4 w-4" />,
+   { label: "About", 
+      icon: <User className="mr-2 h-4 w-4" />,
+      href: "/admin/about",
+   },
+   { label: "Project", 
+      icon: <FileCog className="mr-2 h-4 w-4" />,
+      href: "/admin/projects",
+   },
+   { label: "Insights", 
+      icon: <Lightbulb className="mr-2 h-4 w-4" />,
+      href: "/admin/insights",
+   },
+   { label: "Statements", 
+      icon: <MessageSquare className="mr-2 h-4 w-4" />,
+      href: "/admin/statements",
+   },
+   { label: "Contact", 
+      icon: <MessageSquareText className="mr-2 h-4 w-4" />,
+      href: "/admin/contact",
+   },
+   { label: "Social", 
+      icon: <BellIcon className="mr-2 h-4 w-4" />,
+      href: "/admin/social",
+   },
+   { label: "Meta", 
+      icon: <MessageSquareText className="mr-2 h-4 w-4" />,
+      href: "/admin/meta",
+   },
+   { label: "message", 
+      icon: <MessageSquareMore className="mr-2 h-4 w-4" />,
       href: "/admin/messages",
    },
   ];

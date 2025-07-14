@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { API_BASE } from "@/constants/api"
 
 type FileUploadProps = {
   fieldName: string;
@@ -26,7 +27,7 @@ export function FileUpload({ fieldName, onUpload, initialUrl }: FileUploadProps)
     
     try {
 
-      const res = await fetch(`https://api.shahdhairya.in/api/admin/upload`,{
+      const res = await fetch(`${API_BASE}/upload`,{
         method:"POST",
         body:formData
       })
@@ -76,7 +77,7 @@ useEffect(() => {
         <button
           onClick={handleUploadToServer}
           disabled={uploading}
-          className="bg-blue-500 text-white rounded px-2 py-1"
+          className="bg-black dark:bg-[#fff] dark:text-black w-[23%] text-white capitalize text-[15px] h-[40px] rounded-sm mt-2 font-inter-semibold cursor-pointer"
         >
           {uploading ? "Uploading..." : "Upload"}
         </button>

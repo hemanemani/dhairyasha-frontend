@@ -25,7 +25,7 @@ export default function RootLayout({
         <div className={`${!isLoginPage ? 'min-h-screen bg-cover bg-center bg-no-repeat flex' : ''}`}>
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="dark"
             enableSystem
             disableTransitionOnChange
           >

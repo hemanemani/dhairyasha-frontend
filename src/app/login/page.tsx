@@ -6,6 +6,7 @@ import { Eye,EyeOff, Loader } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { DarkMode } from "@/components/dark-mode";
+import { API_BASE } from "@/constants/api";
 
 
 const LoginPage: React.FC = () =>{
@@ -33,7 +34,7 @@ const LoginPage: React.FC = () =>{
       }
       try {
         setIsLoading(true);
-        const res = await fetch("https://api.shahdhairya.in/api/admin/login",{
+        const res = await fetch(`${API_BASE}/login`,{
           method : "POST",
           headers:  {"Content-Type": "application/json"},
           body:JSON.stringify({email,password})

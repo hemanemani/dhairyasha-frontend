@@ -20,11 +20,45 @@ const ProfileTopbar = () => {
   const currentPage = useMemo(() => {
 
   const pageTitles: Record<string, JSX.Element> = {
-    "/admin/profile/create": (
-      <div>
-        <h1 className="text-[22px] text-[#7f7f7f] font-inter-semibold">Hello <span className="text-[#000] dark:text-white font-inter-semibold">Dhariya</span></h1>
-        <p className="text-[14px] text-[#7f7f7f] font-inter-light mt-1">Welcome to Admin Dashboard</p>
-      </div>
+    "/admin/home" :(
+      <span className="text-[#000] dark:text-white text-[22px] font-inter-semibold">Home
+      </span>
+      
+    ),
+    "/admin/about" :(
+      <span className="text-[#000] dark:text-white text-[22px] font-inter-semibold">About
+      </span>
+      
+    ),
+    "/admin/projects" :(
+      <span className="text-[#000] dark:text-white text-[22px] font-inter-semibold">Project
+      </span>
+      
+    ),
+    "/admin/insights" :(
+      <span className="text-[#000] dark:text-white text-[22px] font-inter-semibold">Insights
+      </span>
+      
+    ),
+    "/admin/statements" :(
+      <span className="text-[#000] dark:text-white text-[22px] font-inter-semibold">Statements
+      </span>
+      
+    ),
+    "/admin/contact" :(
+      <span className="text-[#000] dark:text-white text-[22px] font-inter-semibold">Contact
+      </span>
+      
+    ),
+    "/admin/social" :(
+      <span className="text-[#000] dark:text-white text-[22px] font-inter-semibold">Social Media
+      </span>
+      
+    ),
+    "/admin/meta" :(
+      <span className="text-[#000] dark:text-white text-[22px] font-inter-semibold">Meta
+      </span>
+      
     ),
     "/admin/messages" :(
       <span className="text-[#000] dark:text-white text-[22px] font-inter-semibold">Messages
