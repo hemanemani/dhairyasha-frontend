@@ -125,11 +125,10 @@ const CreateStatementPage = ()=>{
         setFormData({
           statement_heading: data.statement_heading || '',
           statement_description: data.statement_description || '',
-          statement_testimonial: Array.isArray(data.statement_testimonial)
+          statement_testimonial:
+          Array.isArray(data.statement_testimonial) && data.statement_testimonial.length > 0
             ? data.statement_testimonial
-            : data.statement_testimonial
-              ? [data.statement_testimonial] // wrap single object
-              : [{ title: '', date: '' }] // fallback
+            : [{ title: '', date: '' }]
         });
 
       } catch (error) {
