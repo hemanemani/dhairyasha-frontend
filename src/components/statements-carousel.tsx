@@ -27,7 +27,7 @@ export function StatementsCarousel() {
   
     const fetchSettings = async () => {
       try {
-        const res = await fetch(`${API_BASE}/profile`, {
+        const res = await fetch(`${API_BASE}/statements`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

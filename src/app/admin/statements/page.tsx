@@ -59,7 +59,7 @@ const CreateStatementPage = ()=>{
       statement_testimonial: formData.statement_testimonial
       };
 
-      const res = await fetch(`${API_BASE}/profile`, {
+      const res = await fetch(`${API_BASE}/statements`, {
         method: "PUT",
         headers: { 
           "Content-Type": "application/json",
@@ -73,7 +73,7 @@ const CreateStatementPage = ()=>{
           setIsSuccess(true);
           setTimeout(() => {
                 setIsLoading(false);
-                setAlertMessage("Site Settings Updated successfully!");
+                setAlertMessage("Statements Updated successfully!");
                 router.push("/admin/statements");
                 }, 2000)
       } else {
@@ -105,7 +105,7 @@ const CreateStatementPage = ()=>{
 
     const fetchSettings = async () => {
       try {
-        const res = await fetch(`${API_BASE}/profile`, {
+        const res = await fetch(`${API_BASE}/statements`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

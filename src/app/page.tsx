@@ -53,9 +53,6 @@ export default function Home() {
         insights_sub_third_heading:"",
         insights_sub_third_desc:"",
         insights_sub_third_img_url:"",
-        statement_heading:"",
-        statement_description:"",
-        statement_testimonial:[],
         contact_heading:"",
         contact_description:"",
         contact_sub_heading:"",
@@ -65,6 +62,14 @@ export default function Home() {
         facebook:"",
         linkedin:"",
     });
+
+    const [statementData, setStatementData] = useState({
+      statement_heading:"",
+        statement_description:"",
+        statement_testimonial:[],
+    })
+
+
     const [isLoading, setIsLoading] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
     const [isSuccess, setIsSuccess] = useState(false);
@@ -118,7 +123,46 @@ export default function Home() {
           }
         });
         const data = await res.json();
-        setProfileData(data);
+        setProfileData(data || { 
+            heading: "", 
+        description: "", 
+        designation:"",
+        home_img_url: "",
+        about_heading:"",
+        about_desc:"",
+        about_sub_one_heading : "",
+        about_sub_one_desc:"",
+        about_sub_second_heading:"",
+        about_sub_second_desc:"",
+        about_sub_third_heading:"",
+        about_sub_third_desc:"",
+        about_img_url:"",
+        project_heading:"",
+        project_desc:"",
+        project_sub_one_heading:"",
+        project_sub_one_desc:"",
+        project_sub_one_img_url:"",
+        project_sub_second_heading :"",
+        project_sub_second_desc:"",
+        project_sub_second_img_url:"",
+        insights_heading:"",
+        insights_desc: "", 
+        insights_sub_one_heading: "", 
+        insights_sub_one_desc:"",
+        insights_sub_one_img_url: "",
+        insights_sub_second_heading:"",
+        insights_sub_second_desc:"",
+        insights_sub_second_img_url : "",
+        insights_sub_third_heading:"",
+        insights_sub_third_desc:"",
+        insights_sub_third_img_url:"",
+        contact_heading:"",
+        contact_description:"",
+        contact_sub_heading:"",
+        contact_sub_description:"",
+        instagram:"",
+        facebook:"",
+        linkedin:"" });
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -127,6 +171,33 @@ export default function Home() {
     };
 
     fetchSettings();
+  });
+
+
+  useEffect(() => {
+  
+  const fetchStatements = async () => {
+      try {
+        const res = await fetch(`${API_BASE}/statements`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          }
+        });
+        const data = await res.json();
+        setStatementData(data || { 
+          statement_heading:"",
+        statement_description:"",
+        statement_testimonial:[]
+         });
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchStatements();
   });
 
 
@@ -410,9 +481,9 @@ export default function Home() {
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">{profileData.statement_heading}</h2>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">{statementData.statement_heading}</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                {profileData.statement_description}
+                {statementData.statement_description}
                 </p>
               </div>
             </div>
