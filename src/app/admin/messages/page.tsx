@@ -66,7 +66,8 @@ const MessageDashboard:React.FC = () => {
               headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
-              }
+              },
+              mode: 'cors',
 
           })
 

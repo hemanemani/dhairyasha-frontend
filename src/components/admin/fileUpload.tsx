@@ -29,7 +29,8 @@ export function FileUpload({ fieldName, onUpload, initialUrl }: FileUploadProps)
 
       const res = await fetch(`${API_BASE}/upload`,{
         method:"POST",
-        body:formData
+        body:formData,
+        mode: 'cors',
       })
 
       const data = await res.json();

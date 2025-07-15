@@ -31,7 +31,8 @@ export function StatementsCarousel() {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-          }
+          },
+          mode: 'cors',
         });
         const data = await res.json();
         const parsedTestimonials =

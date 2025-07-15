@@ -49,7 +49,8 @@ const CreateSocialPage = ()=>{
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
+        mode: 'cors',
       });
 
 
@@ -94,7 +95,8 @@ const CreateSocialPage = ()=>{
           headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
-          }
+          },
+          mode: 'cors',
         });
         if (!res.ok) {
             if (res.status === 403) {

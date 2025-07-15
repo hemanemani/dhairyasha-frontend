@@ -93,6 +93,7 @@ export default function Home() {
        },
 
         body: JSON.stringify(formData),
+        mode: 'cors',
       })
       if (res.ok) {
         setIsSuccess(true);
@@ -120,7 +121,8 @@ export default function Home() {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-          }
+          },
+          mode: 'cors',
         });
         const data = await res.json();
         setProfileData(data || { 
@@ -182,7 +184,8 @@ export default function Home() {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-          }
+          },
+          mode: 'cors',
         });
         const data = await res.json();
         setStatementData(data || { 

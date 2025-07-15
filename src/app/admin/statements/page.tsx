@@ -65,7 +65,8 @@ const CreateStatementPage = ()=>{
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
+        mode: 'cors',
       });
 
 
@@ -110,7 +111,8 @@ const CreateStatementPage = ()=>{
           headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
-          }
+          },
+          mode: 'cors',
         });
         if (!res.ok) {
             if (res.status === 403) {
