@@ -6,9 +6,15 @@ import { ChevronLeft, ChevronRight, Quote } from "lucide-react"
 import { API_BASE } from "@/constants/api"
 
 interface Statement {
-  id: number
-  text: string
-  date: string
+  id: number;
+  text: string;
+  date: string;
+}
+
+interface StatementRow {
+  id: number;
+  title: string;
+  date: string;
 }
 
 export function StatementsCarousel() {
@@ -34,8 +40,8 @@ export function StatementsCarousel() {
           : data.statement_testimonial;
 
       // Map backend data to Statement[]
-      const formattedStatements: Statement[] = parsedTestimonials.map(
-        (item: any, index: number) => ({
+      const formattedStatements: Statement[] = (parsedTestimonials as StatementRow[]).map(
+        (item, index) => ({
           id: index + 1,
           text: item.title || '',
           date: item.date || ''
