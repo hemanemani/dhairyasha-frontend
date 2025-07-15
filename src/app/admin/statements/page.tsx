@@ -190,48 +190,54 @@ const CreateStatementPage = ()=>{
                         </div>        
                         <div className="space-y-2">
                           <Label className="text-[15px] font-inter-medium">Statements</Label>
-                          {Array.isArray(formData.statement_testimonial) &&
-                          formData.statement_testimonial.map((testimonial, index) => (
-                            <div key={index} className="flex gap-2 items-center">
-                              <Input
-                                placeholder="Statement Title"
-                                name="title"
-                                value={testimonial.title}
-                                onChange={(e) => handleTestimonialChange(index, 'title', e.target.value)}
-                                className="w-[45%] border rounded-md bg-white dark:bg-[#000]"
-                              />
-                              <Input
-                                placeholder="Statement Date"
-                                name="date"
-                                value={testimonial.date}
-                                onChange={(e) => handleTestimonialChange(index, 'date', e.target.value)}
-                                className="w-[35%] border rounded-md bg-white dark:bg-[#000]"
-                              />
 
-                              {/* Add / Remove Button */}
-                              <button
-                                type="button"
-                                onClick={() => addTestimonialField()}
-                                className="text-lg text-green-600 px-2"
-                                title="Add new testimonial"
-                              >
-                                +
-                              </button>
+                          {isInputLoading ? (
+                            <>
+                              <SkeletonCard height="h-[36px] w-[80%]" />
+                            </>
+                          ) : (
+                            formData.statement_testimonial.map((testimonial, index) => (
+                              <div key={index} className="flex gap-2 items-center">
+                                <Input
+                                  placeholder="Statement Title"
+                                  name="title"
+                                  value={testimonial.title}
+                                  onChange={(e) => handleTestimonialChange(index, 'title', e.target.value)}
+                                  className="w-[45%] border rounded-md bg-white dark:bg-[#000]"
+                                />
+                                <Input
+                                  placeholder="Statement Date"
+                                  name="date"
+                                  value={testimonial.date}
+                                  onChange={(e) => handleTestimonialChange(index, 'date', e.target.value)}
+                                  className="w-[35%] border rounded-md bg-white dark:bg-[#000]"
+                                />
 
-                              {formData.statement_testimonial.length > 1 && (
+                                {/* Add / Remove Button */}
                                 <button
                                   type="button"
-                                  onClick={() => removeTestimonialField(index)}
-                                  className="text-lg text-red-500 px-2"
-                                  title="Remove"
+                                  onClick={() => addTestimonialField()}
+                                  className="text-lg text-green-600 px-2"
+                                  title="Add new testimonial"
                                 >
-                                  −
+                                  +
                                 </button>
-                              )}
-                            </div>
-                          ))
-                        }
-                        </div>        
+
+                                {formData.statement_testimonial.length > 1 && (
+                                  <button
+                                    type="button"
+                                    onClick={() => removeTestimonialField(index)}
+                                    className="text-lg text-red-500 px-2"
+                                    title="Remove"
+                                  >
+                                    −
+                                  </button>
+                                )}
+                              </div>
+                            ))
+                          )}
+                        </div>
+       
                     </div>
 
                     <Button 

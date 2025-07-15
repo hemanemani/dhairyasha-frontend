@@ -81,7 +81,7 @@ export function StatementsCarousel() {
 
   return (
     <div className="relative">
-        {statements.length > 0 && statements[currentIndex] ? (
+        {statements[currentIndex] ? (
         <>
           <div className="flex items-center justify-between mb-6">
             <Button
