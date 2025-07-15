@@ -56,7 +56,7 @@ const CreateStatementPage = ()=>{
 
       const payload = {
       ...formData,
-      statement_testimonial: JSON.stringify(formData.statement_testimonial)
+      statement_testimonial: formData.statement_testimonial
       };
 
       const res = await fetch(`${API_BASE}/profile`, {
