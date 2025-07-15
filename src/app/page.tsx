@@ -55,6 +55,8 @@ export default function Home() {
         insights_sub_third_img_url:"",
         contact_heading:"",
         contact_description:"",
+        contact_sub_heading:"",
+        contact_sub_description:"",
         email:"",
         instagram:"",
         facebook:"",
@@ -148,6 +150,8 @@ export default function Home() {
         insights_sub_third_img_url:"",
         contact_heading:"",
         contact_description:"",
+        contact_sub_heading:"",
+        contact_sub_description:"",
         instagram:"",
         facebook:"",
         linkedin:"" });
@@ -242,17 +246,7 @@ export default function Home() {
               </div>
             </div>
             <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
-              <img
-                  src={
-                    profileData.home_img_url
-                      ? `${profileData.home_img_url}`
-                      : '/placeholder.svg?height=550&width=550'
-                  }
-                  width={550}
-                  height={550}
-                  alt="DhairyaShah, Founder & CEO"
-                  className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full lg:order-last cursor-pointer"
-                />
+              
               <div className="flex flex-col justify-center space-y-4">
                 <div className="space-y-2">
                   <h3 className="text-2xl font-bold tracking-tighter">{profileData.about_sub_one_heading}</h3>
@@ -284,6 +278,17 @@ export default function Home() {
 
                 </div>
               </div>
+              <img
+                  src={
+                    profileData.home_img_url
+                      ? `${profileData.home_img_url}`
+                      : '/placeholder.svg?height=550&width=550'
+                  }
+                  width={550}
+                  height={550}
+                  alt="DhairyaShah, Founder & CEO"
+                  className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full lg:order-last cursor-pointer"
+                />
             </div>
           </div>
         </section>
@@ -457,9 +462,9 @@ export default function Home() {
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Get in Touch</h2>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">{profileData.contact_heading}</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  Have a question or interested in collaboration? Reach out using the form below.
+                  {profileData.contact_description}
                 </p>
               </div>
             </div>
@@ -470,9 +475,9 @@ export default function Home() {
                   <p>{profileData.email}</p>
                 </div>
                 <div className="space-y-2">
-                  <h3 className="text-xl font-bold">{profileData.contact_heading}</h3>
+                  <h3 className="text-xl font-bold">{profileData.contact_sub_heading}</h3>
                   <p className="text-muted-foreground">
-                    {profileData.contact_description}
+                    {profileData.contact_sub_description}
                   </p>
                 </div>
                 <div className="flex gap-4">

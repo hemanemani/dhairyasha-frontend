@@ -16,6 +16,8 @@ const CreateContactPage = ()=>{
     const [formData, setFormData] = useState({
         contact_heading:'',
         contact_description:'',
+        contact_sub_heading:'',
+        contact_sub_description:'',
         email:''
     });
     const router = useRouter();
@@ -110,6 +112,8 @@ const CreateContactPage = ()=>{
         data || {
             contact_heading:'',
             contact_description:'',
+            contact_sub_heading:'',
+            contact_sub_description:'',
             email:''
         }
         );
@@ -141,7 +145,19 @@ const CreateContactPage = ()=>{
                             { isInputLoading ? <SkeletonCard height="h-[36px]" /> :
                             <Input id="contact_description" placeholder="please enter Description" name="contact_description" value={formData.contact_description || ''}  onChange={handleChange} className="w-full border rounded-md bg-white dark:bg-[#000]"/>
                             }
-                        </div>         
+                        </div>
+                        <div className="space-y-2 w-[80%]">
+                            <Label htmlFor="contact_sub_heading" className="text-[15px] font-inter-medium">Contact Sub Heading</Label>
+                            { isInputLoading ? <SkeletonCard height="h-[36px]" /> :
+                            <Input id="contact_sub_heading" placeholder="please enter Contact Heading" name="contact_sub_heading" value={formData.contact_sub_heading || ''}  onChange={handleChange} className="w-full border rounded-md bg-white dark:bg-[#000]"/>
+                            }
+                        </div>
+                        <div className="space-y-2 w-[80%]">
+                            <Label htmlFor="contact_sub_description" className="text-[15px] font-inter-medium">Contact Sub Description</Label>
+                            { isInputLoading ? <SkeletonCard height="h-[36px]" /> :
+                            <Input id="contact_sub_description" placeholder="please enter Sub Description" name="contact_sub_description" value={formData.contact_sub_description || ''}  onChange={handleChange} className="w-full border rounded-md bg-white dark:bg-[#000]"/>
+                            }
+                        </div>           
                         <div className="space-y-2 w-[80%]">
                             <Label htmlFor="email" className="text-[15px] font-inter-medium">Email</Label>
                             { isInputLoading ? <SkeletonCard height="h-[36px]" /> :

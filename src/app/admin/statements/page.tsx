@@ -9,23 +9,21 @@ import { SkeletonCard } from "@/components/SkeletonCart";
 import AlertMessages from "@/components/AlertMessages";
 import { Loader } from "lucide-react";
 import { API_BASE } from "@/constants/api";
-import { DatePicker } from "@/components/admin/date-picker";
-import { format,parse } from "date-fns";
+import { format } from "date-fns";
 
-type StatementData = {
-  statement_heading:'',
-  statement_description:'',
-  statement_testmonial:'',
-  statement_date:'',
-}
 
 const CreateStatementPage = ()=>{
-    const [formData, setFormData] = useState({
-        statement_heading:'',
-        statement_description:'',
-        statement_testmonial:'',
-        statement_date:'',
+
+      const [formData, setFormData] = useState<{
+      statement_heading: string;
+      statement_description: string;
+      statement_testimonial: { title: string; date: string }[];
+    }>({
+      statement_heading: "",
+      statement_description: "",
+      statement_testimonial: [{ title: "", date: "" }]
     });
+
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
@@ -33,10 +31,15 @@ const CreateStatementPage = ()=>{
     const [isInputLoading, setIsInputLoading] = useState(true);
 
 
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+      const { name, value } = e.target;
+        setFormData((prev) => ({
+          ...prev,
+          [name]: value,
+        }));
     };
+
+    
 
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -51,13 +54,19 @@ const CreateStatementPage = ()=>{
 
     try {
       setIsLoading(true);
+
+      const payload = {
+      ...formData,
+      statement_testimonial: JSON.stringify(formData.statement_testimonial)
+      };
+
       const res = await fetch(`${API_BASE}/profile`, {
         method: "PUT",
         headers: { 
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(payload)
       });
 
 
@@ -114,13 +123,16 @@ const CreateStatementPage = ()=>{
         }
 
         const data = await res.json();
-        setFormData(
-        data || {
-            statement_heading:'',
-            statement_description:'',
-            statement_testmonial:''
-        }
-        );
+        setFormData({
+          statement_heading: data.statement_heading || '',
+          statement_description: data.statement_description || '',
+          statement_testimonial: Array.isArray(data.statement_testimonial)
+            ? data.statement_testimonial
+            : data.statement_testimonial
+              ? [data.statement_testimonial] // wrap single object
+              : [{ title: '', date: '' }] // fallback
+        });
+
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -130,12 +142,32 @@ const CreateStatementPage = ()=>{
     };
 
     fetchSettings();
-}, [router]);
+  }, [router]);
 
-const handleDateChange = (date: Date | undefined, field: keyof StatementData) => {
+  const addTestimonialField = () => {
+    setFormData((prev) => ({
+      ...prev,
+      statement_testimonial: [
+        ...prev.statement_testimonial,
+        { title: "", date: "" }
+      ]
+    }));
+  };
+
+  const removeTestimonialField = (index: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      statement_testimonial: prev.statement_testimonial.filter((_, i) => i !== index)
+    }));
+  };
+
+  const handleTestimonialChange = (index: number, field: 'title' | 'date', value: string) => {
+      const updatedTestimonials = [...formData.statement_testimonial];
+      updatedTestimonials[index][field] = value;
+
       setFormData((prev) => ({
         ...prev,
-        [field]: date ? format(date, "dd-MM-yyyy") : undefined, // ✅ Keep "DD-MM-YYYY" format for backend
+        statement_testimonial: updatedTestimonials
       }));
     };
 
@@ -157,25 +189,50 @@ const handleDateChange = (date: Date | undefined, field: keyof StatementData) =>
                             <Input id="statement_description" placeholder="please enter Statement Description" name="statement_description" value={formData.statement_description || ''}  onChange={handleChange} className="w-full border rounded-md bg-white dark:bg-[#000]"/>
                             }
                         </div>        
-                        <div className="space-y-2 w-[80%]">
-                            <Label htmlFor="statement_testmonial" className="text-[15px] font-inter-medium">Testimonail</Label>
-                            { isInputLoading ? <SkeletonCard height="h-[36px]" /> :
-                            <Input id="statement_testmonial" placeholder="please enter Statement Testimonail" name="statement_testmonial" value={formData.statement_testmonial || ''}  onChange={handleChange} className="w-full border rounded-md bg-white dark:bg-[#000]"/>
-                            }
-                        </div> 
-                        <div className="space-y-2 w-[80%]">
-                          <Label htmlFor="inquiryDate" className="text-[15px] font-inter-medium">Inquiry Date</Label>
-                          <div className={`bg-white dark:bg-[#000] rounded-md border border-red-500`}>
-                          <DatePicker
-                            id="inquiryDate"
-                            date={formData.statement_date ? parse(formData.statement_date, "dd-MM-yyyy", new Date()) : undefined} 
-                            setDate={(date) => handleDateChange(date, "statement_date")}
-                            placeholder="DD-MM-YYYY"
-                            disabled={isLoading}
-                          />
-                          </div>
-                        </div>   
-                        
+                        <div className="space-y-2">
+                          <Label className="text-[15px] font-inter-medium">Statements</Label>
+                          {Array.isArray(formData.statement_testimonial) &&
+                          formData.statement_testimonial.map((testimonial, index) => (
+                            <div key={index} className="flex gap-2 items-center">
+                              <Input
+                                placeholder="Statement Title"
+                                name="title"
+                                value={testimonial.title}
+                                onChange={(e) => handleTestimonialChange(index, 'title', e.target.value)}
+                                className="w-[45%] border rounded-md bg-white dark:bg-[#000]"
+                              />
+                              <Input
+                                placeholder="Statement Date"
+                                name="date"
+                                value={testimonial.date}
+                                onChange={(e) => handleTestimonialChange(index, 'date', e.target.value)}
+                                className="w-[35%] border rounded-md bg-white dark:bg-[#000]"
+                              />
+
+                              {/* Add / Remove Button */}
+                              <button
+                                type="button"
+                                onClick={() => addTestimonialField()}
+                                className="text-lg text-green-600 px-2"
+                                title="Add new testimonial"
+                              >
+                                +
+                              </button>
+
+                              {formData.statement_testimonial.length > 1 && (
+                                <button
+                                  type="button"
+                                  onClick={() => removeTestimonialField(index)}
+                                  className="text-lg text-red-500 px-2"
+                                  title="Remove"
+                                >
+                                  −
+                                </button>
+                              )}
+                            </div>
+                          ))
+                        }
+                        </div>        
                     </div>
 
                     <Button 
