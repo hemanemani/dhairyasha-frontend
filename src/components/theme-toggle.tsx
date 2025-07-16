@@ -30,7 +30,7 @@ export function ThemeToggle() {
 
   return (
     <Button variant="ghost" size="icon" onClick={toggleTheme} className="w-9 h-9 cursor-pointer" aria-label="Toggle theme">
-      {theme === "dark" ? <Sun className="h-[1.2rem] w-[1.2rem]" /> : <Moon className="h-[1.2rem] w-[1.2rem]" />}
+      {theme === "dark" ? <Moon className="h-[1.2rem] w-[1.2rem]" />  :  <Sun className="h-[1.2rem] w-[1.2rem]" />}
       <span className="sr-only">Toggle theme</span>
     </Button>
   )

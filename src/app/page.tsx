@@ -39,6 +39,8 @@ export default function Home() {
         project_sub_one_heading:"",
         project_sub_one_desc:"",
         project_sub_one_img_url:"",
+        project_sub_one_url:"",
+        project_sub_second_url:"",
         project_sub_second_heading :"",
         project_sub_second_desc:"",
         project_sub_second_img_url:"",
@@ -144,6 +146,8 @@ export default function Home() {
         project_sub_one_heading:"",
         project_sub_one_desc:"",
         project_sub_one_img_url:"",
+        project_sub_one_url:"",
+        project_sub_second_url:"",
         project_sub_second_heading :"",
         project_sub_second_desc:"",
         project_sub_second_img_url:"",
@@ -164,7 +168,8 @@ export default function Home() {
         contact_sub_description:"",
         instagram:"",
         facebook:"",
-        linkedin:"" });
+        linkedin:"",
+       });
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -265,7 +270,8 @@ export default function Home() {
                   width={550}
                   height={550}
                   alt="DhairyaShah, Founder & CEO"
-                  className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full lg:order-last cursor-pointer"
+                    className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full cursor-pointer transition-transform duration-200 ease-in-out hover:scale-101"
+                  
                 />
               
              
@@ -293,7 +299,7 @@ export default function Home() {
                   width={550}
                   height={550}
                   alt="DhairyaShah, Founder & CEO"
-                  className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full cursor-pointer"
+                    className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full cursor-pointer transition-transform duration-200 ease-in-out hover:scale-101"
                 />
               <div className="flex flex-col justify-center space-y-4">
                 <div className="space-y-2">
@@ -345,8 +351,9 @@ export default function Home() {
             <div className="mx-auto grid gap-8 py-12 sm:grid-cols-2 md:grid-col-6 lg:grid-cols-6">
               <div className="col-span-1"></div>
               <div className="col-span-2 group relative overflow-hidden rounded-lg border">
-                <div className="aspect-video bg-white flex justify-center align-center">
-                 <img
+                <div className="aspect-video overflow-hidden bg-white flex justify-center">
+                  <Link href={`${profileData.project_sub_one_url}`}>
+                  <img
                   src={
                     profileData.project_sub_one_img_url
                       ? `${profileData.project_sub_one_img_url}`
@@ -355,15 +362,16 @@ export default function Home() {
                   width={550}
                   height={550}
                   alt="DhairyaShah, Founder & CEO"
-                  className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full lg:order-last cursor-pointer"
+                  className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full cursor-pointer transition-transform group-hover:scale-105"
                 />
+                </Link>
                 </div>
                 <div className="p-4">
                   <h3 className="text-xl font-bold">{profileData.project_sub_one_heading}</h3>
                   <p className="text-sm text-muted-foreground">
                     {profileData.project_sub_one_desc}
                   </p>
-                    <Button variant="link" className="mt-2 p-0 cursor-pointer" onClick={() => window.open("https://orgenik.com", "_blank", "noopener,noreferrer")}>
+                  <Button variant="link" className="mt-2 p-0 cursor-pointer" onClick={() => window.open(`${profileData.project_sub_one_url}`, "_blank", "noopener,noreferrer")}>
                       Visit Website
                       <ArrowRight className="ml-1 h-4 w-4" />
                     </Button>
@@ -371,6 +379,7 @@ export default function Home() {
               </div>
               <div className="col-span-2 group relative overflow-hidden rounded-lg border">
                 <div className="aspect-video overflow-hidden bg-white flex justify-center">
+                  <Link href={`${profileData.project_sub_second_url}`}>
                   <img
                   src={
                     profileData.project_sub_second_img_url
@@ -380,15 +389,16 @@ export default function Home() {
                   width={550}
                   height={550}
                   alt="DhairyaShah, Founder & CEO"
-                  className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full lg:order-last cursor-pointer"
+                  className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full cursor-pointer transition-transform group-hover:scale-105"
                 />
+                </Link>
                 </div>
                 <div className="p-4">
                   <h3 className="text-xl font-bold">{profileData.project_sub_second_heading}</h3>
                   <p className="text-sm text-muted-foreground">
                     {profileData.project_sub_second_desc}
                   </p>
-                  <Button variant="link" className="mt-2 p-0 cursor-pointer" onClick={() => window.open("https://www.orgenikbulk.com/", "_blank", "noopener,noreferrer")}>
+                  <Button variant="link" className="mt-2 p-0 cursor-pointer" onClick={() => window.open(`${profileData.project_sub_second_url}`, "_blank", "noopener,noreferrer")}>
                       Visit Website
                       <ArrowRight className="ml-1 h-4 w-4" />
                     </Button>

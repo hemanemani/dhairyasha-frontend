@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react"
 import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Search,ArrowUp, ArrowDown  } from "lucide-react"
+import { Search,ArrowUp, ArrowDown, Trash2  } from "lucide-react"
 import { useReactTable, getCoreRowModel, ColumnDef, flexRender,getPaginationRowModel,getSortedRowModel,SortingState } from "@tanstack/react-table";
 import { DataTablePagination } from "@/components/admin/data-table-pagination"
 import { SkeletonCard } from "@/components/SkeletonCart"
@@ -116,6 +116,35 @@ const MessageDashboard:React.FC = () => {
         accessorFn: (row) => row.message,
         id: "message",
         header: "Message",
+      },
+      {
+        id: "actions",
+        header: "Actions",
+        cell: ({ row }) => {
+          const id = row.original.id;
+          return (
+            <div className="flex">
+            <button
+              onClick={async () => {
+                try {
+                  const res = await fetch(`${API_BASE}/message/${id}`, {
+                    method: "DELETE",
+                  });
+                  if(res.ok){
+                    alert('message delete successfully')
+                  }
+                  setFilteredData((prev) => prev.filter((msg) => msg.id !== id));
+                } catch (err) {
+                  console.error("Delete failed:", err);
+                }
+              }}
+              className="text-red-600 hover:underline mt-[0] mb-[10%] cursor-pointer"
+            >
+              <Trash2 className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+            </button>
+            </div>
+          );
+        },
       }
     ];
 
@@ -159,7 +188,7 @@ const MessageDashboard:React.FC = () => {
       
 
         <div className="flex justify-between items-center p-2">
-          <span className="text-[#7f7f7f] text-[13px] font-inter-medium">Total: {messages.length}</span>
+          <span className="text-[#7f7f7f] text-[13px] font-inter-medium">Total: {filteredData.length}</span>
           <div className="flex items-center space-x-2">
             <span className="text-[#7f7f7f] text-[13px] font-inter-medium">Rows per page:</span>
             <Select

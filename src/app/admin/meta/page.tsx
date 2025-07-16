@@ -9,6 +9,17 @@ import { SkeletonCard } from "@/components/SkeletonCart";
 import AlertMessages from "@/components/AlertMessages";
 import { Loader } from "lucide-react";
 import { API_BASE } from "@/constants/api";
+import { DarkMode } from "@/components/dark-mode";
+import { FileUpload } from "@/components/admin/fileUpload";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useTheme } from "next-themes";
+
 
 
 
@@ -17,18 +28,28 @@ const CreateMetaPage = ()=>{
         meta_title:'',
         meta_description:'',
         meta_keywords:'',
+        theme:'system',
+        favicon_url:'',
     });
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
     const [isSuccess, setIsSuccess] = useState(false);
     const [isInputLoading, setIsInputLoading] = useState(true);
+    const { setTheme, theme } = useTheme();
 
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
+
+    const handleUpload = (field: string, uploadedUrl: string) => {
+        setFormData({
+            ...formData,
+            [field]: uploadedUrl
+        })
+    }
 
     const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,13 +63,18 @@ const CreateMetaPage = ()=>{
 
     try {
       setIsLoading(true);
+      const updatedFormData = {
+        ...formData,
+        theme: theme,
+      };
+
       const res = await fetch(`${API_BASE}/profile`, {
-        method: "PUT",
+        method: "PATCH",
         headers: { 
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(updatedFormData),
         mode: 'cors',
       });
 
@@ -58,7 +84,7 @@ const CreateMetaPage = ()=>{
           setTimeout(() => {
                 setIsLoading(false);
                 setAlertMessage("Site Settings Updated successfully!");
-                router.push("/admin/social");
+                router.push("/admin/meta");
                 }, 2000)
       } else {
           if (res.status === 403) {
@@ -107,11 +133,14 @@ const CreateMetaPage = ()=>{
         }
 
         const data = await res.json();
+        if (data.theme) setTheme(data.theme);
         setFormData(
         data || {
             meta_title:'',
             meta_description:'',
             meta_keywords:'',
+            theme:theme,
+            favicon_url:''
         }
         );
       } catch (error) {
@@ -124,6 +153,14 @@ const CreateMetaPage = ()=>{
 
     fetchSettings();
 }, [router]);
+
+const handleSelectChange = (field: string, value: string) => {
+        setFormData(prev => ({
+          ...prev,
+          [field]: value,
+        }));
+      };
+      
 
 
 
@@ -149,8 +186,24 @@ const CreateMetaPage = ()=>{
                             { isInputLoading ? <SkeletonCard height="h-[36px]" /> :
                             <Input id="meta_keywords" placeholder="please enter Meta Keywords" name="meta_keywords" value={formData.meta_keywords || ''}  onChange={handleChange} className="w-full border rounded-md bg-white dark:bg-[#000]"/>
                             }
-                        </div>       
+                        </div> 
                         
+                        <div className="space-y-2 w-[80%]">
+                          <Label htmlFor="theme" className="text-[15px] font-inter-medium">Theme Settings</Label>
+                          <Select name="theme" value={theme} onValueChange={(value) => setTheme(value)}>
+                            <SelectTrigger className="dark:bg-[#111] dark:text-white w-[100%]">
+                                <SelectValue placeholder="Select Theme" />
+                            </SelectTrigger>
+                            <SelectContent className="dark:bg-[#111] dark:text-white">
+                                <SelectItem value="light">Light</SelectItem>
+                                <SelectItem value="dark">Dark</SelectItem>
+                                <SelectItem value="system">System</SelectItem>
+                            </SelectContent>
+                            </Select>
+                        </div>     
+                        <div className="space-y-2 w-[80%]">
+                            <FileUpload fieldName="favicon_url" onUpload={handleUpload} initialUrl={formData.favicon_url} />                   
+                        </div>                
                     </div>
 
                     <Button 

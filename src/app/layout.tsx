@@ -22,25 +22,34 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
-  return (
-      <html lang="en" suppressHydrationWarning>
-        <head />
-        <body>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
-        </body>
-      </html>
+}) {
+  let theme = "system"; // default fallback
 
+  try {
+    const res = await fetch(`${API_BASE}/profile`, { cache: "no-store" });
+    const data = await res.json();
+    theme = data.theme || "system";
+  } catch (error) {
+    console.error("Error fetching theme:", error);
+  }
+
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head />
+      <body>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme={theme}
+          enableSystem={false}
+          storageKey="theme"
+        >
+          {children}
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }

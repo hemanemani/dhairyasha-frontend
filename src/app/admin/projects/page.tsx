@@ -21,7 +21,10 @@ const CreateProjectsPage = ()=>{
         project_sub_one_img_url:'',
         project_sub_second_heading:'',
         project_sub_second_desc:'',
-        project_sub_second_img_url:''
+        project_sub_second_img_url:'',
+        project_sub_one_url:'',
+        project_sub_second_url:''
+
     });
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
@@ -55,7 +58,7 @@ const CreateProjectsPage = ()=>{
     try {
       setIsLoading(true);
       const res = await fetch(`${API_BASE}/profile`, {
-        method: "PUT",
+        method: "PATCH",
         headers: { 
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
@@ -126,9 +129,11 @@ const CreateProjectsPage = ()=>{
             project_sub_one_heading:'',
             project_sub_one_desc:'',
             project_sub_one_img_url:'',
+            project_sub_one_url:'',
             project_sub_second_heading:'',
             project_sub_second_desc:'',
-            project_sub_second_img_url:''
+            project_sub_second_img_url:'',
+            project_sub_second_url:''
         }
         );
       } catch (error) {
@@ -173,6 +178,12 @@ const CreateProjectsPage = ()=>{
                             }
                         </div>
                         <div className="space-y-2 w-[80%]">
+                            <Label htmlFor="project_sub_one_url" className="text-[15px] font-inter-medium">Project Sub One Link</Label>
+                            { isInputLoading ? <SkeletonCard height="h-[36px]" /> :
+                            <Input id="project_sub_one_url" placeholder="please enter Project Description" name="project_sub_one_url" value={formData.project_sub_one_url || ''}  onChange={handleChange} className="w-full border rounded-md bg-white dark:bg-[#000]"/>
+                            }
+                        </div>
+                        <div className="space-y-2 w-[80%]">
                             <Label htmlFor="project_sub_second_heading" className="text-[15px] font-inter-medium">Project Second Sub Heading</Label>
                             { isInputLoading ? <SkeletonCard height="h-[36px]" /> :
                             <Input id="project_sub_second_heading" placeholder="please enter Project Second Sub Heading" name="project_sub_second_heading" value={formData.project_sub_second_heading || ''}  onChange={handleChange} className="w-full border rounded-md bg-white dark:bg-[#000]"/>
@@ -182,6 +193,12 @@ const CreateProjectsPage = ()=>{
                             <Label htmlFor="project_sub_second_desc" className="text-[15px] font-inter-medium">Project Second Sub Description</Label>
                             { isInputLoading ? <SkeletonCard height="h-[36px]" /> :
                             <Input id="project_sub_second_desc" placeholder="please enter Project Description" name="project_sub_second_desc" value={formData.project_sub_second_desc || ''}  onChange={handleChange} className="w-full border rounded-md bg-white dark:bg-[#000]"/>
+                            }
+                        </div>
+                        <div className="space-y-2 w-[80%]">
+                            <Label htmlFor="project_sub_second_url" className="text-[15px] font-inter-medium">Project Sub Second Link</Label>
+                            { isInputLoading ? <SkeletonCard height="h-[36px]" /> :
+                            <Input id="project_sub_second_url" placeholder="please enter Project Description" name="project_sub_second_url" value={formData.project_sub_second_url || ''}  onChange={handleChange} className="w-full border rounded-md bg-white dark:bg-[#000]"/>
                             }
                         </div>
 

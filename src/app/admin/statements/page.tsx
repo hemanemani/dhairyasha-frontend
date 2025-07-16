@@ -60,7 +60,7 @@ const CreateStatementPage = ()=>{
       };
 
       const res = await fetch(`${API_BASE}/statements`, {
-        method: "PUT",
+        method: "PATCH",
         headers: { 
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`

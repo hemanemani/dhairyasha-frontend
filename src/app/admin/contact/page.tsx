@@ -46,7 +46,7 @@ const CreateContactPage = ()=>{
     try {
       setIsLoading(true);
       const res = await fetch(`${API_BASE}/profile`, {
-        method: "PUT",
+        method: "PATCH",
         headers: { 
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
