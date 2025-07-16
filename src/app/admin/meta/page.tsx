@@ -9,7 +9,6 @@ import { SkeletonCard } from "@/components/SkeletonCart";
 import AlertMessages from "@/components/AlertMessages";
 import { Loader } from "lucide-react";
 import { API_BASE } from "@/constants/api";
-import { DarkMode } from "@/components/dark-mode";
 import { FileUpload } from "@/components/admin/fileUpload";
 import {
   Select,
@@ -134,15 +133,15 @@ const CreateMetaPage = ()=>{
 
         const data = await res.json();
         if (data.theme) setTheme(data.theme);
-        setFormData(
-        data || {
-            meta_title:'',
-            meta_description:'',
-            meta_keywords:'',
-            theme:theme,
-            favicon_url:''
-        }
-        );
+        setFormData({
+          ...data,
+          meta_title: data.meta_title || '',
+          meta_description: data.meta_description || '',
+          meta_keywords: data.meta_keywords || '',
+          favicon_url: data.favicon_url || '',
+          theme: data.theme || 'system',
+        });
+
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -152,14 +151,8 @@ const CreateMetaPage = ()=>{
     };
 
     fetchSettings();
-}, [router]);
+}, [router,setTheme]);
 
-const handleSelectChange = (field: string, value: string) => {
-        setFormData(prev => ({
-          ...prev,
-          [field]: value,
-        }));
-      };
       
 
 
@@ -190,7 +183,14 @@ const handleSelectChange = (field: string, value: string) => {
                         
                         <div className="space-y-2 w-[80%]">
                           <Label htmlFor="theme" className="text-[15px] font-inter-medium">Theme Settings</Label>
-                          <Select name="theme" value={theme} onValueChange={(value) => setTheme(value)}>
+                          <Select name="theme" value={formData.theme} onValueChange={async (value) => {
+                                setTheme(value);
+                                setFormData((prev) => ({
+                                  ...prev,
+                                  theme: value,
+                                }));
+                              }}
+                            >
                             <SelectTrigger className="dark:bg-[#111] dark:text-white w-[100%]">
                                 <SelectValue placeholder="Select Theme" />
                             </SelectTrigger>
