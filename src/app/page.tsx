@@ -129,7 +129,7 @@ export default function Home() {
       } else {
         console.error("Failed to fetch home data", response.status);
       }
-    } catch (error) {
+    } catch (error:unknown) {
       console.error("Failed to fetch home data");
     } finally {
       setIsLoading(false);

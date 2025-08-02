@@ -30,7 +30,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  let theme = "system"; // default fallback
+  const theme = "system"; // default fallback
 
   
   return (
