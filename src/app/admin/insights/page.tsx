@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation"
 import { SkeletonCard } from "@/components/SkeletonCart";
 import AlertMessages from "@/components/AlertMessages";
 import { Loader } from "lucide-react";
-import { API_BASE } from "@/constants/api";
+import axiosInstance from "@/lib/axios";
 
 
 
@@ -46,10 +46,10 @@ const CreateInsightPage = ()=>{
         })
     }
 
-    const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const token = localStorage.getItem("adminToken");
+    const token = localStorage.getItem("authToken");
     if (!token) {
       alert("You are not logged in. Please log in first.");
       router.push("/login");
@@ -58,35 +58,29 @@ const CreateInsightPage = ()=>{
 
     try {
       setIsLoading(true);
-      const res = await fetch(`${API_BASE}/profile`, {
-        method: "PATCH",
-        headers: { 
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
+      
+      const response = await axiosInstance.put('/profile',formData,{
+        headers: {
+            'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify(formData),
-        mode: 'cors',
-      });
+      })
+      setFormData(response.data);
 
-
-      if (res.ok) {
+      if (response.status >= 200 && response.status < 300) {
           setIsSuccess(true);
           setTimeout(() => {
-                setIsLoading(false);
-                setAlertMessage("Site Settings Updated successfully!");
-                router.push("/admin/insights");
-                }, 2000)
-      } else {
-          if (res.status === 403) {
-              localStorage.removeItem("adminToken");
-              router.push("/login");
-              return;
-          }
-          setAlertMessage("Failed to updated");
-          setIsSuccess(false); 
           setIsLoading(false);
-          throw new Error("Failed to fetch data");
-      }
+          setAlertMessage("Settings Updated");
+          router.push("/admin/insights");
+          }, 2000);      
+      } else {
+          setAlertMessage("Failed to add settings");
+          setIsSuccess(false); 
+          setIsLoading(false);    
+          console.error("Failed to add", response.status);
+      }  
+
+      
     } catch (err) {
       setAlertMessage("Something Went Wrong...");
       setIsSuccess(false);
@@ -95,59 +89,36 @@ const CreateInsightPage = ()=>{
     }
   };
 
-
    useEffect(() => {
-    const token = localStorage.getItem("adminToken");
+    const fetchSettings = async () => {
+      // setLoading(true); 
+    const token = localStorage.getItem("authToken");
     if (!token) {
-      router.push("/login");
+      console.log("User is not authenticated.");
+      // setLoading(false);
       return;
     }
 
-    const fetchSettings = async () => {
-      try {
-        const res = await fetch(`${API_BASE}/profile`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-          },
-          mode: 'cors',
-        });
-        if (!res.ok) {
-            if (res.status === 403) {
-                localStorage.removeItem("adminToken");
-                router.push("/login");
-                return;
-            }
-            throw new Error("Failed to fetch data");
-        }
-
-        const data = await res.json();
-        setFormData(
-        data || {
-            insights_heading:'',
-            insights_desc:'',
-            insights_sub_one_heading:'',
-            insights_sub_one_desc:'',
-            insights_sub_one_img_url:'',
-            insights_sub_second_heading:'',
-            insights_sub_second_desc:'',
-            insights_sub_second_img_url:'',
-            insights_sub_third_heading:'',
-            insights_sub_third_desc:'',
-            insights_sub_third_img_url:''
-        }
-        );
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setIsInputLoading(false);
-        setIsLoading(false);
+    try {
+      const response = await axiosInstance.get('/profile', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      
+      if (response && response.data) {
+        setFormData(response.data);
+      } else {
+        console.error('Failed to fetch insights', response.status);
       }
-    };
-
+    } catch (error) {
+      console.error('Error fetching insights:', error);
+    } finally {
+      setIsLoading(false);
+      setIsInputLoading(false);
+    }
+  }
+      
     fetchSettings();
-}, [router]);
+  }, []);
 
 
 

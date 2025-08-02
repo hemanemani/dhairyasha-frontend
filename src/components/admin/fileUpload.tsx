@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { API_BASE } from "@/constants/api"
+import axiosInstance from "@/lib/axios"
 
 type FileUploadProps = {
   fieldName: string;
@@ -17,41 +17,11 @@ export function FileUpload({ fieldName, onUpload, initialUrl }: FileUploadProps)
   const [uploading, setUploading] = useState(false)
   const [preview, setPreview] = useState<string | null>(initialUrl || null)
 
-  const handleUploadToServer = async()=>{
-
-    if(!file) return;
-    setUploading(true);
-
-    const formData = new FormData();
-    formData.append("file",file)
-    
-    try {
-
-      const res = await fetch(`${API_BASE}/upload`,{
-        method:"POST",
-        body:formData,
-        mode: 'cors',
-      })
-
-      const data = await res.json();
-
-    if (onUpload) {
-      onUpload(fieldName,data.url);
-    }
-    } catch (error) {
-          console.error("Upload error", error);
-    }finally {
-    setUploading(false);
-    }
-
-  }
-
-useEffect(() => {
+  useEffect(() => {
   setPreview(initialUrl || null);
 }, [initialUrl]);
 
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+ const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const uploaded = e.target.files?.[0]
     if (uploaded) {
       setFile(uploaded)
@@ -59,12 +29,53 @@ useEffect(() => {
     }
   }
 
+
+  const handleUploadToServer = async () => {
+    if (!file) return;
+    setUploading(true);
+
+    const formData = new FormData();
+    formData.append(fieldName, file);
+    formData.append("_method", "PUT");
+
+    try {
+      const token = localStorage.getItem("authToken");
+      const res = await axiosInstance.post("/profile", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = res.data;
+      const uploadedUrl = data.data?.[fieldName];
+
+      if (uploadedUrl) {
+        setPreview(uploadedUrl);
+        if (onUpload) {
+          onUpload(fieldName, uploadedUrl);
+        }
+      } else {
+        console.error("Upload succeeded, but URL not found in response");
+      }
+    } catch (error) {
+      console.error("Upload error", error);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+
+
+ 
+
   return (
     <div className="space-y-2 border p-4 rounded-md">
       <Label htmlFor={fieldName}>{fieldName}</Label>
       <Input
         id={fieldName}
         type="file"
+        name={fieldName}
         onChange={handleChange}
         disabled={uploading}
       />

@@ -8,7 +8,9 @@ import { useEffect, useState } from "react"
 import React from "react"
 import AlertMessages from "@/components/AlertMessages"
 import { StatementsCarousel } from "@/components/statements-carousel"
-import { API_BASE } from "@/constants/api"
+import axiosInstance from "@/lib/axios"
+import { useRouter } from "next/navigation"
+import axios from "axios"
 
 
 export default function Home() {
@@ -19,6 +21,11 @@ export default function Home() {
     subject:'',
     message:''
   })
+
+  const [isInputLoading, setIsInputLoading] = useState(true);
+  const router = useRouter();
+
+
 
   const [profileData, setProfileData] = useState({
         heading: "", 
@@ -59,18 +66,14 @@ export default function Home() {
         contact_description:"",
         contact_sub_heading:"",
         contact_sub_description:"",
+        statement_heading:'',
+        statement_description:'',
+        statement_testimonial:[],
         email:"",
         instagram:"",
         facebook:"",
         linkedin:"",
     });
-
-    const [statementData, setStatementData] = useState({
-      statement_heading:"",
-        statement_description:"",
-        statement_testimonial:[],
-    })
-
 
     const [isLoading, setIsLoading] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
@@ -84,130 +87,58 @@ export default function Home() {
     });
   };
 
-  const handleSubmit = async(e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+
     try {
       setIsLoading(true);
-      const res = await fetch(`${API_BASE}/message`,{
-        method:"POST",
-        headers: { 
-          "Content-Type": "application/json",
-       },
+      
+      const response = await axiosInstance.post('/messages',formData)
+      setFormData(response.data);
 
-        body: JSON.stringify(formData),
-        mode: 'cors',
-      })
-      if (res.ok) {
-        setIsSuccess(true);
-        setIsLoading(false);
-        setAlertMessage("Form Submitted successfully");
+      if (response.status >= 200 && response.status < 300) {
+          setIsSuccess(true);
+          setTimeout(() => {
+          setIsLoading(false);
+          setAlertMessage("Settings Updated");
+          router.push("/");
+          }, 2000);      
       } else {
-        setAlertMessage("Failed to Submit");
-        setIsSuccess(false); 
-        setIsLoading(false);  
+          setAlertMessage("Failed to add settings");
+          setIsSuccess(false); 
+          setIsLoading(false);    
+          console.error("Failed to add", response.status);
+      }  
 
-      }
-    } catch (error) {
-      setAlertMessage("Error submitting form");
-        setIsSuccess(false); 
-        setIsLoading(false);  
-        console.error("Error fetching data:", error);
+      
+    } catch (err) {
+      setAlertMessage("Something Went Wrong...");
+      setIsSuccess(false);
+      setIsLoading(false);
+      console.error(err);
     }
-  }
+  };
 
   useEffect(() => {
-  
   const fetchSettings = async () => {
-      try {
-        const res = await fetch(`${API_BASE}/profile`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          mode: 'cors',
-        });
-        const data = await res.json();
-        setProfileData(data || { 
-            heading: "", 
-        description: "", 
-        designation:"",
-        home_img_url: "",
-        about_heading:"",
-        about_desc:"",
-        about_sub_one_heading : "",
-        about_sub_one_desc:"",
-        about_sub_second_heading:"",
-        about_sub_second_desc:"",
-        about_sub_third_heading:"",
-        about_sub_third_desc:"",
-        about_img_url:"",
-        project_heading:"",
-        project_desc:"",
-        project_sub_one_heading:"",
-        project_sub_one_desc:"",
-        project_sub_one_img_url:"",
-        project_sub_one_url:"",
-        project_sub_second_url:"",
-        project_sub_second_heading :"",
-        project_sub_second_desc:"",
-        project_sub_second_img_url:"",
-        insights_heading:"",
-        insights_desc: "", 
-        insights_sub_one_heading: "", 
-        insights_sub_one_desc:"",
-        insights_sub_one_img_url: "",
-        insights_sub_second_heading:"",
-        insights_sub_second_desc:"",
-        insights_sub_second_img_url : "",
-        insights_sub_third_heading:"",
-        insights_sub_third_desc:"",
-        insights_sub_third_img_url:"",
-        contact_heading:"",
-        contact_description:"",
-        contact_sub_heading:"",
-        contact_sub_description:"",
-        instagram:"",
-        facebook:"",
-        linkedin:"",
-       });
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setIsLoading(false);
+    try {
+      const response = await axios.get("http://127.0.0.1:8000/api/home");
+      if (response && response.data) {
+        setProfileData(response.data);
+      } else {
+        console.error("Failed to fetch home data", response.status);
       }
-    };
+    } catch (error:any) {
+      console.error("Failed to fetch home data", error.message);
+    } finally {
+      setIsLoading(false);
+      setIsInputLoading(false);
+    }
+  };
 
-    fetchSettings();
-  });
-
-
-  useEffect(() => {
-  
-  const fetchStatements = async () => {
-      try {
-        const res = await fetch(`${API_BASE}/statements`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          mode: 'cors',
-        });
-        const data = await res.json();
-        setStatementData(data || { 
-          statement_heading:"",
-        statement_description:"",
-        statement_testimonial:[]
-         });
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchStatements();
-  });
-
+  fetchSettings();
+}, []);
 
 
 
@@ -323,10 +254,10 @@ export default function Home() {
                 </div>
                 <div className="space-y-2">
                   <h3 className="text-2xl font-bold tracking-tighter">{profileData.about_sub_third_heading}</h3>
-                  {profileData?.about_sub_second_desc && (
+                  {profileData?.about_sub_third_desc && (
                     <div
                       className="text-muted-foreground"
-                      dangerouslySetInnerHTML={{ __html: profileData.about_sub_second_desc }}
+                      dangerouslySetInnerHTML={{ __html: profileData.about_sub_third_desc }}
                     />
                   )}
 
@@ -494,9 +425,9 @@ export default function Home() {
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">{statementData.statement_heading}</h2>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">{profileData.statement_heading}</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                {statementData.statement_description}
+                {profileData.statement_description}
                 </p>
               </div>
             </div>

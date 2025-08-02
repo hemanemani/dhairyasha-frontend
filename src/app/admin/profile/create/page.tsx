@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation"
 import { SkeletonCard } from "@/components/SkeletonCart";
 import AlertMessages from "@/components/AlertMessages";
 import { Loader } from "lucide-react";
-import { API_BASE } from "@/constants/api";
+import axiosInstance from "@/lib/axios";
 
 
 
@@ -60,8 +60,8 @@ const CreateProfilePage = ()=>{
 
     try {
       setIsLoading(true);
-      const res = await fetch(`${API_BASE}/profile`, {
-        method: "PATCH",
+      const res = await fetch(`${axiosInstance}/profile`, {
+        method: "put",
         headers: { 
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
@@ -107,7 +107,7 @@ const CreateProfilePage = ()=>{
 
     const fetchSettings = async () => {
       try {
-        const res = await fetch(`${API_BASE}/profile`, {
+        const res = await fetch(`${axiosInstance}/profile`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -150,7 +150,7 @@ const CreateProfilePage = ()=>{
     };
 
     fetchSettings();
-}, [router]);
+}, []);
 
 
 

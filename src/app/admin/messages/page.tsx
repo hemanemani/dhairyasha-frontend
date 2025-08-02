@@ -8,9 +8,7 @@ import { useReactTable, getCoreRowModel, ColumnDef, flexRender,getPaginationRowM
 import { DataTablePagination } from "@/components/admin/data-table-pagination"
 import { SkeletonCard } from "@/components/SkeletonCart"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { useRouter } from "next/navigation"
-import { API_BASE } from "@/constants/api"
-
+import axiosInstance from "@/lib/axios"
 
   
 interface Message{
@@ -31,7 +29,6 @@ const MessageDashboard:React.FC = () => {
   const [pageSize, setPageSize] = useState(10);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const router = useRouter();
 
 
 
@@ -53,47 +50,45 @@ const MessageDashboard:React.FC = () => {
       setFilteredData(filtered);
     };
 
-    useEffect(()=>{
-      const fetchMessages = async()=>{
-        try {
+    useEffect(() => {
+    const fetchMessages = async () => {
+      // setLoading(true); 
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+      console.log("User is not authenticated.");
+      // setLoading(false);
+      return;
+    }
 
-          const token = localStorage.getItem("adminToken");
-          if (!token) {
-            router.push("/login");
-          }
-          const res = await fetch(`${API_BASE}/message`,{
-            method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-              },
-              mode: 'cors',
-
-          })
-
-          if (!res.ok) {
-            if (res.status === 403) {
-                localStorage.removeItem("adminToken");
-                router.push("/login");
-                return;
-            }
-            throw new Error("Failed to fetch data");
-        }
+    try {
+      const response = await axiosInstance.get<Message[]>('/messages', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      
+      if (response && response.data) {
+        const processedData = response.data.map((item) => ({
+          ...item,
           
-          const data = await res.json();
-          setMessages(data);
-          setFilteredData(data);
-          
-        } catch (error) {
-            console.error("Error fetching messages:", error);
-        }
-        finally {
-          setIsLoading(false);
+        }));
+        setMessages(processedData);
+        setFilteredData(processedData)
+      } else {
+        console.error('Failed to fetch messages', response.status);
       }
-      }
-          fetchMessages();
+    } catch (error) {
+      console.error('Error fetching messages:', error);
+    } finally {
+      setIsLoading(false);
+      
+    }
+  }
+      
+    fetchMessages();
+  }, []);
 
-    },[router]);
+  const handleDelete = ()=>{
+    console.log('hello')
+  }
 
 
     const columns: ColumnDef<Message>[] = [
@@ -125,19 +120,7 @@ const MessageDashboard:React.FC = () => {
           return (
             <div className="flex">
             <button
-              onClick={async () => {
-                try {
-                  const res = await fetch(`${API_BASE}/message/${id}`, {
-                    method: "DELETE",
-                  });
-                  if(res.ok){
-                    alert('message delete successfully')
-                  }
-                  setFilteredData((prev) => prev.filter((msg) => msg.id !== id));
-                } catch (err) {
-                  console.error("Delete failed:", err);
-                }
-              }}
+              onClick={handleDelete}
               className="text-red-600 hover:underline mt-[0] mb-[10%] cursor-pointer"
             >
               <Trash2 className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />

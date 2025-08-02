@@ -102,12 +102,27 @@ export function SiteHeader() {
                   Projects
                 </Link>
                 <Link
+                  href={getHref("interests")}
+                  className="text-sm font-medium hover:underline underline-offset-4"
+                  onClick={(e) => handleNavClick(e, "interests")}
+                >
+                  Interests
+                </Link>
+                <Link
+                  href={getHref("statements")}
+                  className="text-sm font-medium hover:underline underline-offset-4"
+                  onClick={(e) => handleNavClick(e, "statements")}
+                >
+                  Statements
+                </Link>
+                <Link
                   href={getHref("contact")}
                   className="text-sm font-medium hover:underline underline-offset-4"
                   onClick={(e) => handleNavClick(e, "contact")}
                 >
                   Contact
                 </Link>
+               
                 <div className="flex items-center mt-2">
                   <span className="text-sm font-medium mr-2">Theme:</span>
                   <ThemeToggle />

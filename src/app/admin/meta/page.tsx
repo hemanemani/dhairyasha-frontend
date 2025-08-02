@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation"
 import { SkeletonCard } from "@/components/SkeletonCart";
 import AlertMessages from "@/components/AlertMessages";
 import { Loader } from "lucide-react";
-import { API_BASE } from "@/constants/api";
+import axiosInstance from "@/lib/axios";
 import { FileUpload } from "@/components/admin/fileUpload";
 import {
   Select,
@@ -53,7 +53,7 @@ const CreateMetaPage = ()=>{
     const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const token = localStorage.getItem("adminToken");
+    const token = localStorage.getItem("authToken");
     if (!token) {
       alert("You are not logged in. Please log in first.");
       router.push("/login");
@@ -62,40 +62,29 @@ const CreateMetaPage = ()=>{
 
     try {
       setIsLoading(true);
-      const updatedFormData = {
-        ...formData,
-        theme: theme,
-      };
-
-      const res = await fetch(`${API_BASE}/profile`, {
-        method: "PATCH",
-        headers: { 
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
+      
+      const response = await axiosInstance.put('/profile',formData,{
+        headers: {
+            'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify(updatedFormData),
-        mode: 'cors',
-      });
+      })
+      setFormData(response.data);
 
-
-      if (res.ok) {
+      if (response.status >= 200 && response.status < 300) {
           setIsSuccess(true);
           setTimeout(() => {
-                setIsLoading(false);
-                setAlertMessage("Site Settings Updated successfully!");
-                router.push("/admin/meta");
-                }, 2000)
-      } else {
-          if (res.status === 403) {
-              localStorage.removeItem("adminToken");
-              router.push("/login");
-              return;
-          }
-          setAlertMessage("Failed to updated");
-          setIsSuccess(false); 
           setIsLoading(false);
-          throw new Error("Failed to fetch data");
-      }
+          setAlertMessage("Settings Updated");
+          router.push("/admin/meta");
+          }, 2000);      
+      } else {
+          setAlertMessage("Failed to add settings");
+          setIsSuccess(false); 
+          setIsLoading(false);    
+          console.error("Failed to add", response.status);
+      }  
+
+      
     } catch (err) {
       setAlertMessage("Something Went Wrong...");
       setIsSuccess(false);
@@ -104,54 +93,37 @@ const CreateMetaPage = ()=>{
     }
   };
 
-
    useEffect(() => {
-    const token = localStorage.getItem("adminToken");
+    const fetchSettings = async () => {
+      // setLoading(true); 
+    const token = localStorage.getItem("authToken");
     if (!token) {
-      router.push("/login");
+      console.log("User is not authenticated.");
+      // setLoading(false);
       return;
     }
 
-    const fetchSettings = async () => {
-      try {
-        const res = await fetch(`${API_BASE}/profile`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-          },
-          mode: 'cors',
-        });
-        if (!res.ok) {
-            if (res.status === 403) {
-                localStorage.removeItem("adminToken");
-                router.push("/login");
-                return;
-            }
-            throw new Error("Failed to fetch data");
-        }
-
-        const data = await res.json();
-        if (data.theme) setTheme(data.theme);
-        setFormData({
-          ...data,
-          meta_title: data.meta_title || '',
-          meta_description: data.meta_description || '',
-          meta_keywords: data.meta_keywords || '',
-          favicon_url: data.favicon_url || '',
-          theme: data.theme || 'system',
-        });
-
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setIsInputLoading(false);
-        setIsLoading(false);
+    try {
+      const response = await axiosInstance.get('/profile', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      
+      if (response && response.data) {
+        setFormData(response.data);
+      } else {
+        console.error('Failed to fetch meta data', response.status);
       }
-    };
-
+    } catch (error) {
+      console.error('Error fetching meta data:', error);
+    } finally {
+      setIsLoading(false);
+      setIsInputLoading(false);
+    }
+  }
+      
     fetchSettings();
-}, [router,setTheme]);
+  }, []);
+
 
       
 

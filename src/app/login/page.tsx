@@ -6,7 +6,7 @@ import { Eye,EyeOff, Loader } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { DarkMode } from "@/components/dark-mode";
-import { API_BASE } from "@/constants/api";
+import axiosInstance from "@/lib/axios";
 
 
 const LoginPage: React.FC = () =>{
@@ -21,7 +21,7 @@ const LoginPage: React.FC = () =>{
 
 
     const router = useRouter();
-    
+  
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 
       e.preventDefault();
@@ -32,50 +32,33 @@ const LoginPage: React.FC = () =>{
       if (!email.trim() || !password.trim()) {
         return;
       }
+  
       try {
         setIsLoading(true);
-        const res = await fetch(`${API_BASE}/login`,{
-          method : "POST",
-          headers:  {"Content-Type": "application/json"},
-          body:JSON.stringify({email,password}),
-          mode: 'cors',
-        })
-
-        const data = await res.json();
-
-
-        if (!res.ok) {
-          setIsLoading(false);
-          setNameError(true);
-          setPasswordError(true);
-          setLoginError(data.message || "Invalid credentials. Try again.");
-          return;
-        }
-        localStorage.setItem("adminToken", data.token);
-          setTimeout(() => {
+        const response = await axiosInstance.post('/login', {
+        email,
+        password,
+      });
+      const token = response.data.token;
+      if (token) {
+        localStorage.setItem('authToken', token);
+        setTimeout(() => {
             setIsLoading(false);
             router.push("/admin/messages");
           }, 1000);
-
-          
-      } catch (error) {
-        setIsLoading(false);
-        setNameError(true);
-        setPasswordError(true);
-        setLoginError(error ? "Invalid Credentials. Try again" : '');
+      } else {
+        setLoginError('Invalid login response.');
       }
-      
+    
+        } catch (error) {
+          setIsLoading(false);
+          setNameError(true);
+          setPasswordError(true);
+          setLoginError(error ? "Invalid Credentials. Try again" : '');
+          
+        } 
   
       };
-
-
-      useEffect(() => {
-        const token = localStorage.getItem("adminToken");
-
-        if (token) {
-          router.replace("/admin/messages");
-        }
-      }, []);
 
 
 
@@ -94,6 +77,7 @@ const LoginPage: React.FC = () =>{
                     value={email} 
                     onChange={(e) => setEmail(e.target.value)} 
                     autoComplete="email"
+                    name="email"
                     disabled={isLoading}
                     />
                   {/* {nameError && <p className="text-sm text-red-500 mt-1">{nameError}</p>} */}
@@ -111,6 +95,7 @@ const LoginPage: React.FC = () =>{
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       autoComplete="current-password"
+                      name="password"
                       disabled={isLoading}
                   />
                   

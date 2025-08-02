@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react"
-import { API_BASE } from "@/constants/api"
+import axiosInstance from "@/lib/axios"
 
 interface Statement {
   id: number;
@@ -20,44 +20,40 @@ interface StatementRow {
 export function StatementsCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
+  const [statements, setStatements] = useState<{ id: 0, text: string; date: string }[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isInputLoading, setIsInputLoading] = useState(true);
 
-  const [statements, setStatements] = useState<Statement[]>([]);
+  // useEffect(() => {
+  //   const fetchSettings = async () => {
+  //     // setLoading(true); 
+  //   const token = localStorage.getItem("authToken");
+  //   if (!token) {
+  //     console.log("User is not authenticated.");
+  //     // setLoading(false);
+  //     return;
+  //   }
 
-  useEffect(() => {
-  
-    const fetchSettings = async () => {
-      try {
-        const res = await fetch(`${API_BASE}/statements`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          mode: 'cors',
-        });
-        const data = await res.json();
-        const parsedTestimonials =
-        typeof data.statement_testimonial === "string"
-          ? JSON.parse(data.statement_testimonial)
-          : data.statement_testimonial;
-
-      // Map backend data to Statement[]
-      const formattedStatements: Statement[] = (parsedTestimonials as StatementRow[]).map(
-        (item, index) => ({
-          id: index + 1,
-          text: item.title || '',
-          date: item.date || ''
-        })
-      );
-
-      setStatements(formattedStatements);
-
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchSettings();
-  },[]);
+  //   try {
+  //     const response = await axiosInstance.get('/profile', {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     });
+      
+  //     if (response && response.data) {
+  //       setStatements(response.data);
+  //     } else {
+  //       console.error('Failed to fetch meta data', response.status);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching meta data:', error);
+  //   } finally {
+  //     setIsLoading(false);
+  //     setIsInputLoading(false);
+  //   }
+  // }
+      
+  //   fetchSettings();
+  // }, []);
 
   const nextStatement = () => {
     if (isAnimating) return
