@@ -11,7 +11,7 @@ import { StatementsCarousel } from "@/components/statements-carousel"
 import axiosInstance from "@/lib/axios"
 import { useRouter } from "next/navigation"
 import axios from "axios"
-
+import { SkeletonCard } from "@/components/SkeletonCart"
 
 export default function Home() {
 
@@ -129,8 +129,8 @@ export default function Home() {
       } else {
         console.error("Failed to fetch home data", response.status);
       }
-    } catch (error:any) {
-      console.error("Failed to fetch home data", error.message);
+    } catch (error) {
+      console.error("Failed to fetch home data");
     } finally {
       setIsLoading(false);
       setIsInputLoading(false);
@@ -151,10 +151,10 @@ export default function Home() {
             <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
               <div className="flex flex-col justify-center space-y-4">
                 <div className="space-y-2">
-                  <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none font-inter">{profileData.heading}</h1>
+                  <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none font-inter">{ isInputLoading ? <SkeletonCard height="h-[36px]" /> : profileData.heading }</h1>
                   <p className="text-xl text-muted-foreground" >{profileData.designation}</p>
                   <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                    {profileData.description}
+                    { isInputLoading ? <SkeletonCard height="h-[36px]" /> : profileData.description}
                   </p>
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
@@ -171,19 +171,19 @@ export default function Home() {
                   </Link>
                 </div>
                 <div className="flex gap-4">
-                  <Link href={`${profileData.facebook}`} target="_blank" rel="noopener noreferrer">
+                  <Link href={`${ isInputLoading ? <SkeletonCard height="h-[36px]" /> : profileData.facebook}`} target="_blank" rel="noopener noreferrer">
                     <Button variant="ghost" size="icon" className="cursor-pointer">
                       <Facebook className="h-4 w-4" />
                       <span className="sr-only">Facebook</span>
                     </Button>
                   </Link>
-                  <Link href={`${profileData.instagram}`} target="_blank" rel="noopener noreferrer">
+                  <Link href={`${ isInputLoading ? <SkeletonCard height="h-[36px]" /> : profileData.instagram}`} target="_blank" rel="noopener noreferrer">
                     <Button variant="ghost" size="icon" className="cursor-pointer">
                       <Instagram className="h-4 w-4" />
                       <span className="sr-only">Instagram</span>
                     </Button>
                   </Link>
-                  <Link href={`${profileData.linkedin}`} target="_blank" rel="noopener noreferrer">
+                  <Link href={`${ isInputLoading ? <SkeletonCard height="h-[36px]" /> : profileData.linkedin}`} target="_blank" rel="noopener noreferrer">
                     <Button variant="ghost" size="icon" className="cursor-pointer">
                       <Linkedin className="h-4 w-4" />
                       <span className="sr-only">Linkedin</span>
@@ -191,10 +191,10 @@ export default function Home() {
                   </Link>
                 </div>
               </div>
-              
+              { isInputLoading ? <SkeletonCard height="h-[36px]" /> :
                 <img
                   src={
-                    profileData.home_img_url
+                      profileData.home_img_url
                       ? `${profileData.home_img_url}`
                       : '/placeholder.svg?height=550&width=550'
                   }
@@ -204,6 +204,7 @@ export default function Home() {
                     className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full cursor-pointer transition-transform duration-200 ease-in-out hover:scale-101"
                   
                 />
+              }
               
              
             </div>
@@ -214,13 +215,14 @@ export default function Home() {
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">{profileData.about_heading}</h2>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">{ isInputLoading ? <SkeletonCard height="h-[36px]" /> :profileData.about_heading}</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  {profileData.about_desc}
+                  { isInputLoading ? <SkeletonCard height="h-[36px]" /> :profileData.about_desc}
                 </p>
               </div>
             </div>
             <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
+              { isInputLoading ? <SkeletonCard height="h-[36px]" /> :
              <img
                   src={
                     profileData.about_img_url
@@ -232,10 +234,11 @@ export default function Home() {
                   alt="DhairyaShah, Founder & CEO"
                     className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full cursor-pointer transition-transform duration-200 ease-in-out hover:scale-101"
                 />
+              }
               <div className="flex flex-col justify-center space-y-4">
                 <div className="space-y-2">
-                  <h3 className="text-2xl font-bold tracking-tighter">{profileData.about_sub_one_heading}</h3>
-                    {profileData && (
+                  <h3 className="text-2xl font-bold tracking-tighter">{ isInputLoading ? <SkeletonCard height="h-[36px]" /> :profileData.about_sub_one_heading}</h3>
+                    { isInputLoading ? <SkeletonCard height="h-[36px]" /> :profileData && (
                       <p
                         className="text-md text-muted-foreground"
                         dangerouslySetInnerHTML={{ __html: profileData.about_sub_one_desc }}
@@ -244,8 +247,8 @@ export default function Home() {
                   
                 </div>
                 <div className="space-y-2">
-                  <h3 className="text-2xl font-bold tracking-tighter">{profileData.about_sub_second_heading}</h3>
-                    {profileData && (
+                  <h3 className="text-2xl font-bold tracking-tighter">{ isInputLoading ? <SkeletonCard height="h-[36px]" /> : profileData.about_sub_second_heading}</h3>
+                    { isInputLoading ? <SkeletonCard height="h-[36px]" /> : profileData && (
                       <p
                         className="text-md text-muted-foreground"
                         dangerouslySetInnerHTML={{ __html: profileData.about_sub_second_desc }}
@@ -253,8 +256,8 @@ export default function Home() {
                     )}
                 </div>
                 <div className="space-y-2">
-                  <h3 className="text-2xl font-bold tracking-tighter">{profileData.about_sub_third_heading}</h3>
-                  {profileData?.about_sub_third_desc && (
+                  <h3 className="text-2xl font-bold tracking-tighter">{ isInputLoading ? <SkeletonCard height="h-[36px]" /> : profileData.about_sub_third_heading}</h3>
+                  { isInputLoading ? <SkeletonCard height="h-[36px]" /> : profileData?.about_sub_third_desc && (
                     <div
                       className="text-muted-foreground"
                       dangerouslySetInnerHTML={{ __html: profileData.about_sub_third_desc }}
@@ -272,9 +275,9 @@ export default function Home() {
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">{profileData.project_heading}</h2>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">{ isInputLoading ? <SkeletonCard height="h-[36px]" /> : profileData.project_heading}</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  {profileData.project_desc}
+                  { isInputLoading ? <SkeletonCard height="h-[36px]" /> : profileData.project_desc}
                 </p>
               </div>
             </div>
@@ -283,7 +286,8 @@ export default function Home() {
               <div className="col-span-1"></div>
               <div className="col-span-2 group relative overflow-hidden rounded-lg border">
                 <div className="aspect-video overflow-hidden bg-white flex justify-center">
-                  <Link href={`${profileData.project_sub_one_url}`}>
+                  <Link href={`${ isInputLoading ? <SkeletonCard height="h-[36px]" /> :profileData.project_sub_one_url}`}>
+                  { isInputLoading ? <SkeletonCard height="h-[36px]" /> :
                   <img
                   src={
                     profileData.project_sub_one_img_url
@@ -295,14 +299,15 @@ export default function Home() {
                   alt="DhairyaShah, Founder & CEO"
                   className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full cursor-pointer transition-transform group-hover:scale-105"
                 />
+                }
                 </Link>
                 </div>
                 <div className="p-4">
                   <h3 className="text-xl font-bold">{profileData.project_sub_one_heading}</h3>
                   <p className="text-sm text-muted-foreground">
-                    {profileData.project_sub_one_desc}
+                    { isInputLoading ? <SkeletonCard height="h-[36px]" /> : profileData.project_sub_one_desc}
                   </p>
-                  <Button variant="link" className="mt-2 p-0 cursor-pointer" onClick={() => window.open(`${profileData.project_sub_one_url}`, "_blank", "noopener,noreferrer")}>
+                  <Button variant="link" className="mt-2 p-0 cursor-pointer" onClick={() => window.open(`${ isInputLoading ? <SkeletonCard height="h-[36px]" /> :profileData.project_sub_one_url}`, "_blank", "noopener,noreferrer")}>
                       Visit Website
                       <ArrowRight className="ml-1 h-4 w-4" />
                     </Button>
@@ -310,7 +315,8 @@ export default function Home() {
               </div>
               <div className="col-span-2 group relative overflow-hidden rounded-lg border">
                 <div className="aspect-video overflow-hidden bg-white flex justify-center">
-                  <Link href={`${profileData.project_sub_second_url}`}>
+                  <Link href={`${ isInputLoading ? <SkeletonCard height="h-[36px]" /> :profileData.project_sub_second_url}`}>
+                  { isInputLoading ? <SkeletonCard height="h-[36px]" /> :
                   <img
                   src={
                     profileData.project_sub_second_img_url
@@ -322,14 +328,15 @@ export default function Home() {
                   alt="DhairyaShah, Founder & CEO"
                   className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full cursor-pointer transition-transform group-hover:scale-105"
                 />
+                }
                 </Link>
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-bold">{profileData.project_sub_second_heading}</h3>
+                  <h3 className="text-xl font-bold">{ isInputLoading ? <SkeletonCard height="h-[36px]" /> :profileData.project_sub_second_heading}</h3>
                   <p className="text-sm text-muted-foreground">
-                    {profileData.project_sub_second_desc}
+                    { isInputLoading ? <SkeletonCard height="h-[36px]" /> :profileData.project_sub_second_desc}
                   </p>
-                  <Button variant="link" className="mt-2 p-0 cursor-pointer" onClick={() => window.open(`${profileData.project_sub_second_url}`, "_blank", "noopener,noreferrer")}>
+                  <Button variant="link" className="mt-2 p-0 cursor-pointer" onClick={() => window.open(`${ isInputLoading ? <SkeletonCard height="h-[36px]" /> :profileData.project_sub_second_url}`, "_blank", "noopener,noreferrer")}>
                       Visit Website
                       <ArrowRight className="ml-1 h-4 w-4" />
                     </Button>
@@ -346,15 +353,16 @@ export default function Home() {
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">{profileData.insights_heading}</h2>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">{ isInputLoading ? <SkeletonCard height="h-[36px]" /> :profileData.insights_heading}</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  {profileData.insights_desc}
+                  { isInputLoading ? <SkeletonCard height="h-[36px]" /> :profileData.insights_desc}
                 </p>
               </div>
             </div>
             <div className="mx-auto grid max-w-5xl gap-8 py-12 sm:grid-cols-2 lg:grid-cols-3">
               <div className="group relative overflow-hidden rounded-lg border bg-background">
                 <div className="aspect-video overflow-hidden">
+                  { isInputLoading ? <SkeletonCard height="h-[36px]" /> :
                   <img
                     src={
                     profileData.insights_sub_one_img_url
@@ -366,16 +374,18 @@ export default function Home() {
                     alt="The Future of E-Commerce"
                     className="object-cover transition-transform group-hover:scale-105 cursor-pointer"
                   />
+                }
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-bold">{profileData.insights_sub_one_heading}</h3>
+                  <h3 className="text-xl font-bold">{ isInputLoading ? <SkeletonCard height="h-[36px]" /> :profileData.insights_sub_one_heading}</h3>
                   <p className="text-sm text-muted-foreground">
-                    {profileData.insights_sub_one_desc} 
+                    { isInputLoading ? <SkeletonCard height="h-[36px]" /> :profileData.insights_sub_one_desc} 
                   </p>
                 </div>
               </div>
               <div className="group relative overflow-hidden rounded-lg border bg-background">
                 <div className="aspect-video overflow-hidden">
+                  { isInputLoading ? <SkeletonCard height="h-[36px]" /> :
                   <img
                     src={
                     profileData.insights_sub_second_img_url
@@ -387,16 +397,18 @@ export default function Home() {
                     alt="The Future of E-Commerce"
                     className="object-cover transition-transform group-hover:scale-105 cursor-pointer"
                   />
+                }
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-bold">{profileData.insights_sub_second_heading}</h3>
+                  <h3 className="text-xl font-bold">{ isInputLoading ? <SkeletonCard height="h-[36px]" /> :profileData.insights_sub_second_heading}</h3>
                   <p className="text-sm text-muted-foreground">
-                    {profileData.insights_sub_second_desc}
+                    { isInputLoading ? <SkeletonCard height="h-[36px]" /> :profileData.insights_sub_second_desc}
                   </p>
                 </div>
               </div>
               <div className="group relative overflow-hidden rounded-lg border bg-background">
                 <div className="aspect-video overflow-hidden">
+                  { isInputLoading ? <SkeletonCard height="h-[36px]" /> :
                   <img
                     src={
                     profileData.insights_sub_third_img_url
@@ -408,11 +420,12 @@ export default function Home() {
                     alt="The Future of E-Commerce"
                     className="object-cover transition-transform group-hover:scale-105 cursor-pointer"
                   />
+                }
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-bold">{profileData.insights_sub_third_heading}</h3>
+                  <h3 className="text-xl font-bold">{ isInputLoading ? <SkeletonCard height="h-[36px]" /> :profileData.insights_sub_third_heading}</h3>
                   <p className="text-sm text-muted-foreground">
-                    {profileData.insights_sub_third_desc} 
+                    { isInputLoading ? <SkeletonCard height="h-[36px]" /> :profileData.insights_sub_third_desc} 
                   </p>
                  
                 </div>
@@ -425,9 +438,9 @@ export default function Home() {
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">{profileData.statement_heading}</h2>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">{ isInputLoading ? <SkeletonCard height="h-[36px]" /> :profileData.statement_heading}</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                {profileData.statement_description}
+                { isInputLoading ? <SkeletonCard height="h-[36px]" /> :profileData.statement_description}
                 </p>
               </div>
             </div>
@@ -441,9 +454,9 @@ export default function Home() {
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">{profileData.contact_heading}</h2>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">{ isInputLoading ? <SkeletonCard height="h-[36px]" /> :profileData.contact_heading}</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  {profileData.contact_description}
+                  { isInputLoading ? <SkeletonCard height="h-[36px]" /> :profileData.contact_description}
                 </p>
               </div>
             </div>
@@ -451,28 +464,28 @@ export default function Home() {
               <div className="space-y-4">
                 <div className="flex items-center space-x-3 cursor-pointer">
                   <Mail className="h-5 w-5" />
-                  <p>{profileData.email}</p>
+                  <p>{ isInputLoading ? <SkeletonCard height="h-[36px]" /> :profileData.email}</p>
                 </div>
                 <div className="space-y-2">
                   <h3 className="text-xl font-bold">{profileData.contact_sub_heading}</h3>
                   <p className="text-muted-foreground">
-                    {profileData.contact_sub_description}
+                    { isInputLoading ? <SkeletonCard height="h-[36px]" /> :profileData.contact_sub_description}
                   </p>
                 </div>
                 <div className="flex gap-4">
-                  <Link href={`${profileData.facebook}`} target="_blank" rel="noopener noreferrer">
+                  <Link href={`${ isInputLoading ? <SkeletonCard height="h-[36px]" /> :profileData.facebook}`} target="_blank" rel="noopener noreferrer">
                     <Button variant="outline" size="icon" className="cursor-pointer">
                       <Facebook className="h-4 w-4" />
                       <span className="sr-only">Facebook</span>
                     </Button>
                   </Link>
-                  <Link href={`${profileData.instagram}`} target="_blank" rel="noopener noreferrer">
+                  <Link href={`${ isInputLoading ? <SkeletonCard height="h-[36px]" /> :profileData.instagram}`} target="_blank" rel="noopener noreferrer">
                     <Button variant="outline" size="icon" className="cursor-pointer">
                       <Instagram className="h-4 w-4" />
                       <span className="sr-only">Instagram</span>
                     </Button>
                   </Link>
-                  <Link href={`${profileData.linkedin}`} target="_blank" rel="noopener noreferrer">
+                  <Link href={`${ isInputLoading ? <SkeletonCard height="h-[36px]" /> :profileData.linkedin}`} target="_blank" rel="noopener noreferrer">
                     <Button variant="outline" size="icon" className="cursor-pointer">
                       <Linkedin className="h-4 w-4" />
                       <span className="sr-only">Linkedin</span>

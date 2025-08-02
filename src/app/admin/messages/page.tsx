@@ -115,8 +115,7 @@ const MessageDashboard:React.FC = () => {
       {
         id: "actions",
         header: "Actions",
-        cell: ({ row }) => {
-          const id = row.original.id;
+        cell: () => {
           return (
             <div className="flex">
             <button

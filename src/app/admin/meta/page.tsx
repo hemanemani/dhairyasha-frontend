@@ -35,7 +35,7 @@ const CreateMetaPage = ()=>{
     const [alertMessage, setAlertMessage] = useState("");
     const [isSuccess, setIsSuccess] = useState(false);
     const [isInputLoading, setIsInputLoading] = useState(true);
-    const { setTheme, theme } = useTheme();
+    const { setTheme } = useTheme();
 
 
 

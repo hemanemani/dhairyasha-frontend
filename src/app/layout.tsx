@@ -1,7 +1,27 @@
 import { ThemeProvider } from "@/components/theme-provider"
 import type { Metadata } from "next";
 import "./globals.css";
-import axiosInstance from "@/lib/axios";
+import axios from "axios";
+
+
+export async function generateMetadata(): Promise<Metadata> {
+  try {
+    const res = await axios.get("http://127.0.0.1:8000/api/home");
+    const data = res.data;
+
+    return {
+      title: data.meta_title || "Dhairya Shah – Founder of Orgenik Bulk",
+      description: data.meta_description || "Discover Dhairya Shah, CEO of Orgenik, leading India’s organic revolution through sustainable e-commerce. Explore his expertise, projects, and vision.",
+      keywords: data.keywords || "Dhairya Shah, Orgenik, Orgenik Bulk, organic agriculture, e-commerce, ethical sourcing, B2B marketplace, Indian organic products, organic, natural",
+    };
+  } catch (error) {
+    console.error("Error fetching meta data:", error);
+    return {
+      title: "Profile",
+      description: "View your profile information.",
+    };
+  }
+}
 
 
 

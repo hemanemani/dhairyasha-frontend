@@ -150,7 +150,7 @@ const CreateProfilePage = ()=>{
     };
 
     fetchSettings();
-}, []);
+}, [router]);
 
 
 

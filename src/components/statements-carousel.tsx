@@ -4,18 +4,8 @@ import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react"
 import axiosInstance from "@/lib/axios"
+import { SkeletonCard } from "./SkeletonCart"
 
-interface Statement {
-  id: number;
-  text: string;
-  date: string;
-}
-
-interface StatementRow {
-  id: number;
-  title: string;
-  date: string;
-}
 
 export function StatementsCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -24,36 +14,36 @@ export function StatementsCarousel() {
   const [isLoading, setIsLoading] = useState(false);
   const [isInputLoading, setIsInputLoading] = useState(true);
 
-  // useEffect(() => {
-  //   const fetchSettings = async () => {
-  //     // setLoading(true); 
-  //   const token = localStorage.getItem("authToken");
-  //   if (!token) {
-  //     console.log("User is not authenticated.");
-  //     // setLoading(false);
-  //     return;
-  //   }
+  useEffect(() => {
+    const fetchSettings = async () => {
+      // setLoading(true); 
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+      console.log("User is not authenticated.");
+      // setLoading(false);
+      return;
+    }
 
-  //   try {
-  //     const response = await axiosInstance.get('/profile', {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     });
+    try {
+      const response = await axiosInstance.get('/profile', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       
-  //     if (response && response.data) {
-  //       setStatements(response.data);
-  //     } else {
-  //       console.error('Failed to fetch meta data', response.status);
-  //     }
-  //   } catch (error) {
-  //     console.error('Error fetching meta data:', error);
-  //   } finally {
-  //     setIsLoading(false);
-  //     setIsInputLoading(false);
-  //   }
-  // }
+      if (response && response.data) {
+        setStatements(response.data);
+      } else {
+        console.error('Failed to fetch meta data', response.status);
+      }
+    } catch (error) {
+      console.error('Error fetching meta data:', error);
+    } finally {
+      setIsLoading(false);
+      setIsInputLoading(false);
+    }
+  }
       
-  //   fetchSettings();
-  // }, []);
+    fetchSettings();
+  }, []);
 
   const nextStatement = () => {
     if (isAnimating) return
@@ -98,10 +88,10 @@ export function StatementsCarousel() {
                   <div className="text-center space-y-4">
                     <Quote className="h-8 w-8 mx-auto text-muted-foreground" />
                     <blockquote className="text-lg md:text-xl font-medium leading-relaxed max-w-3xl">
-                      &quot;{statements[currentIndex].text}&quot;
+                      &quot;{isInputLoading ? <SkeletonCard height="h-[36px]" /> : statements[currentIndex].text}&quot;
                     </blockquote>
                     <div className="space-y-1">
-                      <p className="text-xs text-muted-foreground">{statements[currentIndex].date}</p>
+                      <p className="text-xs text-muted-foreground">{isInputLoading ? <SkeletonCard height="h-[36px]" /> : statements[currentIndex].date}</p>
                     </div>
                   </div>
                 </div>
@@ -136,7 +126,7 @@ export function StatementsCarousel() {
         </>
           ) : (
           <div className="text-center py-8 text-muted-foreground">
-            No statements available.
+            {isLoading && <SkeletonCard height="h-[64px]" />}
           </div>
         )}
     </div>
