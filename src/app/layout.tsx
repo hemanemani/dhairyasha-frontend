@@ -1,12 +1,12 @@
 import { ThemeProvider } from "@/components/theme-provider"
 import type { Metadata } from "next";
 import "./globals.css";
-import axios from "axios";
+import axiosInstance from "@/lib/axios";
 
 
 export async function generateMetadata(): Promise<Metadata> {
   try {
-    const res = await axios.get("http://127.0.0.1:8000/api/home");
+    const res = await axiosInstance.get("/home");
     const data = res.data;
 
     return {
