@@ -31,17 +31,22 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   let savedTheme = "system";
+  let faviconUrl = "";
 
   try {
-    const res = await axiosInstance.get("/home"); // adjust to your theme API if separate
+    const res = await axiosInstance.get("/home");
     savedTheme = res.data.theme || "light";
+    faviconUrl = res.data.favicon_url || "";
   } catch (err) {
     console.error("Failed to fetch theme:", err);
   }
   
   return (
     <html lang="en" suppressHydrationWarning>
-      <head />
+      <head>
+        <link rel="icon" type="any" href={faviconUrl} />
+        <link rel="shortcut icon" href={faviconUrl} />
+      </head> 
       <body>
         <ThemeProvider
           attribute="class"
