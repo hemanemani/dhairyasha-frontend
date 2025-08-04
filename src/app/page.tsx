@@ -10,6 +10,8 @@ import AlertMessages from "@/components/AlertMessages"
 import { StatementsCarousel } from "@/components/statements-carousel"
 import axiosInstance from "@/lib/axios"
 import { useRouter } from "next/navigation"
+import { SkeletonCard } from "@/components/SkeletonCart"
+
 
 export default function Home() {
 
@@ -75,6 +77,7 @@ export default function Home() {
     const [isLoading, setIsLoading] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
     const [isSuccess, setIsSuccess] = useState(false);
+    const [isInputLoading, setIsInputLoading] = useState(true);
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -86,12 +89,21 @@ export default function Home() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+      alert("You are not logged in. Please log in first.");
+      router.push("/login");
+      return;
+    }
 
     try {
       setIsLoading(true);
       
-      const response = await axiosInstance.post('/messages',formData)
+      const response = await axiosInstance.post('/messages',formData,{
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+      })
       setFormData(response.data);
 
       if (response.status >= 200 && response.status < 300) {
@@ -130,6 +142,8 @@ export default function Home() {
       console.error("Failed to fetch home data", error);
     } finally {
       setIsLoading(false);
+      setIsInputLoading(false);
+
     }
   };
 
@@ -146,13 +160,18 @@ export default function Home() {
           <div className="container px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
               <div className="flex flex-col justify-center space-y-4">
+                { isInputLoading ? <SkeletonCard height="h-[150px]" /> :
                 <div className="space-y-2">
+                  
                   <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none font-inter">{profileData.heading}</h1>
                   <p className="text-xl text-muted-foreground" >{profileData.designation}</p>
                   <p className="max-w-[600px] text-muted-foreground md:text-xl">
                     {profileData.description}
                   </p>
+                 
                 </div>
+                 }
+                { isInputLoading ? <SkeletonCard height="h-[50px]" /> :
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
                   <Link href="#contact">
                     <Button className="w-full min-[400px]:w-auto cursor-pointer">
@@ -160,12 +179,16 @@ export default function Home() {
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </Link>
+                    
                   <Link href="#projects">
                     <Button variant="outline" className="w-full min-[400px]:w-auto cursor-pointer">
                       View Projects
                     </Button>
                   </Link>
                 </div>
+                }
+
+                { isInputLoading ? <SkeletonCard height="h-[30px]" /> :
                 <div className="flex gap-4">
                   <Link href={`${profileData.facebook}`} target="_blank" rel="noopener noreferrer">
                     <Button variant="ghost" size="icon" className="cursor-pointer">
@@ -186,8 +209,9 @@ export default function Home() {
                     </Button>
                   </Link>
                 </div>
+                }
               </div>
-              
+              { isInputLoading ? <SkeletonCard height="h-[550px]" /> :
                 <img
                   src={
                     profileData.home_img_url
@@ -200,23 +224,27 @@ export default function Home() {
                     className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full cursor-pointer transition-transform duration-200 ease-in-out hover:scale-101"
                   
                 />
+              }
               
              
             </div>
           </div>
         </section>
 
-        <section id="about" className="w-full py-3 md:py-6 lg:py-12 bg-muted">
+        <section id="about" className="w-full py-3 md:py-6 lg:py-12 bg-[#161616]">
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
+              { isInputLoading ? <SkeletonCard height="h-[30px]" /> :
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">{profileData.about_heading}</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   {profileData.about_desc}
                 </p>
               </div>
+              }
             </div>
             <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
+              { isInputLoading ? <SkeletonCard height="h-[550px]" /> :
              <img
                   src={
                     profileData.about_img_url
@@ -228,7 +256,9 @@ export default function Home() {
                   alt="DhairyaShah, Founder & CEO"
                     className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full cursor-pointer transition-transform duration-200 ease-in-out hover:scale-101"
                 />
+                }
               <div className="flex flex-col justify-center space-y-4">
+                { isInputLoading ? <SkeletonCard height="h-[250px]" /> :
                 <div className="space-y-2">
                   <h3 className="text-2xl font-bold tracking-tighter">{profileData.about_sub_one_heading}</h3>
                     {profileData && (
@@ -239,6 +269,8 @@ export default function Home() {
                     )}
                   
                 </div>
+                }
+                { isInputLoading ? <SkeletonCard height="h-[250px]" /> :
                 <div className="space-y-2">
                   <h3 className="text-2xl font-bold tracking-tighter">{profileData.about_sub_second_heading}</h3>
                     {profileData && (
@@ -248,6 +280,8 @@ export default function Home() {
                       />
                     )}
                 </div>
+                }
+                { isInputLoading ? <SkeletonCard height="h-[250px]" /> :
                 <div className="space-y-2">
                   <h3 className="text-2xl font-bold tracking-tighter">{profileData.about_sub_third_heading}</h3>
                   {profileData?.about_sub_third_desc && (
@@ -258,26 +292,32 @@ export default function Home() {
                   )}
 
                 </div>
+                }
               </div>
                
             </div>
           </div>
         </section>
+    
 
         <section id="projects" className="w-full py-3 md:py-6 lg:py-12">
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
+              { isInputLoading ? <SkeletonCard height="h-[30px]" /> :
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">{profileData.project_heading}</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   {profileData.project_desc}
                 </p>
               </div>
+              }
             </div>
             
             <div className="mx-auto grid gap-8 py-12 sm:grid-cols-2 md:grid-col-6 lg:grid-cols-6">
               <div className="col-span-1"></div>
               <div className="col-span-2 group relative overflow-hidden rounded-lg border">
+                { isInputLoading ? <SkeletonCard height="h-[400px]" /> :
+                <>
                 <div className="aspect-video overflow-hidden bg-white flex justify-center">
                     <Link
                       href={profileData.project_sub_one_url || "#"}
@@ -307,8 +347,14 @@ export default function Home() {
                       <ArrowRight className="ml-1 h-4 w-4" />
                     </Button>
                 </div>
+                </>
+                }
               </div>
+              
+             
               <div className="col-span-2 group relative overflow-hidden rounded-lg border">
+                { isInputLoading ? <SkeletonCard height="h-[400px]" /> :
+                <>
                 <div className="aspect-video overflow-hidden bg-white flex justify-center">
                   <Link
                       href={profileData.project_sub_second_img_url || "#"}
@@ -338,15 +384,20 @@ export default function Home() {
                       <ArrowRight className="ml-1 h-4 w-4" />
                     </Button>
                 </div>
+                </>
+                }
               </div>
+          
+             
               <div className="col-span-1"></div>
-
+ 
             </div>
+            
             
           </div>
         </section>
 
-         <section id="interests" className="w-full py-3 md:py-6 lg:py-12 bg-muted">
+         <section id="interests" className="w-full py-3 md:py-6 lg:py-12 bg-[#161616]">
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -357,6 +408,7 @@ export default function Home() {
               </div>
             </div>
             <div className="mx-auto grid max-w-5xl gap-8 py-12 sm:grid-cols-2 lg:grid-cols-3">
+              { isInputLoading ? <SkeletonCard height="h-[300px]" /> : 
               <div className="group relative overflow-hidden rounded-lg border bg-background">
                 <div className="aspect-video overflow-hidden">
                   <img
@@ -379,6 +431,8 @@ export default function Home() {
                   </p>
                 </div>
               </div>
+              }
+              { isInputLoading ? <SkeletonCard height="h-[300px]" /> : 
               <div className="group relative overflow-hidden rounded-lg border bg-background">
                 <div className="aspect-video overflow-hidden">
                   <img
@@ -401,6 +455,8 @@ export default function Home() {
                   </p>
                 </div>
               </div>
+              }
+              { isInputLoading ? <SkeletonCard height="h-[300px]" /> : 
               <div className="group relative overflow-hidden rounded-lg border bg-background">
                 <div className="aspect-video overflow-hidden">
                   <img
@@ -424,6 +480,7 @@ export default function Home() {
                  
                 </div>
               </div>
+              }
             </div>
           </div>
         </section>
@@ -431,15 +488,19 @@ export default function Home() {
         <section id="statements" className="w-full py-3 md:py-6 lg:py-12">
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
+              { isInputLoading ? <SkeletonCard height="h-[40px]" /> :
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">{profileData.statement_heading}</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                 {profileData.statement_description}
                 </p>
               </div>
+              }
             </div>
             <div className="mx-auto max-w-5xl py-12">
+              { isInputLoading ? <SkeletonCard height="h-[300px]" /> :
               <StatementsCarousel />
+              }
             </div>
           </div>
         </section>
@@ -447,25 +508,32 @@ export default function Home() {
         <section id="contact" className="w-full py-3 md:py-6 lg:py-12">
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
+              { isInputLoading ? <SkeletonCard height="h-[40px]" /> :
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">{profileData.contact_heading}</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   {profileData.contact_description}
                 </p>
               </div>
+              }
             </div>
             <div className="mx-auto grid max-w-5xl gap-8 py-12 md:grid-cols-2">
               <div className="space-y-4">
+                { isInputLoading ? <SkeletonCard height="h-[40px]" /> :
                 <div className="flex items-center space-x-3 cursor-pointer">
                   <Mail className="h-5 w-5" />
                   <p>{profileData.email}</p>
                 </div>
+                }
+                { isInputLoading ? <SkeletonCard height="h-[40px]" /> :
                 <div className="space-y-2">
                   <h3 className="text-xl font-bold">{profileData.contact_sub_heading}</h3>
                   <p className="text-muted-foreground">
                     {profileData.contact_sub_description}
                   </p>
                 </div>
+                }
+                { isInputLoading ? <SkeletonCard height="h-[40px]" /> :
                 <div className="flex gap-4">
                   <Link href={`${profileData.facebook}`} target="_blank" rel="noopener noreferrer">
                     <Button variant="outline" size="icon" className="cursor-pointer">
@@ -486,6 +554,7 @@ export default function Home() {
                     </Button>
                   </Link>
                 </div>
+                }
               </div>
               <div className="space-y-4">
                 <form className="space-y-4" onSubmit={handleSubmit}>
@@ -497,6 +566,7 @@ export default function Home() {
                       >
                         Name
                       </label>
+                      { isInputLoading ? <SkeletonCard height="h-[36px]" /> : 
                       <input
                         id="name"
                         className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
@@ -504,7 +574,7 @@ export default function Home() {
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                      />
+                      />}
                     </div>
                     <div className="space-y-2">
                       <label
@@ -513,6 +583,7 @@ export default function Home() {
                       >
                         Email
                       </label>
+                      { isInputLoading ? <SkeletonCard height="h-[36px]" /> :
                       <input
                         id="email"
                         type="email"
@@ -522,6 +593,7 @@ export default function Home() {
                         value={formData.email}
                         onChange={handleChange}
                       />
+                      }
                     </div>
                   </div>
                   <div className="space-y-2">
@@ -531,6 +603,7 @@ export default function Home() {
                     >
                       Subject
                     </label>
+                    { isInputLoading ? <SkeletonCard height="h-[36px]" /> :
                     <input
                       id="subject"
                       className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
@@ -539,6 +612,7 @@ export default function Home() {
                       value={formData.subject}
                       onChange={handleChange}
                     />
+                    }
                   </div>
                   <div className="space-y-2">
                     <label
@@ -547,6 +621,7 @@ export default function Home() {
                     >
                       Message
                     </label>
+                    { isInputLoading ? <SkeletonCard height="h-[120px]" /> :
                     <textarea
                       id="message"
                       name="message"
@@ -555,6 +630,7 @@ export default function Home() {
                       value={formData.message}
                       onChange={handleChange}
                     />
+                    }
                   </div>
                   <Button 
                     type="submit"
