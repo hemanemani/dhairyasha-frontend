@@ -290,10 +290,10 @@ export default function Home() {
                             ? profileData.project_sub_one_img_url
                             : "/placeholder.svg?height=550&width=550"
                         }
-                        width={550}
-                        height={550}
+                        width={500}
                         alt="Dhairya Shah, Founder & CEO"
                         className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full cursor-pointer transition-transform group-hover:scale-105"
+                        style={{ height: "-webkit-fill-available", width:"500px" }}
                       />
                     </Link>
                 </div>
@@ -321,10 +321,10 @@ export default function Home() {
                       ? `${profileData.project_sub_second_img_url}`
                       : '/placeholder.svg?height=550&width=550'
                   }
-                  width={550}
-                  height={550}
+                  width={500}
                   alt="DhairyaShah, Founder & CEO"
                   className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full cursor-pointer transition-transform group-hover:scale-105"
+                  style={{ height: "-webkit-fill-available", width:"500px" }}
                 />
                 </Link>
                 </div>
@@ -369,6 +369,7 @@ export default function Home() {
                     height={300}
                     alt="The Future of E-Commerce"
                     className="object-cover transition-transform group-hover:scale-105 cursor-pointer"
+                    style={{ height: "-webkit-fill-available" }}
                   />
                 </div>
                 <div className="p-4">
@@ -390,6 +391,7 @@ export default function Home() {
                     height={300}
                     alt="The Future of E-Commerce"
                     className="object-cover transition-transform group-hover:scale-105 cursor-pointer"
+                    style={{ height: "-webkit-fill-available" }}
                   />
                 </div>
                 <div className="p-4">
@@ -411,6 +413,7 @@ export default function Home() {
                     height={300}
                     alt="The Future of E-Commerce"
                     className="object-cover transition-transform group-hover:scale-105 cursor-pointer"
+                    style={{ height: "-webkit-fill-available" }}
                   />
                 </div>
                 <div className="p-4">
