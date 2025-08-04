@@ -189,3 +189,9 @@
   }
 }
 
+.focus-visible\:ring-2:focus-visible, .focus-visible\:ring-\[3px\]:focus-visible{
+  box-shadow: none !important;
+    --tw-ring-shadow : none !important
+
+}
+
