@@ -10,13 +10,12 @@ import { SkeletonCard } from "./SkeletonCart"
 export function StatementsCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
-  const [statements, setStatements] = useState<{ id: 0, text: string; date: string }[]>([]);
+  const [statements, setStatements] = useState<{ id: 0, title: string; date: string }[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isInputLoading, setIsInputLoading] = useState(true);
 
   useEffect(() => {
     const fetchSettings = async () => {
-      // setLoading(true); 
     const token = localStorage.getItem("authToken");
     if (!token) {
       console.log("User is not authenticated.");
@@ -30,7 +29,7 @@ export function StatementsCarousel() {
       });
       
       if (response && response.data) {
-        setStatements(response.data);
+        setStatements(response.data.statement_testimonial);
       } else {
         console.error('Failed to fetch meta data', response.status);
       }
@@ -88,7 +87,7 @@ export function StatementsCarousel() {
                   <div className="text-center space-y-4">
                     <Quote className="h-8 w-8 mx-auto text-muted-foreground" />
                     <blockquote className="text-lg md:text-xl font-medium leading-relaxed max-w-3xl">
-                      &quot;{isInputLoading ? <SkeletonCard height="h-[36px]" /> : statements[currentIndex].text}&quot;
+                      &quot;{isInputLoading ? <SkeletonCard height="h-[36px]" /> : statements[currentIndex].title}&quot;
                     </blockquote>
                     <div className="space-y-1">
                       <p className="text-xs text-muted-foreground">{isInputLoading ? <SkeletonCard height="h-[36px]" /> : statements[currentIndex].date}</p>

@@ -30,8 +30,14 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const theme = "system"; // default fallback
+  let savedTheme = "system";
 
+  try {
+    const res = await axiosInstance.get("/home"); // adjust to your theme API if separate
+    savedTheme = res.data.theme || "light";
+  } catch (err) {
+    console.error("Failed to fetch theme:", err);
+  }
   
   return (
     <html lang="en" suppressHydrationWarning>
@@ -39,7 +45,7 @@ export default async function RootLayout({
       <body>
         <ThemeProvider
           attribute="class"
-          defaultTheme={theme}
+          defaultTheme={savedTheme}
           enableSystem={false}
           storageKey="theme"
         >

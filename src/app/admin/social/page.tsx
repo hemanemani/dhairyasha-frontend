@@ -49,7 +49,11 @@ const CreateSocialPage = ()=>{
             'Authorization': `Bearer ${token}`,
         },
       })
-      setFormData(response.data);
+
+      setFormData((prev) => ({
+        ...prev,
+        ...response.data,
+      }));
 
       if (response.status >= 200 && response.status < 300) {
           setIsSuccess(true);

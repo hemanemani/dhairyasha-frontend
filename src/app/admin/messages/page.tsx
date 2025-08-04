@@ -86,9 +86,36 @@ const MessageDashboard:React.FC = () => {
     fetchMessages();
   }, []);
 
-  const handleDelete = ()=>{
-    console.log('hello')
-  }
+  const handleDelete = async (id: number) => {
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+      console.log("User is not authenticated.");
+      return;
+    }
+
+    try {
+      const confirmDelete = window.confirm("Are you sure you want to delete this message?");
+      if (!confirmDelete) return;
+
+      const response = await axiosInstance.delete(`/messages/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.status === 200 || response.status === 204) {
+        // Remove the deleted message from state
+        setMessages((prev) => prev.filter((msg) => msg.id !== id));
+        setFilteredData((prev) => prev.filter((msg) => msg.id !== id));
+        console.log("✅ Message deleted successfully");
+      } else {
+        console.error("❌ Failed to delete message", response.status);
+      }
+    } catch (error) {
+      console.error("❌ Error deleting message:", error);
+    }
+  };
+
 
 
     const columns: ColumnDef<Message>[] = [
@@ -115,16 +142,9 @@ const MessageDashboard:React.FC = () => {
       {
         id: "actions",
         header: "Actions",
-        cell: () => {
+        cell: ({row}) => {
           return (
-            <div className="flex">
-            <button
-              onClick={handleDelete}
-              className="text-red-600 hover:underline mt-[0] mb-[10%] cursor-pointer"
-            >
-              <Trash2 className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-            </button>
-            </div>
+              <Trash2 onClick={()=>handleDelete(row.original.id)} className="text-red-600 dark:text-read-600 hover:underline w-4 h-4 cursor-pointer" />
           );
         },
       }

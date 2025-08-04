@@ -13,7 +13,7 @@ import axiosInstance from "@/lib/axios";
 
 const CreateStatementPage = ()=>{
 
-      const [formData, setFormData] = useState<{
+    const [formData, setFormData] = useState<{
       statement_heading: string;
       statement_description: string;
       statement_testimonial: { title: string; date: string }[];
@@ -51,14 +51,26 @@ const CreateStatementPage = ()=>{
       return;
     }
 
+    const cleanedTestimonials = formData.statement_testimonial.map((t) => ({
+      title: t.title.trim() || "-",
+      date: t.date.trim() || "-"
+    }));
+
+    const finalFormData = {
+      ...formData,
+      statement_testimonial: cleanedTestimonials
+    };
+
+
     try {
       setIsLoading(true);
-      const response = await axiosInstance.put('/profile',formData,{
+      const response = await axiosInstance.put('/profile',finalFormData,{
         headers: {
             'Authorization': `Bearer ${token}`,
         },
       })
-      setFormData(response.data);
+      
+      setFormData(finalFormData);
 
       if (response.status >= 200 && response.status < 300) {
           setIsSuccess(true);
@@ -170,7 +182,16 @@ const CreateStatementPage = ()=>{
                               <SkeletonCard height="h-[36px] w-[80%]" />
                             </>
                           ) : (
-                            formData.statement_testimonial.map((testimonial, index) => (
+                            Array.isArray(formData.statement_testimonial) && formData.statement_testimonial.length === 0 ? (
+                                <button
+                                    type="button"
+                                    onClick={addTestimonialField}
+                                    className="text-white hover:underline mt-[0] mb-[10%] cursor-pointer bg-black dark:bg-white dark:text-black rounded-lg py-1 px-2 text-[14px]"
+                                  >
+                                    Add Statement +
+                                  </button>
+                              ) : (
+                              Array.isArray(formData.statement_testimonial) && formData.statement_testimonial.map((testimonial, index) => (
                               <div key={index} className="flex gap-2 items-center">
                                 <Input
                                   placeholder="Statement Title"
@@ -209,6 +230,7 @@ const CreateStatementPage = ()=>{
                                 )}
                               </div>
                             ))
+                          )
                           )}
                         </div>
        

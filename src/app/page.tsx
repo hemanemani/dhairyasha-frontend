@@ -279,19 +279,23 @@ export default function Home() {
               <div className="col-span-1"></div>
               <div className="col-span-2 group relative overflow-hidden rounded-lg border">
                 <div className="aspect-video overflow-hidden bg-white flex justify-center">
-                  <Link href={`${profileData.project_sub_one_url}`}>
-                  <img
-                  src={
-                    profileData.project_sub_one_img_url
-                      ? `${profileData.project_sub_one_img_url}`
-                      : '/placeholder.svg?height=550&width=550'
-                  }
-                  width={550}
-                  height={550}
-                  alt="DhairyaShah, Founder & CEO"
-                  className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full cursor-pointer transition-transform group-hover:scale-105"
-                />
-                </Link>
+                    <Link
+                      href={profileData.project_sub_one_url || "#"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img
+                        src={
+                          profileData.project_sub_one_img_url
+                            ? profileData.project_sub_one_img_url
+                            : "/placeholder.svg?height=550&width=550"
+                        }
+                        width={550}
+                        height={550}
+                        alt="Dhairya Shah, Founder & CEO"
+                        className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full cursor-pointer transition-transform group-hover:scale-105"
+                      />
+                    </Link>
                 </div>
                 <div className="p-4">
                   <h3 className="text-xl font-bold">{profileData.project_sub_one_heading}</h3>
@@ -306,7 +310,11 @@ export default function Home() {
               </div>
               <div className="col-span-2 group relative overflow-hidden rounded-lg border">
                 <div className="aspect-video overflow-hidden bg-white flex justify-center">
-                  <Link href={`${profileData.project_sub_second_url}`}>
+                  <Link
+                      href={profileData.project_sub_second_img_url || "#"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                   <img
                   src={
                     profileData.project_sub_second_img_url

@@ -89,6 +89,7 @@ export function FileUpload({ fieldName, onUpload, initialUrl }: FileUploadProps)
         <button
           onClick={handleUploadToServer}
           disabled={uploading}
+          type="button"
           className="bg-black dark:bg-[#fff] dark:text-black w-[23%] text-white capitalize text-[15px] h-[40px] rounded-sm mt-2 font-inter-semibold cursor-pointer"
         >
           {uploading ? "Uploading..." : "Upload"}
