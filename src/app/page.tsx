@@ -415,7 +415,7 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <div className="mx-auto grid max-w-5xl gap-2 py-2 sm:grid-cols-2 lg:grid-cols-3 md:py-12 md:gap-8 lg:py-12 xl:py-12 lg:gap-8 xl:gap-12">
+            <div className="mx-auto grid max-w-5xl gap-2 py-4 sm:grid-cols-2 lg:grid-cols-3 md:py-12 md:gap-8 lg:py-12 xl:py-12 lg:gap-8 xl:gap-12">
               { isInputLoading ? <SkeletonCard height="h-[300px]" /> : 
               <div className="group relative overflow-hidden rounded-lg border bg-background">
                 <div className="aspect-video overflow-hidden">
