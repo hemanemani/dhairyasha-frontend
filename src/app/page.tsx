@@ -232,12 +232,12 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="about" className="w-full py-6 md:py-6 lg:py-12 bg-[#161616]">
+        <section id="about" className="w-full py-6 md:py-6 lg:py-12 dark:bg-[#161616] bg-[#f5f5f5]">
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
               { isInputLoading ? <SkeletonCard height="h-[30px]" /> :
               <div className="space-y-2">
-                <h2 className="text-3xl font-inter-bold tracking-tighter sm:text-5xl">{profileData.about_heading}</h2>
+                <h2 className="text-3xl font-inter-bold tracking-tighter sm:text-5xl text-black dark:text-white">{profileData.about_heading}</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   {profileData.about_desc}
                 </p>
@@ -405,7 +405,7 @@ export default function Home() {
           </div>
         </section>
 
-         <section id="interests" className="w-full py-6 md:py-6 lg:py-12 bg-[#161616]">
+         <section id="interests" className="w-full py-6 md:py-6 lg:py-12 dark:bg-[#161616] bg-[#f5f5f5]">
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
