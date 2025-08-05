@@ -4,15 +4,12 @@ import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react"
 import axiosInstance from "@/lib/axios"
-import { SkeletonCard } from "./SkeletonCart"
 
 
 export function StatementsCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
   const [statements, setStatements] = useState<{ id: 0, title: string; date: string }[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isInputLoading, setIsInputLoading] = useState(true);
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -36,8 +33,6 @@ export function StatementsCarousel() {
     } catch (error) {
       console.error('Error fetching meta data:', error);
     } finally {
-      setIsLoading(false);
-      setIsInputLoading(false);
     }
   }
       
@@ -67,7 +62,7 @@ export function StatementsCarousel() {
 
   return (
     <div className="relative">
-        {statements[currentIndex] ? (
+        {statements[currentIndex] && (
         <>
           <div className="flex items-center justify-between mb-6">
             <Button
@@ -87,10 +82,10 @@ export function StatementsCarousel() {
                   <div className="text-center space-y-4">
                     <Quote className="h-8 w-8 mx-auto text-muted-foreground" />
                     <blockquote className="text-lg md:text-xl font-medium leading-relaxed max-w-3xl">
-                      &quot;{isInputLoading ? <SkeletonCard height="h-[36px]" /> : statements[currentIndex].title}&quot;
+                      &quot;{statements[currentIndex].title}&quot;
                     </blockquote>
                     <div className="space-y-1">
-                      <p className="text-xs text-muted-foreground">{isInputLoading ? <SkeletonCard height="h-[36px]" /> : statements[currentIndex].date}</p>
+                      <p className="text-xs text-muted-foreground">{statements[currentIndex].date}</p>
                     </div>
                   </div>
                 </div>
@@ -123,11 +118,7 @@ export function StatementsCarousel() {
             ))}
           </div>
         </>
-          ) : (
-          <div className="text-center py-8 text-muted-foreground">
-            {isLoading && <SkeletonCard height="h-[64px]" />}
-          </div>
-        )}
+          )}
     </div>
   )
 }
