@@ -265,7 +265,7 @@ export default function Home() {
               <div className="flex flex-col justify-center space-y-4">
                 { isInputLoading ? <SkeletonCard height="h-[250px]" /> :
                 <div className="space-y-2">
-                  <h3 className="text-2xl font-inter-bold tracking-tighter text-white">{profileData.about_sub_one_heading}</h3>
+                  <h3 className="text-2xl font-inter-bold tracking-tighter text-black dark:text-white">{profileData.about_sub_one_heading}</h3>
                     {profileData && (
                       <p
                         className="text-md text-muted-foreground"
@@ -277,7 +277,7 @@ export default function Home() {
                 }
                 { isInputLoading ? <SkeletonCard height="h-[250px]" /> :
                 <div className="space-y-2">
-                  <h3 className="text-2xl font-inter-bold tracking-tighter text-white">{profileData.about_sub_second_heading}</h3>
+                  <h3 className="text-2xl font-inter-bold tracking-tighter text-black dark:text-white">{profileData.about_sub_second_heading}</h3>
                     {profileData && (
                       <p
                         className="text-md text-muted-foreground"
@@ -288,7 +288,7 @@ export default function Home() {
                 }
                 { isInputLoading ? <SkeletonCard height="h-[250px]" /> :
                 <div className="space-y-2">
-                  <h3 className="text-2xl font-inter-bold tracking-tighter text-white">{profileData.about_sub_third_heading}</h3>
+                  <h3 className="text-2xl font-inter-bold tracking-tighter text-black dark:text-white">{profileData.about_sub_third_heading}</h3>
                   {profileData?.about_sub_third_desc && (
                     <div
                       className="text-md text-muted-foreground list-disc pl-5"
@@ -409,7 +409,7 @@ export default function Home() {
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <h2 className="text-3xl font-inter-bold tracking-tighter sm:text-5xl text-white">{profileData.insights_heading}</h2>
+                <h2 className="text-3xl font-inter-bold tracking-tighter sm:text-5xl text-black dark:text-white">{profileData.insights_heading}</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   {profileData.insights_desc}
                 </p>
