@@ -36,41 +36,41 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
-        <Link href="/" className="font-bold text-xl">
+        <Link href="/" className="font-inter-bold text-xl">
           Dhairya Shah
         </Link>
         <nav className="ml-auto hidden gap-4 sm:gap-6 md:flex">
           <Link
             href={getHref("about")}
-            className="text-sm font-medium hover:underline underline-offset-4"
+            className="text-sm font-inter-medium hover:underline underline-offset-4"
             onClick={(e) => handleNavClick(e, "about")}
           >
             About
           </Link>
           <Link
             href={getHref("projects")}
-            className="text-sm font-medium hover:underline underline-offset-4"
+            className="text-sm font-inter-medium hover:underline underline-offset-4"
             onClick={(e) => handleNavClick(e, "projects")}
           >
             Projects
           </Link>
           <Link
             href={getHref("interests")}
-            className="text-sm font-medium hover:underline underline-offset-4"
+            className="text-sm font-inter-medium hover:underline underline-offset-4"
             onClick={(e) => handleNavClick(e, "interests")}
           >
             Interests
           </Link>
           <Link
             href={getHref("statements")}
-            className="text-sm font-medium hover:underline underline-offset-4"
+            className="text-sm font-inter-medium hover:underline underline-offset-4"
             onClick={(e) => handleNavClick(e, "statements")}
           >
             Statements
           </Link>
           <Link
             href={getHref("contact")}
-            className="text-sm font-medium hover:underline underline-offset-4"
+            className="text-sm font-inter-medium hover:underline underline-offset-4"
             onClick={(e) => handleNavClick(e, "contact")}
           >
             Contact
@@ -89,42 +89,42 @@ export function SiteHeader() {
               <nav className="flex flex-col gap-4 mt-6 ml-2.5">
                 <Link
                   href={getHref("about")}
-                  className="text-sm font-medium hover:underline underline-offset-4"
+                  className="text-sm font-inter-medium hover:underline underline-offset-4"
                   onClick={(e) => handleNavClick(e, "about")}
                 >
                   About
                 </Link>
                 <Link
                   href={getHref("projects")}
-                  className="text-sm font-medium hover:underline underline-offset-4"
+                  className="text-sm font-inter-medium hover:underline underline-offset-4"
                   onClick={(e) => handleNavClick(e, "projects")}
                 >
                   Projects
                 </Link>
                 <Link
                   href={getHref("interests")}
-                  className="text-sm font-medium hover:underline underline-offset-4"
+                  className="text-sm font-inter-medium hover:underline underline-offset-4"
                   onClick={(e) => handleNavClick(e, "interests")}
                 >
                   Interests
                 </Link>
                 <Link
                   href={getHref("statements")}
-                  className="text-sm font-medium hover:underline underline-offset-4"
+                  className="text-sm font-inter-medium hover:underline underline-offset-4"
                   onClick={(e) => handleNavClick(e, "statements")}
                 >
                   Statements
                 </Link>
                 <Link
                   href={getHref("contact")}
-                  className="text-sm font-medium hover:underline underline-offset-4"
+                  className="text-sm font-inter-medium hover:underline underline-offset-4"
                   onClick={(e) => handleNavClick(e, "contact")}
                 >
                   Contact
                 </Link>
                
                 <div className="flex items-center mt-2">
-                  <span className="text-sm font-medium mr-2">Theme:</span>
+                  <span className="text-sm font-inter-medium mr-2">Theme:</span>
                   <ThemeToggle />
                 </div>
               </nav>

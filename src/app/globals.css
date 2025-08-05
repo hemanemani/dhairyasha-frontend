@@ -70,10 +70,6 @@
   --font-inter-extralight: "Inter ExtraLight", sans-serif;
 }
 
-*{
-  font-family: "Inter", sans-serif;
-}
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

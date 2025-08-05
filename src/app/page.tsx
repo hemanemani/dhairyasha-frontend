@@ -157,14 +157,14 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       <SiteHeader />
       <main className="flex-1">
-        <section className="w-full py-3 md:py-6 lg:py-12 xl:py-12">
+        <section className="w-full py-6 md:py-6 lg:py-12 xl:py-12">
           <div className="container px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
               <div className="flex flex-col justify-center space-y-4">
                 { isInputLoading ? <SkeletonCard height="h-[150px]" /> :
                 <div className="space-y-2">
                   
-                  <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none font-inter">{profileData.heading}</h1>
+                  <h1 className="text-3xl font-inter-bold tracking-tighter sm:text-5xl xl:text-6xl/none font-inter-inter">{profileData.heading}</h1>
                   <p className="text-xl text-muted-foreground" >{profileData.designation}</p>
                   <p className="max-w-[600px] text-muted-foreground md:text-xl">
                     {profileData.description}
@@ -232,19 +232,19 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="about" className="w-full py-3 md:py-6 lg:py-12 bg-[#161616]">
+        <section id="about" className="w-full py-6 md:py-6 lg:py-12 bg-[#161616]">
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
               { isInputLoading ? <SkeletonCard height="h-[30px]" /> :
               <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">{profileData.about_heading}</h2>
+                <h2 className="text-3xl font-inter-bold tracking-tighter sm:text-5xl">{profileData.about_heading}</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   {profileData.about_desc}
                 </p>
               </div>
               }
             </div>
-            <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
+            <div className="mx-auto grid max-w-5xl items-center gap-2 py-2 md:py-12  lg:py-12 xl:py-12 lg:grid-cols-2 lg:gap-12">
               <div className="group mx-auto aspect-square overflow-hidden rounded-xl">
                 { isImageLoading && <SkeletonCard height="h-[550px]" /> }
 
@@ -265,7 +265,7 @@ export default function Home() {
               <div className="flex flex-col justify-center space-y-4">
                 { isInputLoading ? <SkeletonCard height="h-[250px]" /> :
                 <div className="space-y-2">
-                  <h3 className="text-2xl font-bold tracking-tighter">{profileData.about_sub_one_heading}</h3>
+                  <h3 className="text-2xl font-inter-bold tracking-tighter text-white">{profileData.about_sub_one_heading}</h3>
                     {profileData && (
                       <p
                         className="text-md text-muted-foreground"
@@ -277,7 +277,7 @@ export default function Home() {
                 }
                 { isInputLoading ? <SkeletonCard height="h-[250px]" /> :
                 <div className="space-y-2">
-                  <h3 className="text-2xl font-bold tracking-tighter">{profileData.about_sub_second_heading}</h3>
+                  <h3 className="text-2xl font-inter-bold tracking-tighter text-white">{profileData.about_sub_second_heading}</h3>
                     {profileData && (
                       <p
                         className="text-md text-muted-foreground"
@@ -288,7 +288,7 @@ export default function Home() {
                 }
                 { isInputLoading ? <SkeletonCard height="h-[250px]" /> :
                 <div className="space-y-2">
-                  <h3 className="text-2xl font-bold tracking-tighter">{profileData.about_sub_third_heading}</h3>
+                  <h3 className="text-2xl font-inter-bold tracking-tighter text-white">{profileData.about_sub_third_heading}</h3>
                   {profileData?.about_sub_third_desc && (
                     <div
                       className="text-md text-muted-foreground list-disc pl-5"
@@ -308,12 +308,12 @@ export default function Home() {
         </section>
     
 
-        <section id="projects" className="w-full py-3 md:py-6 lg:py-12">
+        <section id="projects" className="w-full py-6 md:py-6 lg:py-12">
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
               { isInputLoading ? <SkeletonCard height="h-[30px]" /> :
               <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">{profileData.project_heading}</h2>
+                <h2 className="text-3xl font-inter-bold tracking-tighter sm:text-5xl">{profileData.project_heading}</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   {profileData.project_desc}
                 </p>
@@ -321,7 +321,7 @@ export default function Home() {
               }
             </div>
             
-            <div className="mx-auto grid gap-8 py-12 sm:grid-cols-2 md:grid-col-6 lg:grid-cols-6">
+            <div className="mx-auto grid gap-2 py-2 md:py-12 md:gap-8 lg:py-12 xl:py-12 lg:gap-8 xl:gap-12 sm:grid-cols-2 md:grid-col-6 lg:grid-cols-6">
               <div className="col-span-1"></div>
               <div className="col-span-2 group relative overflow-hidden rounded-lg border">
                 { isInputLoading ? <SkeletonCard height="h-[400px]" /> :
@@ -346,7 +346,7 @@ export default function Home() {
                     </Link>
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-bold mb-3">{profileData.project_sub_one_heading}</h3>
+                  <h3 className="text-xl font-inter-bold mb-3">{profileData.project_sub_one_heading}</h3>
                   <p className="text-sm text-muted-foreground">
                     {profileData.project_sub_one_desc}
                   </p>
@@ -383,7 +383,7 @@ export default function Home() {
                 </Link>
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-bold mb-3">{profileData.project_sub_second_heading}</h3>
+                  <h3 className="text-xl font-inter-bold mb-3">{profileData.project_sub_second_heading}</h3>
                   <p className="text-sm text-muted-foreground">
                     {profileData.project_sub_second_desc}
                   </p>
@@ -405,17 +405,17 @@ export default function Home() {
           </div>
         </section>
 
-         <section id="interests" className="w-full py-3 md:py-6 lg:py-12 bg-[#161616]">
+         <section id="interests" className="w-full py-6 md:py-6 lg:py-12 bg-[#161616]">
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">{profileData.insights_heading}</h2>
+                <h2 className="text-3xl font-inter-bold tracking-tighter sm:text-5xl text-white">{profileData.insights_heading}</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   {profileData.insights_desc}
                 </p>
               </div>
             </div>
-            <div className="mx-auto grid max-w-5xl gap-8 py-12 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mx-auto grid max-w-5xl gap-2 py-2 sm:grid-cols-2 lg:grid-cols-3 md:py-12 md:gap-8 lg:py-12 xl:py-12 lg:gap-8 xl:gap-12">
               { isInputLoading ? <SkeletonCard height="h-[300px]" /> : 
               <div className="group relative overflow-hidden rounded-lg border bg-background">
                 <div className="aspect-video overflow-hidden">
@@ -433,7 +433,7 @@ export default function Home() {
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-bold mb-3">{profileData.insights_sub_one_heading}</h3>
+                  <h3 className="text-xl font-inter-bold mb-3">{profileData.insights_sub_one_heading}</h3>
                   <p className="text-sm text-muted-foreground">
                     {profileData.insights_sub_one_desc} 
                   </p>
@@ -457,7 +457,7 @@ export default function Home() {
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-bold mb-3">{profileData.insights_sub_second_heading}</h3>
+                  <h3 className="text-xl font-inter-bold mb-3">{profileData.insights_sub_second_heading}</h3>
                   <p className="text-sm text-muted-foreground">
                     {profileData.insights_sub_second_desc}
                   </p>
@@ -481,7 +481,7 @@ export default function Home() {
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-bold mb-3">{profileData.insights_sub_third_heading}</h3>
+                  <h3 className="text-xl font-inter-bold mb-3">{profileData.insights_sub_third_heading}</h3>
                   <p className="text-sm text-muted-foreground">
                     {profileData.insights_sub_third_desc} 
                   </p>
@@ -493,19 +493,19 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="statements" className="w-full py-3 md:py-6 lg:py-12">
+        <section id="statements" className="w-full py-6 md:py-6 lg:py-12">
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
               { isInputLoading ? <SkeletonCard height="h-[40px]" /> :
               <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">{profileData.statement_heading}</h2>
+                <h2 className="text-3xl font-inter-bold tracking-tighter sm:text-5xl">{profileData.statement_heading}</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                 {profileData.statement_description}
                 </p>
               </div>
               }
             </div>
-            <div className="mx-auto max-w-5xl py-12">
+            <div className="mx-auto max-w-5xl py-4">
               { isInputLoading ? <SkeletonCard height="h-[300px]" /> :
               <StatementsCarousel />
               }
@@ -513,12 +513,12 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="contact" className="w-full py-3 md:py-6 lg:py-12">
+        <section id="contact" className="w-full py-6 md:py-6 lg:py-12">
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
               { isInputLoading ? <SkeletonCard height="h-[40px]" /> :
               <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">{profileData.contact_heading}</h2>
+                <h2 className="text-3xl font-inter-bold tracking-tighter sm:text-5xl">{profileData.contact_heading}</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   {profileData.contact_description}
                 </p>
@@ -535,7 +535,7 @@ export default function Home() {
                 }
                 { isInputLoading ? <SkeletonCard height="h-[40px]" /> :
                 <div className="space-y-2">
-                  <h3 className="text-xl font-bold">{profileData.contact_sub_heading}</h3>
+                  <h3 className="text-xl font-inter-bold">{profileData.contact_sub_heading}</h3>
                   <p className="text-muted-foreground">
                     {profileData.contact_sub_description}
                   </p>
@@ -570,14 +570,14 @@ export default function Home() {
                     <div className="space-y-2">
                       <label
                         htmlFor="name"
-                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 my-2"
+                        className="text-sm font-inter-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 my-2"
                       >
                         Name
                       </label>
                       { isInputLoading ? <SkeletonCard height="h-[36px]" /> : 
                       <input
                         id="name"
-                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-inter-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 mt-2"
                         placeholder="Your name"
                         name="name"
                         value={formData.name}
@@ -587,7 +587,7 @@ export default function Home() {
                     <div className="space-y-2">
                       <label
                         htmlFor="email"
-                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        className="text-sm font-inter-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                       >
                         Email
                       </label>
@@ -596,7 +596,7 @@ export default function Home() {
                         id="email"
                         type="email"
                         name="email"
-                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-inter-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 mt-2"
                         placeholder="Your email"
                         value={formData.email}
                         onChange={handleChange}
@@ -607,14 +607,14 @@ export default function Home() {
                   <div className="space-y-2">
                     <label
                       htmlFor="subject"
-                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      className="text-sm font-inter-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                     >
                       Subject
                     </label>
                     { isInputLoading ? <SkeletonCard height="h-[36px]" /> :
                     <input
                       id="subject"
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-inter-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 mt-2"
                       placeholder="Subject of your message"
                       name="subject"
                       value={formData.subject}
@@ -625,7 +625,7 @@ export default function Home() {
                   <div className="space-y-2">
                     <label
                       htmlFor="message"
-                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      className="text-sm font-inter-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                     >
                       Message
                     </label>
@@ -633,7 +633,7 @@ export default function Home() {
                     <textarea
                       id="message"
                       name="message"
-                      className="flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      className="flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 mt-2"
                       placeholder="Your message"
                       value={formData.message}
                       onChange={handleChange}
@@ -642,7 +642,7 @@ export default function Home() {
                   </div>
                   <Button 
                     type="submit"
-                    className={`${isLoading ? "opacity-50 cursor-not-allowed" : ""} bg-black dark:bg-[#fff] dark:text-black text-white capitalize text-[15px] h-[43px] rounded-sm block ml-auto mr-auto mt-10 font-inter-semibold cursor-pointer `}
+                    className={`${isLoading ? "opacity-50 cursor-not-allowed" : ""} bg-black dark:bg-[#fff] dark:text-black text-white capitalize text-[15px] h-[43px] rounded-sm block ml-auto mr-auto mt-10 font-inter-inter-semibold cursor-pointer `}
                     disabled={isLoading}
                     >
                       {isLoading ? (
