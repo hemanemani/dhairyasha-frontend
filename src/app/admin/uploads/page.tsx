@@ -12,7 +12,6 @@ type Image = {
 
 const CreateUploadPage = ()=>{
   const [images, setImages] = useState<Image[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
 
 
   useEffect(() => {
@@ -34,9 +33,6 @@ const CreateUploadPage = ()=>{
       }
     } catch (error) {
       console.error('Error fetching messages:', error);
-    } finally {
-      setIsLoading(false);
-      
     }
   }
       
