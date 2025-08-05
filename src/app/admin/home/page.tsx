@@ -126,7 +126,7 @@ const CreateHomePage = ()=>{
                 <form onSubmit={handleSubmit} className="space-y-4 p-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-2 mb-6 mt-4"> 
                         <div className="space-y-2 w-[80%]">
-                            <Label htmlFor="heading" className="text-[15px] font-inter-medium">Heading</Label> {formData.heading}
+                            <Label htmlFor="heading" className="text-[15px] font-inter-medium">Heading</Label>
                             { isInputLoading ? <SkeletonCard height="h-[36px]" /> :
                             <Input id="heading" placeholder="please enter Heading" name="heading" value={formData.heading || ''}  onChange={handleChange} className="w-full border rounded-md bg-white dark:bg-[#000]"/>
                             }

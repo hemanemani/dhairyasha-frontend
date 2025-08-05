@@ -62,9 +62,13 @@ const ProfileTopbar = () => {
     ),
     "/admin/messages" :(
       <span className="text-[#000] dark:text-white text-[22px] font-inter-semibold">Messages
+      </span>  
+    ),
+    "/admin/uploads" :(
+      <span className="text-[#000] dark:text-white text-[22px] font-inter-semibold">Images
       </span>
       
-    )
+    ),
   };
   return pageTitles[pathname] || "Dashboard";
 

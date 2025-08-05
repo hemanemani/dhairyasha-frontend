@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from "react"
-import { BellIcon, FileCog, Lightbulb, MessageSquare, MessageSquareMore, MessageSquareText, Store, User } from "lucide-react"
+import { BellIcon, FileCog, Image, Lightbulb, MessageSquare, MessageSquareMore, MessageSquareText, Store, User } from "lucide-react"
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from "@/components/ui/sidebar"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -57,10 +57,15 @@ export function MenuItems() {
       icon: <MessageSquareText className="mr-2 h-4 w-4" />,
       href: "/admin/meta",
    },
+   { label: "images", 
+      icon: <Image className="mr-2 h-4 w-4" />,
+      href: "/admin/uploads",
+   },
    { label: "message", 
       icon: <MessageSquareMore className="mr-2 h-4 w-4" />,
       href: "/admin/messages",
    },
+   
   ];
 
   
@@ -92,7 +97,7 @@ export function MenuItems() {
           {menuItems.map((item, index) =>
             
               // Non-Collapsible Menu Item
-              <SidebarMenuItem key={index}>
+              <SidebarMenuItem key={index} className="list-none">
                 <Link href={item.href!}>
                   <SidebarMenuButton
                     className={`cursor-pointer ${

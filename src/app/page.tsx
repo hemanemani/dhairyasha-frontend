@@ -78,6 +78,7 @@ export default function Home() {
     const [alertMessage, setAlertMessage] = useState("");
     const [isSuccess, setIsSuccess] = useState(false);
     const [isInputLoading, setIsInputLoading] = useState(true);
+    const [isImageLoading, setIsImageLoading] = useState(true);
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -211,22 +212,22 @@ export default function Home() {
                 </div>
                 }
               </div>
-              { isInputLoading ? <SkeletonCard height="h-[550px]" /> :
-                <img
-                  src={
-                    profileData.home_img_url
-                      ? `${profileData.home_img_url}`
-                      : '/placeholder.svg?height=550&width=550'
-                  }
-                  width={550}
-                  height={550}
-                  alt="DhairyaShah, Founder & CEO"
-                    className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full cursor-pointer transition-transform duration-200 ease-in-out hover:scale-101"
-                  
-                />
-              }
-              
-             
+              {isImageLoading && <SkeletonCard height="h-[550px]" />}
+
+              <div className="group mx-auto aspect-square overflow-hidden rounded-xl">
+              <img
+                src={
+                  profileData.home_img_url
+                    ? `${profileData.home_img_url}`
+                    : "/placeholder.svg?height=550&width=550"
+                }
+                width={550}
+                height={550}
+                alt="DhairyaShah, Founder & CEO"
+                className="mx-auto h-full w-full object-cover transform transition-transform duration-300 ease-in-out group-hover:scale-105"
+                onLoad={() => setIsImageLoading(false)}
+              />
+            </div> 
             </div>
           </div>
         </section>
@@ -244,7 +245,9 @@ export default function Home() {
               }
             </div>
             <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
-              { isInputLoading ? <SkeletonCard height="h-[550px]" /> :
+              <div className="group mx-auto aspect-square overflow-hidden rounded-xl">
+                { isImageLoading && <SkeletonCard height="h-[550px]" /> }
+
              <img
                   src={
                     profileData.about_img_url
@@ -254,9 +257,11 @@ export default function Home() {
                   width={550}
                   height={550}
                   alt="DhairyaShah, Founder & CEO"
-                    className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full cursor-pointer transition-transform duration-200 ease-in-out hover:scale-101"
+                  className="mx-auto h-full w-full object-cover transform transition-transform duration-300 ease-in-out group-hover:scale-105"
+                  onLoad={() => setIsImageLoading(false)}
                 />
-                }
+                </div>
+                
               <div className="flex flex-col justify-center space-y-4">
                 { isInputLoading ? <SkeletonCard height="h-[250px]" /> :
                 <div className="space-y-2">
@@ -286,10 +291,13 @@ export default function Home() {
                   <h3 className="text-2xl font-bold tracking-tighter">{profileData.about_sub_third_heading}</h3>
                   {profileData?.about_sub_third_desc && (
                     <div
-                      className="text-muted-foreground"
+                      className="text-md text-muted-foreground list-disc pl-5"
                       dangerouslySetInnerHTML={{ __html: profileData.about_sub_third_desc }}
                     />
+
+                   
                   )}
+                
 
                 </div>
                 }
@@ -338,7 +346,7 @@ export default function Home() {
                     </Link>
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-bold">{profileData.project_sub_one_heading}</h3>
+                  <h3 className="text-xl font-bold mb-3">{profileData.project_sub_one_heading}</h3>
                   <p className="text-sm text-muted-foreground">
                     {profileData.project_sub_one_desc}
                   </p>
@@ -375,7 +383,7 @@ export default function Home() {
                 </Link>
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-bold">{profileData.project_sub_second_heading}</h3>
+                  <h3 className="text-xl font-bold mb-3">{profileData.project_sub_second_heading}</h3>
                   <p className="text-sm text-muted-foreground">
                     {profileData.project_sub_second_desc}
                   </p>
@@ -425,7 +433,7 @@ export default function Home() {
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-bold">{profileData.insights_sub_one_heading}</h3>
+                  <h3 className="text-xl font-bold mb-3">{profileData.insights_sub_one_heading}</h3>
                   <p className="text-sm text-muted-foreground">
                     {profileData.insights_sub_one_desc} 
                   </p>
@@ -449,7 +457,7 @@ export default function Home() {
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-bold">{profileData.insights_sub_second_heading}</h3>
+                  <h3 className="text-xl font-bold mb-3">{profileData.insights_sub_second_heading}</h3>
                   <p className="text-sm text-muted-foreground">
                     {profileData.insights_sub_second_desc}
                   </p>
@@ -473,7 +481,7 @@ export default function Home() {
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-bold">{profileData.insights_sub_third_heading}</h3>
+                  <h3 className="text-xl font-bold mb-3">{profileData.insights_sub_third_heading}</h3>
                   <p className="text-sm text-muted-foreground">
                     {profileData.insights_sub_third_desc} 
                   </p>
