@@ -244,7 +244,7 @@ export default function Home() {
               </div>
               }
             </div>
-            <div className="mx-auto grid max-w-5xl items-center gap-2 py-2 md:py-12  lg:py-12 xl:py-12 lg:grid-cols-2 lg:gap-12">
+            <div className="mx-auto grid max-w-5xl items-center gap-4 py-2 md:py-12  lg:py-12 xl:py-12 lg:grid-cols-2 lg:gap-12">
               <div className="group mx-auto aspect-square overflow-hidden rounded-xl">
                 { isImageLoading && <SkeletonCard height="h-[550px]" /> }
 
@@ -346,7 +346,7 @@ export default function Home() {
                     </Link>
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-inter-bold mb-3">{profileData.project_sub_one_heading}</h3>
+                  <h3 className="text-xl font-inter-bold mb-2">{profileData.project_sub_one_heading}</h3>
                   <p className="text-sm text-muted-foreground">
                     {profileData.project_sub_one_desc}
                   </p>
@@ -383,11 +383,11 @@ export default function Home() {
                 </Link>
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-inter-bold mb-3">{profileData.project_sub_second_heading}</h3>
+                  <h3 className="text-xl font-inter-bold mb-2">{profileData.project_sub_second_heading}</h3>
                   <p className="text-sm text-muted-foreground">
                     {profileData.project_sub_second_desc}
                   </p>
-                  <Button variant="link" className="mt-2 p-0 cursor-pointer" onClick={() => window.open(`${profileData.project_sub_second_url}`, "_blank", "noopener,noreferrer")}>
+                  <Button variant="link" className="mt-2 p-0 cursor-pointer" onClick={() => window.open(`${profileData.project_sub_second_img_url}`, "_blank", "noopener,noreferrer")}>
                       Visit Website
                       <ArrowRight className="ml-1 h-4 w-4" />
                     </Button>
@@ -433,7 +433,7 @@ export default function Home() {
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-inter-bold mb-3">{profileData.insights_sub_one_heading}</h3>
+                  <h3 className="text-xl font-inter-bold mb-2">{profileData.insights_sub_one_heading}</h3>
                   <p className="text-sm text-muted-foreground">
                     {profileData.insights_sub_one_desc} 
                   </p>
@@ -457,7 +457,7 @@ export default function Home() {
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-inter-bold mb-3">{profileData.insights_sub_second_heading}</h3>
+                  <h3 className="text-xl font-inter-bold mb-2">{profileData.insights_sub_second_heading}</h3>
                   <p className="text-sm text-muted-foreground">
                     {profileData.insights_sub_second_desc}
                   </p>
@@ -481,7 +481,7 @@ export default function Home() {
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-inter-bold mb-3">{profileData.insights_sub_third_heading}</h3>
+                  <h3 className="text-xl font-inter-bold mb-2">{profileData.insights_sub_third_heading}</h3>
                   <p className="text-sm text-muted-foreground">
                     {profileData.insights_sub_third_desc} 
                   </p>
@@ -513,7 +513,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="contact" className="w-full py-6 md:py-6 lg:py-12">
+        <section id="contact" className="w-full py-2 md:py-6 lg:py-6">
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
               { isInputLoading ? <SkeletonCard height="h-[40px]" /> :
@@ -525,7 +525,7 @@ export default function Home() {
               </div>
               }
             </div>
-            <div className="mx-auto grid max-w-5xl gap-8 py-12 md:grid-cols-2">
+            <div className="mx-auto grid max-w-5xl gap-8 py-6 md:grid-cols-2">
               <div className="space-y-4">
                 { isInputLoading ? <SkeletonCard height="h-[40px]" /> :
                 <div className="flex items-center space-x-3 cursor-pointer">
