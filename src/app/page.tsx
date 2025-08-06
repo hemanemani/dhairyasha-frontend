@@ -364,30 +364,30 @@ export default function Home() {
                 { isInputLoading ? <SkeletonCard height="h-[400px]" /> :
                 <>
                 <div className="aspect-video overflow-hidden bg-white flex justify-center">
-                  <Link
-                      href={profileData.project_sub_second_img_url || "#"}
+                    <Link
+                      href={profileData.project_sub_second_url || "#"}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                  <img
-                  src={
-                    profileData.project_sub_second_img_url
-                      ? `${profileData.project_sub_second_img_url}`
-                      : '/placeholder.svg?height=550&width=550'
-                  }
-                  width={500}
-                  alt="DhairyaShah, Founder & CEO"
-                  className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full cursor-pointer transition-transform group-hover:scale-105"
-                  style={{ height: "-webkit-fill-available", width:"500px" }}
-                />
-                </Link>
+                      <img
+                        src={
+                          profileData.project_sub_second_img_url
+                            ? profileData.project_sub_second_img_url
+                            : "/placeholder.svg?height=550&width=550"
+                        }
+                        width={500}
+                        alt="Dhairya Shah, Founder & CEO"
+                        className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full cursor-pointer transition-transform group-hover:scale-105"
+                        style={{ height: "-webkit-fill-available", width:"500px" }}
+                      />
+                    </Link>
                 </div>
                 <div className="p-4">
                   <h3 className="text-xl font-inter-bold mb-2">{profileData.project_sub_second_heading}</h3>
                   <p className="text-sm text-muted-foreground">
                     {profileData.project_sub_second_desc}
                   </p>
-                  <Button variant="link" className="mt-2 p-0 cursor-pointer" onClick={() => window.open(`${profileData.project_sub_second_img_url}`, "_blank", "noopener,noreferrer")}>
+                  <Button variant="link" className="mt-2 p-0 cursor-pointer" onClick={() => window.open(`${profileData.project_sub_second_url}`, "_blank", "noopener,noreferrer")}>
                       Visit Website
                       <ArrowRight className="ml-1 h-4 w-4" />
                     </Button>
