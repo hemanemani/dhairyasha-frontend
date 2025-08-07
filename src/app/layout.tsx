@@ -37,6 +37,7 @@ export default async function RootLayout({
     const res = await axiosInstance.get("/home");
     savedTheme = res.data.theme || "light";
     faviconUrl = res.data.favicon_url || "";
+    console.log(faviconUrl)
   } catch (err) {
     console.error("Failed to fetch theme:", err);
   }
