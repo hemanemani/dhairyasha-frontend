@@ -9,6 +9,7 @@ import { DataTablePagination } from "@/components/admin/data-table-pagination"
 import { SkeletonCard } from "@/components/SkeletonCart"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import axiosInstance from "@/lib/axios"
+import { format } from "date-fns"
 
   
 interface Message{
@@ -16,6 +17,7 @@ interface Message{
   name: string;
   email:string;
   subject:string;
+  created_at:Date;
   message: string;
 }
 
@@ -138,6 +140,15 @@ const MessageDashboard:React.FC = () => {
         accessorFn: (row) => row.message,
         id: "message",
         header: "Message",
+      },
+      
+      {
+        accessorFn: (row) =>
+        row.created_at
+          ? format(new Date(row.created_at), "dd-MM-yyyy hh:mm a")
+          : "",
+        id: "created_at",
+        header: "Date & Time",
       },
       {
         id: "actions",
