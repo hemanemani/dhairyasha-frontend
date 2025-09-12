@@ -164,10 +164,10 @@ export default function Home() {
                 { isInputLoading ? <SkeletonCard height="h-[150px]" /> :
                 <div className="space-y-2">
                   
-                  <h1 className="text-3xl font-inter-bold tracking-tighter sm:text-5xl xl:text-6xl/none font-inter-inter">{profileData.heading}</h1>
-                  <p className="text-xl text-muted-foreground" >{profileData.designation}</p>
+                  <h1 className="text-3xl font-inter-bold tracking-tighter sm:text-5xl xl:text-6xl/none font-inter-inter">{profileData.heading || "Dhairya Shah"}</h1>
+                  <p className="text-xl text-muted-foreground" >{profileData.designation || 'Founder & CEO of Orgenik'}</p>
                   <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                    {profileData.description}
+                    {profileData.description || 'Driving India’s Organic Agricultural Revolution through innovation, trust, and accessibility.'}
                   </p>
                  
                 </div>
@@ -237,9 +237,9 @@ export default function Home() {
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
               { isInputLoading ? <SkeletonCard height="h-[30px]" /> :
               <div className="space-y-2">
-                <h2 className="text-3xl font-inter-bold tracking-tighter sm:text-5xl text-black dark:text-white">{profileData.about_heading}</h2>
+                <h2 className="text-3xl font-inter-bold tracking-tighter sm:text-5xl text-black dark:text-white">{profileData.about_heading || 'About Me'}</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  {profileData.about_desc}
+                  {profileData.about_desc || "I'm not just building a company. I'm building a movement around purpose and performance."}
                 </p>
               </div>
               }
@@ -265,37 +265,61 @@ export default function Home() {
               <div className="flex flex-col justify-center space-y-4">
                 { isInputLoading ? <SkeletonCard height="h-[250px]" /> :
                 <div className="space-y-2">
-                  <h3 className="text-2xl font-inter-bold tracking-tighter text-black dark:text-white">{profileData.about_sub_one_heading}</h3>
-                    {profileData && (
+                  <h3 className="text-2xl font-inter-bold tracking-tighter text-black dark:text-white">{profileData.about_sub_one_heading || "Background and Expertise"}</h3>
+                  <>
+                    {profileData.about_sub_one_desc ? (
                       <p
                         className="text-md text-muted-foreground"
                         dangerouslySetInnerHTML={{ __html: profileData.about_sub_one_desc }}
                       />
+                    ) : (
+                      <p>
+                        I founded Orgenik in 2020 with a vision to revolutionize how India connects with Luxurious and Ethical Lifestyle products—making conscious living both accessible and aspirational. 
+                        Prior to this, I immersed myself in diverse business functions through internships at companies like Deloitte and several other companies—gaining hands-on exposure across Management, Finance, Marketing, HR, and Operations. These experiences grounded my understanding of how businesses work beyond theory. 
+                        As a go-getter by nature, I believe real-world challenges teach more than any classroom.
+                      </p>
                     )}
-                  
+                  </>
                 </div>
                 }
                 { isInputLoading ? <SkeletonCard height="h-[250px]" /> :
                 <div className="space-y-2">
-                  <h3 className="text-2xl font-inter-bold tracking-tighter text-black dark:text-white">{profileData.about_sub_second_heading}</h3>
-                    {profileData && (
+                  <h3 className="text-2xl font-inter-bold tracking-tighter text-black dark:text-white">{profileData.about_sub_second_heading || "Mission and Vision"}</h3>
+                    {profileData.about_sub_second_desc ? (
+                      
                       <p
                         className="text-md text-muted-foreground"
                         dangerouslySetInnerHTML={{ __html: profileData.about_sub_second_desc }}
                       />
+                      ) : (
+                      <p>
+                        My mission is to empower a new India—where organic isn’t just an option, but a standard. Through Orgenik and its ecosystem, I work to make clean, certified, and honest products accessible to everyone, while creating real value for farmers and grassroots producers. 
+                        I envision leading an Organic Agricultural Revolution by 2030—a bold shift that transforms how we grow, consume, and think about food. It’s not just about business; it’s about building a future rooted in sustainability, transparency, and impact. 
+                      </p>
+                    
                     )}
                 </div>
                 }
                 { isInputLoading ? <SkeletonCard height="h-[250px]" /> :
                 <div className="space-y-2">
-                  <h3 className="text-2xl font-inter-bold tracking-tighter text-black dark:text-white">{profileData.about_sub_third_heading}</h3>
-                  {profileData?.about_sub_third_desc && (
+                  <h3 className="text-2xl font-inter-bold tracking-tighter text-black dark:text-white">{profileData.about_sub_third_heading || "Key Achievements"}</h3>
+                  {profileData?.about_sub_third_desc ? (
                     <div
                       className="text-md text-muted-foreground list-disc pl-5"
                       dangerouslySetInnerHTML={{ __html: profileData.about_sub_third_desc }}
                     />
-
-                   
+                  ) : (
+                      <ul className="text-md text-muted-foreground list-disc pl-5 space-y-2">
+                        <li>
+                          Founded Orgenik (2020)—a pioneering Luxurious and Ethical Lifestyle marketplace delivering best quality products across India.
+                        </li>
+                        <li>
+                          Launched Orgenik Bulk—India’s first marketplace for certified organic and pure natural products in bulk supporting farmers, manufacturers, brands and other industries.
+                        </li>
+                        <li>
+                          Built deep partnerships with farmer producer groups and grassroots communities to revive GI-tag products headed toward extinction.
+                        </li>
+                      </ul>
                   )}
                 
 
@@ -313,9 +337,9 @@ export default function Home() {
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
               { isInputLoading ? <SkeletonCard height="h-[30px]" /> :
               <div className="space-y-2">
-                <h2 className="text-3xl font-inter-bold tracking-tighter sm:text-5xl">{profileData.project_heading}</h2>
+                <h2 className="text-3xl font-inter-bold tracking-tighter sm:text-5xl">{profileData.project_heading || "Projects"}</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  {profileData.project_desc}
+                  {profileData.project_desc || "This is where vision turns real — and ventures are built with intention, purpose, and scale in mind." }
                 </p>
               </div>
               }
@@ -346,9 +370,9 @@ export default function Home() {
                     </Link>
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-inter-bold mb-2">{profileData.project_sub_one_heading}</h3>
+                  <h3 className="text-xl font-inter-bold mb-2">{profileData.project_sub_one_heading || "B2C Marketplace"}</h3>
                   <p className="text-sm text-muted-foreground">
-                    {profileData.project_sub_one_desc}
+                    {profileData.project_sub_one_desc || "A lifestyle ecommerce marketplace offering certified organic, natural, handmade, and luxury wellbeing products from across India, with rigorous verification to ensure quality, sustainability and ethical sourcing."}
                   </p>
                   <Button variant="link" className="mt-2 p-0 cursor-pointer" onClick={() => window.open(`${profileData.project_sub_one_url}`, "_blank", "noopener,noreferrer")}>
                       Visit Website
@@ -383,9 +407,9 @@ export default function Home() {
                     </Link>
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-inter-bold mb-2">{profileData.project_sub_second_heading}</h3>
+                  <h3 className="text-xl font-inter-bold mb-2">{profileData.project_sub_second_heading || "B2B Marketplace"}</h3>
                   <p className="text-sm text-muted-foreground">
-                    {profileData.project_sub_second_desc}
+                    {profileData.project_sub_second_desc || "A B2B platform for bulk certified organic and natural products procurement—flours, pulses, spices, oils, beverages—designed for hospitality, healthcare, institutions, gifting, and retail. Supplies are fully traceable and sourced directly from manufacturers, brands, growers, and verified farmer groups."}
                   </p>
                   <Button variant="link" className="mt-2 p-0 cursor-pointer" onClick={() => window.open(`${profileData.project_sub_second_url}`, "_blank", "noopener,noreferrer")}>
                       Visit Website
@@ -409,9 +433,9 @@ export default function Home() {
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <h2 className="text-3xl font-inter-bold tracking-tighter sm:text-5xl text-black dark:text-white">{profileData.insights_heading}</h2>
+                <h2 className="text-3xl font-inter-bold tracking-tighter sm:text-5xl text-black dark:text-white">{profileData.insights_heading || "Interests"}</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  {profileData.insights_desc}
+                  {profileData.insights_desc || "Exploring the space where impact, innovation, and intention come together."}
                 </p>
               </div>
             </div>
@@ -433,9 +457,9 @@ export default function Home() {
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-inter-bold mb-2">{profileData.insights_sub_one_heading}</h3>
+                  <h3 className="text-xl font-inter-bold mb-2">{profileData.insights_sub_one_heading || "AI"}</h3>
                   <p className="text-sm text-muted-foreground">
-                    {profileData.insights_sub_one_desc} 
+                    {profileData.insights_sub_one_desc || "I’m fascinated by AI’s potential to transform industries, from finance to farming. I explore how intelligent systems can optimize decision-making and empower human potential."} 
                   </p>
                 </div>
               </div>
@@ -457,9 +481,9 @@ export default function Home() {
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-inter-bold mb-2">{profileData.insights_sub_second_heading}</h3>
+                  <h3 className="text-xl font-inter-bold mb-2">{profileData.insights_sub_second_heading || "Agriculture"}</h3>
                   <p className="text-sm text-muted-foreground">
-                    {profileData.insights_sub_second_desc}
+                    {profileData.insights_sub_second_desc || "To me, agriculture is the original economy and the future of resilience. I work to bridge technology and tradition to uplift farmers and regenerate our soil."}
                   </p>
                 </div>
               </div>
@@ -481,9 +505,9 @@ export default function Home() {
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-inter-bold mb-2">{profileData.insights_sub_third_heading}</h3>
+                  <h3 className="text-xl font-inter-bold mb-2">{profileData.insights_sub_third_heading || "Sustainable E-commerce"}</h3>
                   <p className="text-sm text-muted-foreground">
-                    {profileData.insights_sub_third_desc} 
+                    {profileData.insights_sub_third_desc || "I’m building a new commerce ecosystem—where sustainability isn't a feature but the foundation. I’m building systems where sustainability, ethics, and innovation drive every transaction."} 
                   </p>
                  
                 </div>
@@ -498,9 +522,9 @@ export default function Home() {
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
               { isInputLoading ? <SkeletonCard height="h-[40px]" /> :
               <div className="space-y-2">
-                <h2 className="text-3xl font-inter-bold tracking-tighter sm:text-5xl">{profileData.statement_heading}</h2>
+                <h2 className="text-3xl font-inter-bold tracking-tighter sm:text-5xl">{profileData.statement_heading || "Recent Statements"}</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                {profileData.statement_description}
+                {profileData.statement_description || "Simple thoughts that reflect the work, the process, and the purpose behind it."}
                 </p>
               </div>
               }
@@ -518,9 +542,9 @@ export default function Home() {
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
               { isInputLoading ? <SkeletonCard height="h-[40px]" /> :
               <div className="space-y-2">
-                <h2 className="text-3xl font-inter-bold tracking-tighter sm:text-5xl">{profileData.contact_heading}</h2>
+                <h2 className="text-3xl font-inter-bold tracking-tighter sm:text-5xl">{profileData.contact_heading || "Get in Touch"}</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  {profileData.contact_description}
+                  {profileData.contact_description || "Have a question or interested in collaboration? Reach out using the form below."}
                 </p>
               </div>
               }
@@ -530,14 +554,14 @@ export default function Home() {
                 { isInputLoading ? <SkeletonCard height="h-[40px]" /> :
                 <div className="flex items-center space-x-3 cursor-pointer">
                   <Mail className="h-5 w-5" />
-                  <p>{profileData.email}</p>
+                  <p>{profileData.email || "connect@shahdhairya.in"}</p>
                 </div>
                 }
                 { isInputLoading ? <SkeletonCard height="h-[40px]" /> :
                 <div className="space-y-2">
-                  <h3 className="text-xl font-inter-bold">{profileData.contact_sub_heading}</h3>
+                  <h3 className="text-xl font-inter-bold">{profileData.contact_sub_heading || "Connect With Me"}</h3>
                   <p className="text-muted-foreground">
-                    {profileData.contact_sub_description}
+                    {profileData.contact_sub_description || "I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision."}
                   </p>
                 </div>
                 }
