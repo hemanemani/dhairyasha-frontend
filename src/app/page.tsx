@@ -161,7 +161,7 @@ export default function Home() {
           <div className="container px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
               <div className="flex flex-col justify-center space-y-4">
-                { isInputLoading ? <SkeletonCard height="h-[150px]" /> :
+                
                 <div className="space-y-2">
                   
                   <h1 className="text-3xl font-inter-bold tracking-tighter sm:text-5xl xl:text-6xl/none font-inter-inter">{profileData.heading || "Dhairya Shah"}</h1>
@@ -171,8 +171,7 @@ export default function Home() {
                   </p>
                  
                 </div>
-                 }
-                { isInputLoading ? <SkeletonCard height="h-[50px]" /> :
+                
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
                   <Link href="#contact">
                     <Button className="w-full min-[400px]:w-auto cursor-pointer">
@@ -187,9 +186,7 @@ export default function Home() {
                     </Button>
                   </Link>
                 </div>
-                }
-
-                { isInputLoading ? <SkeletonCard height="h-[30px]" /> :
+                
                 <div className="flex gap-4">
                   <Link href={`${profileData.facebook}`} target="_blank" rel="noopener noreferrer">
                     <Button variant="ghost" size="icon" className="cursor-pointer">
@@ -210,7 +207,7 @@ export default function Home() {
                     </Button>
                   </Link>
                 </div>
-                }
+                
               </div>
               {isImageLoading && <SkeletonCard height="h-[550px]" />}
 
@@ -235,14 +232,14 @@ export default function Home() {
         <section id="about" className="w-full py-6 md:py-6 lg:py-12 dark:bg-[#161616] bg-[#f5f5f5]">
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
-              { isInputLoading ? <SkeletonCard height="h-[30px]" /> :
+              
               <div className="space-y-2">
                 <h2 className="text-3xl font-inter-bold tracking-tighter sm:text-5xl text-black dark:text-white">{profileData.about_heading || 'About Me'}</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   {profileData.about_desc || "I'm not just building a company. I'm building a movement around purpose and performance."}
                 </p>
               </div>
-              }
+              
             </div>
             <div className="mx-auto grid max-w-5xl items-center gap-4 py-2 md:py-12  lg:py-12 xl:py-12 lg:grid-cols-2 lg:gap-12">
               <div className="group mx-auto aspect-square overflow-hidden rounded-xl">
@@ -263,7 +260,7 @@ export default function Home() {
                 </div>
                 
               <div className="flex flex-col justify-center space-y-4">
-                { isInputLoading ? <SkeletonCard height="h-[250px]" /> :
+                
                 <div className="space-y-2">
                   <h3 className="text-2xl font-inter-bold tracking-tighter text-black dark:text-white">{profileData.about_sub_one_heading || "Background and Expertise"}</h3>
                   <>
@@ -281,8 +278,7 @@ export default function Home() {
                     )}
                   </>
                 </div>
-                }
-                { isInputLoading ? <SkeletonCard height="h-[250px]" /> :
+                
                 <div className="space-y-2">
                   <h3 className="text-2xl font-inter-bold tracking-tighter text-black dark:text-white">{profileData.about_sub_second_heading || "Mission and Vision"}</h3>
                     {profileData.about_sub_second_desc ? (
@@ -299,8 +295,7 @@ export default function Home() {
                     
                     )}
                 </div>
-                }
-                { isInputLoading ? <SkeletonCard height="h-[250px]" /> :
+                
                 <div className="space-y-2">
                   <h3 className="text-2xl font-inter-bold tracking-tighter text-black dark:text-white">{profileData.about_sub_third_heading || "Key Achievements"}</h3>
                   {profileData?.about_sub_third_desc ? (
@@ -324,7 +319,7 @@ export default function Home() {
                 
 
                 </div>
-                }
+                
               </div>
                
             </div>
@@ -335,20 +330,20 @@ export default function Home() {
         <section id="projects" className="w-full py-6 md:py-6 lg:py-12">
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
-              { isInputLoading ? <SkeletonCard height="h-[30px]" /> :
+              
               <div className="space-y-2">
                 <h2 className="text-3xl font-inter-bold tracking-tighter sm:text-5xl">{profileData.project_heading || "Projects"}</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   {profileData.project_desc || "This is where vision turns real — and ventures are built with intention, purpose, and scale in mind." }
                 </p>
               </div>
-              }
+              
             </div>
             
             <div className="mx-auto grid gap-2 py-2 md:py-12 md:gap-8 lg:py-12 xl:py-12 lg:gap-8 xl:gap-12 sm:grid-cols-2 md:grid-col-6 lg:grid-cols-6">
               <div className="col-span-1"></div>
               <div className="col-span-2 group relative overflow-hidden rounded-lg border">
-                { isInputLoading ? <SkeletonCard height="h-[400px]" /> :
+                
                 <>
                 <div className="aspect-video overflow-hidden bg-white flex justify-center">
                     <Link
@@ -380,12 +375,12 @@ export default function Home() {
                     </Button>
                 </div>
                 </>
-                }
+                
               </div>
               
              
               <div className="col-span-2 group relative overflow-hidden rounded-lg border">
-                { isInputLoading ? <SkeletonCard height="h-[400px]" /> :
+                
                 <>
                 <div className="aspect-video overflow-hidden bg-white flex justify-center">
                     <Link
@@ -417,7 +412,7 @@ export default function Home() {
                     </Button>
                 </div>
                 </>
-                }
+                
               </div>
           
              
@@ -440,7 +435,7 @@ export default function Home() {
               </div>
             </div>
             <div className="mx-auto grid max-w-5xl gap-2 py-4 sm:grid-cols-2 lg:grid-cols-3 md:py-12 md:gap-8 lg:py-12 xl:py-12 lg:gap-8 xl:gap-12">
-              { isInputLoading ? <SkeletonCard height="h-[300px]" /> : 
+              
               <div className="group relative overflow-hidden rounded-lg border bg-background">
                 <div className="aspect-video overflow-hidden">
                   <img
@@ -463,8 +458,7 @@ export default function Home() {
                   </p>
                 </div>
               </div>
-              }
-              { isInputLoading ? <SkeletonCard height="h-[300px]" /> : 
+              
               <div className="group relative overflow-hidden rounded-lg border bg-background">
                 <div className="aspect-video overflow-hidden">
                   <img
@@ -487,8 +481,7 @@ export default function Home() {
                   </p>
                 </div>
               </div>
-              }
-              { isInputLoading ? <SkeletonCard height="h-[300px]" /> : 
+              
               <div className="group relative overflow-hidden rounded-lg border bg-background">
                 <div className="aspect-video overflow-hidden">
                   <img
@@ -512,7 +505,7 @@ export default function Home() {
                  
                 </div>
               </div>
-              }
+              
             </div>
           </div>
         </section>
@@ -520,19 +513,19 @@ export default function Home() {
         <section id="statements" className="w-full py-6 md:py-6 lg:py-12">
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
-              { isInputLoading ? <SkeletonCard height="h-[40px]" /> :
+             
               <div className="space-y-2">
                 <h2 className="text-3xl font-inter-bold tracking-tighter sm:text-5xl">{profileData.statement_heading || "Recent Statements"}</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                 {profileData.statement_description || "Simple thoughts that reflect the work, the process, and the purpose behind it."}
                 </p>
               </div>
-              }
+              
             </div>
             <div className="mx-auto max-w-5xl py-4">
-              { isInputLoading ? <SkeletonCard height="h-[300px]" /> :
+              
               <StatementsCarousel />
-              }
+              
             </div>
           </div>
         </section>
@@ -540,32 +533,30 @@ export default function Home() {
         <section id="contact" className="w-full py-2 md:py-6 lg:py-6">
           <div className="container px-4 md:px-6">
             <div className="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
-              { isInputLoading ? <SkeletonCard height="h-[40px]" /> :
+              
               <div className="space-y-2">
                 <h2 className="text-3xl font-inter-bold tracking-tighter sm:text-5xl">{profileData.contact_heading || "Get in Touch"}</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   {profileData.contact_description || "Have a question or interested in collaboration? Reach out using the form below."}
                 </p>
               </div>
-              }
+              
             </div>
             <div className="mx-auto grid max-w-5xl gap-8 py-6 md:grid-cols-2">
               <div className="space-y-4">
-                { isInputLoading ? <SkeletonCard height="h-[40px]" /> :
+                
                 <div className="flex items-center space-x-3 cursor-pointer">
                   <Mail className="h-5 w-5" />
                   <p>{profileData.email || "connect@shahdhairya.in"}</p>
                 </div>
-                }
-                { isInputLoading ? <SkeletonCard height="h-[40px]" /> :
+                
                 <div className="space-y-2">
                   <h3 className="text-xl font-inter-bold">{profileData.contact_sub_heading || "Connect With Me"}</h3>
                   <p className="text-muted-foreground">
                     {profileData.contact_sub_description || "I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision."}
                   </p>
                 </div>
-                }
-                { isInputLoading ? <SkeletonCard height="h-[40px]" /> :
+                
                 <div className="flex gap-4">
                   <Link href={`${profileData.facebook}`} target="_blank" rel="noopener noreferrer">
                     <Button variant="outline" size="icon" className="cursor-pointer">
@@ -586,7 +577,7 @@ export default function Home() {
                     </Button>
                   </Link>
                 </div>
-                }
+                
               </div>
               <div className="space-y-4">
                 <form className="space-y-4" onSubmit={handleSubmit}>
