@@ -9,6 +9,7 @@ import { Menu, UserCircle,LogOut } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { DarkMode } from "../dark-mode";
 import { useRouter } from "next/navigation";
+import axiosInstance from "@/lib/axios";
 
 
 
@@ -79,9 +80,26 @@ const ProfileTopbar = () => {
 
 }, [pathname]);
 
-const handleLogout = ()=>{
-  localStorage.removeItem("adminToken");
-  router.push('/login')
+const handleLogout = async ()=>{
+  try {
+    const token = localStorage.getItem("authToken");
+    if (token) {
+      await axiosInstance.post(
+        "/logout",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    }
+  } catch (error) {
+    console.error("Failed to logout:", error);
+  } finally {
+    localStorage.removeItem("authToken");
+    router.push('/login');
+  }
 }
 
 
