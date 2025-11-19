@@ -20,6 +20,11 @@ const ProfileTopbar = () => {
   const currentPage = useMemo(() => {
 
   const pageTitles: Record<string, JSX.Element> = {
+    "/admin" :(
+      <span className="text-[#000] dark:text-white text-[22px] font-inter-semibold">Dashboard
+      </span>
+      
+    ),
     "/admin/home" :(
       <span className="text-[#000] dark:text-white text-[22px] font-inter-semibold">Home
       </span>
