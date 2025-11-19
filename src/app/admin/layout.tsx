@@ -3,8 +3,9 @@
 import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css";
 import AdminSidebar from "@/components/admin/admin-sidebar";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import ProfileTopbar from "@/components/admin/admin-topbar";
+import { useEffect } from "react";
 
 
 
@@ -15,10 +16,17 @@ export default function RootLayout({
 }>) {
 
   const pathname = usePathname() ?? "/";
+  const router = useRouter();
  
   
   const isLoginPage = pathname === '/'
 
+  useEffect(() => {
+    const token = typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
+    if (!token) {
+      router.replace("/login");
+    }
+  }, [router]);
 
   return (
       <>
