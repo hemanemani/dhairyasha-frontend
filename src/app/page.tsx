@@ -354,10 +354,10 @@ export default function Home() {
               
             </div>
             
-            <div className="mx-auto grid gap-2 py-2 md:py-12 md:gap-8 lg:py-12 xl:py-12 lg:gap-8 xl:gap-12 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <div className="mx-auto flex flex-wrap justify-center gap-2 py-2 md:py-12 md:gap-8 lg:py-12 xl:py-12 lg:gap-8 xl:gap-12 max-w-5xl">
               {profileData.projects && profileData.projects.length > 0 ? (
                 profileData.projects.map((project, index) => (
-                  <div key={index} className="group relative overflow-hidden rounded-lg border">
+                  <div key={index} className="group relative overflow-hidden rounded-lg border w-full max-w-md">
                     <div className="aspect-video overflow-hidden bg-white flex justify-center">
                       <Link
                         href={project.url || "#"}
