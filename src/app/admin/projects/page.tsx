@@ -4,12 +4,12 @@ import { useEffect, useState, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { FileUpload } from "@/components/admin/fileUpload";
 import { useRouter } from "next/navigation"
 import { SkeletonCard } from "@/components/SkeletonCart";
 import AlertMessages from "@/components/AlertMessages";
 import { Loader, Plus, Trash2 } from "lucide-react";
 import axiosInstance from "@/lib/axios";
+import Image from "next/image";
 
 interface ProjectItem {
     heading: string;
@@ -107,10 +107,13 @@ const ProjectImageUpload = ({ index, onUpload, initialUrl }: { index: number; on
                     >
                         ✖
                     </button>
-                    <img
+                    <Image
                         src={preview}
                         alt="preview"
+                        width={96}
+                        height={96}
                         className="h-24 w-auto rounded border"
+                        unoptimized
                     />
                     <button
                         onClick={handleUploadToServer}
@@ -395,7 +398,7 @@ const CreateProjectsPage = ()=>{
 
                         {formData.projects.length === 0 && !isInputLoading && (
                             <div className="text-center py-8 text-muted-foreground border rounded-lg">
-                                No projects added yet. Click "Add Project" to get started.
+                                No projects added yet. Click &quot;Add Project&quot; to get started.
                             </div>
                         )}
                     </div>
