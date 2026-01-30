@@ -42,14 +42,7 @@ export default function Home() {
         about_img_url:"",
         project_heading:"",
         project_desc:"",
-        project_sub_one_heading:"",
-        project_sub_one_desc:"",
-        project_sub_one_img_url:"",
-        project_sub_one_url:"",
-        project_sub_second_url:"",
-        project_sub_second_heading :"",
-        project_sub_second_desc:"",
-        project_sub_second_img_url:"",
+        projects: [] as Array<{ heading: string; desc: string; url: string; img_url: string }>,
         insights_heading:"",
         insights_desc: "", 
         insights_sub_one_heading: "", 
@@ -135,7 +128,28 @@ export default function Home() {
     try {
       const response = await axiosInstance.get("/home");
       if (response && response.data) {
-        setProfileData(response.data);
+        const data = response.data;
+        
+        // Handle projects JSON field - parse if it's a string, use directly if it's an array
+        let projects: Array<{ heading: string; desc: string; url: string; img_url: string }> = [];
+        
+        if (data.projects) {
+          if (typeof data.projects === 'string') {
+            try {
+              projects = JSON.parse(data.projects);
+            } catch (e) {
+              console.error('Error parsing projects JSON:', e);
+              projects = [];
+            }
+          } else if (Array.isArray(data.projects)) {
+            projects = data.projects;
+          }
+        }
+        
+        setProfileData({
+          ...data,
+          projects: projects
+        });
       } else {
         console.error("Failed to fetch home data", response.status);
       }
@@ -340,84 +354,48 @@ export default function Home() {
               
             </div>
             
-            <div className="mx-auto grid gap-2 py-2 md:py-12 md:gap-8 lg:py-12 xl:py-12 lg:gap-8 xl:gap-12 sm:grid-cols-2 md:grid-col-6 lg:grid-cols-6">
-              <div className="col-span-1"></div>
-              <div className="col-span-2 group relative overflow-hidden rounded-lg border">
-                
-                <>
-                <div className="aspect-video overflow-hidden bg-white flex justify-center">
-                    <Link
-                      href={profileData.project_sub_one_url || "#"}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img
-                        src={
-                          profileData.project_sub_one_img_url
-                            ? profileData.project_sub_one_img_url
-                            : "/placeholder.svg?height=550&width=550"
-                        }
-                        width={500}
-                        alt="Dhairya Shah, Founder & CEO"
-                        className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full cursor-pointer transition-transform group-hover:scale-105"
-                        style={{ height: "-webkit-fill-available", width:"500px" }}
-                      />
-                    </Link>
+            <div className="mx-auto grid gap-2 py-2 md:py-12 md:gap-8 lg:py-12 xl:py-12 lg:gap-8 xl:gap-12 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+              {profileData.projects && profileData.projects.length > 0 ? (
+                profileData.projects.map((project, index) => (
+                  <div key={index} className="group relative overflow-hidden rounded-lg border">
+                    <div className="aspect-video overflow-hidden bg-white flex justify-center">
+                      <Link
+                        href={project.url || "#"}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img
+                          src={
+                            project.img_url
+                              ? project.img_url
+                              : "/placeholder.svg?height=550&width=550"
+                          }
+                          width={500}
+                          alt={project.heading || "Project Image"}
+                          className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full cursor-pointer transition-transform group-hover:scale-105"
+                          style={{ height: "-webkit-fill-available", width:"500px" }}
+                        />
+                      </Link>
+                    </div>
+                    <div className="p-4">
+                      <h3 className="text-xl font-inter-bold mb-2">{project.heading || "Project Title"}</h3>
+                      <p className="text-sm text-muted-foreground">
+                        {project.desc || "Project description"}
+                      </p>
+                      {project.url && (
+                        <Button variant="link" className="mt-2 p-0 cursor-pointer" onClick={() => window.open(project.url, "_blank", "noopener,noreferrer")}>
+                          Visit Website
+                          <ArrowRight className="ml-1 h-4 w-4" />
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="col-span-full text-center py-8 text-muted-foreground">
+                  No projects available.
                 </div>
-                <div className="p-4">
-                  <h3 className="text-xl font-inter-bold mb-2">{profileData.project_sub_one_heading || "B2C Marketplace"}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    {profileData.project_sub_one_desc || "A lifestyle ecommerce marketplace offering certified organic, natural, handmade, and luxury wellbeing products from across India, with rigorous verification to ensure quality, sustainability and ethical sourcing."}
-                  </p>
-                  <Button variant="link" className="mt-2 p-0 cursor-pointer" onClick={() => window.open(`${profileData.project_sub_one_url}`, "_blank", "noopener,noreferrer")}>
-                      Visit Website
-                      <ArrowRight className="ml-1 h-4 w-4" />
-                    </Button>
-                </div>
-                </>
-                
-              </div>
-              
-             
-              <div className="col-span-2 group relative overflow-hidden rounded-lg border">
-                
-                <>
-                <div className="aspect-video overflow-hidden bg-white flex justify-center">
-                    <Link
-                      href={profileData.project_sub_second_url || "#"}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img
-                        src={
-                          profileData.project_sub_second_img_url
-                            ? profileData.project_sub_second_img_url
-                            : "/placeholder.svg?height=550&width=550"
-                        }
-                        width={500}
-                        alt="Dhairya Shah, Founder & CEO"
-                        className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full cursor-pointer transition-transform group-hover:scale-105"
-                        style={{ height: "-webkit-fill-available", width:"500px" }}
-                      />
-                    </Link>
-                </div>
-                <div className="p-4">
-                  <h3 className="text-xl font-inter-bold mb-2">{profileData.project_sub_second_heading || "B2B Marketplace"}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    {profileData.project_sub_second_desc || "A B2B platform for bulk certified organic and natural products procurement—flours, pulses, spices, oils, beverages—designed for hospitality, healthcare, institutions, gifting, and retail. Supplies are fully traceable and sourced directly from manufacturers, brands, growers, and verified farmer groups."}
-                  </p>
-                  <Button variant="link" className="mt-2 p-0 cursor-pointer" onClick={() => window.open(`${profileData.project_sub_second_url}`, "_blank", "noopener,noreferrer")}>
-                      Visit Website
-                      <ArrowRight className="ml-1 h-4 w-4" />
-                    </Button>
-                </div>
-                </>
-                
-              </div>
-          
-             
-              <div className="col-span-1"></div>
- 
+              )}
             </div>
             
             
